@@ -93,10 +93,10 @@ public class ProfessorCRSMenu {
 
     private void getCourses(String profId) {
         List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-        System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE NAME" ));
+        System.out.println(String.format("%20s %20s","COURSE CODE","COURSE NAME" ));
         for(Course obj: coursesEnrolled)
         {
-            System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName()));
+            System.out.println(String.format("%20s %20s",obj.getCourseCode(), obj.getCourseName()));
         }
     }
 }
