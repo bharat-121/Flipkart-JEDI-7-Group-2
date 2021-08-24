@@ -4,7 +4,13 @@ public class Course {
     private String courseCode;
     private String courseName;
     private String instructorId;
-    private int seats = 10;
+    private final int seats = 10;
+
+    public Course(String courseCode, String courseName, String instructorId) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.instructorId = instructorId;
+    }
 
     public String getCourseCode() {
         return courseCode;
@@ -32,10 +38,6 @@ public class Course {
 
     public int getSeats() {
         return seats;
-    }
-
-    public void setSeats(int seats) {
-        this.seats = seats;
     }
 
     @Override
