@@ -1,6 +1,9 @@
 package com.flipkart.business;
 
+import com.flipkart.constants.ModeOfPayment;
+import com.flipkart.constants.NotificationType;
+
 public interface NotificationInterface {
 
-    public int sendNotification(String type,String studentId,String modeOfPayment,double amount);
+    public int sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount);
 }

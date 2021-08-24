@@ -1,12 +1,15 @@
 package com.flipkart.bean;
 
+import com.flipkart.constants.Grade;
+
+import java.util.HashMap;
 import java.util.List;
 
 public class GradeCard {
     private String studentId;
     private int semester;
     private float cgpa;
-    private List<RegisteredCourse> registeredCourses;
+    private HashMap<RegisteredCourse, Grade> registeredCourses;
 
     public String getStudentId() {
         return studentId;
@@ -32,11 +35,11 @@ public class GradeCard {
         this.cgpa = cgpa;
     }
 
-    public List<RegisteredCourse> getRegisteredCourses() {
+    public HashMap<RegisteredCourse, Grade> getRegisteredCourses() {
         return registeredCourses;
     }
 
-    public void setRegisteredCourses(List<RegisteredCourse> registeredCourses) {
+    public void setRegisteredCourses(HashMap<RegisteredCourse, Grade> registeredCourses) {
         this.registeredCourses = registeredCourses;
     }
 

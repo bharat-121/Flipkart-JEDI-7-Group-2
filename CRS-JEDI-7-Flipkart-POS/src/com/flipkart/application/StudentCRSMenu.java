@@ -5,17 +5,15 @@ import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
-import com.flipkart.business.NotificationInterface;
-import com.flipkart.business.NotificationOperation;
-import com.flipkart.business.ProfessorInterface;
-import com.flipkart.business.ProfessorOperations;
-import com.flipkart.business.RegistartionInterface;
-import com.flipkart.business.RegistrationOperation;
+import com.flipkart.business.*;
+import com.flipkart.constants.ModeOfPayment;
+import com.flipkart.constants.NotificationType;
 
 public class StudentCRSMenu {
 	Scanner sc = new Scanner(System.in);
 	RegistartionInterface registrationInterface = RegistrationOperation.getInstance();
 	ProfessorInterface professorInterface = ProfessorOperations.getInstance();
+	StudentInterface studentInterface = StudentOperations.getInstance();
 	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 	private boolean is_registered;
 	
@@ -23,7 +21,7 @@ public class StudentCRSMenu {
 	 * Method to generate Student Menu for course registration, addition, removal and fee payment 
 	 * @param studentId student id 
 	 */
-	public void create_menu(int studentId)
+	public void createMenu(String studentId)
 	{
 
 		is_registered = getRegistrationStatus(studentId);
@@ -89,7 +87,7 @@ public class StudentCRSMenu {
 	 * Select course for registration
 	 * @param studentId
 	 */
-	private void registerCourses(int studentId)
+	private void registerCourses(String studentId)
 	{
 			if(is_registered)
 			{
@@ -132,7 +130,7 @@ public class StudentCRSMenu {
 	 * Add course for registration
 	 * @param studentId
 	 */
-	private void addCourse(int studentId)	
+	private void addCourse(String  studentId)
 	{
 		if(is_registered)
 		{
@@ -141,16 +139,16 @@ public class StudentCRSMenu {
 			if(availableCourseList==null)
 				return;
 	
-				System.out.println("Enter Course Code : " );
-				String courseCode = sc.next();
-				if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
-				{
-					System.out.println(" You have successfully registered for Course : " + courseCode);
-				}
-				else
-				{
-					System.out.println(" You have already registered for Course : " + courseCode);
-				}
+			System.out.println("Enter Course Code : " );
+			String courseCode = sc.next();
+			if(registrationInterface.addCourse(courseCode, studentId,availableCourseList))
+			{
+				System.out.println(" You have successfully registered for Course : " + courseCode);
+			}
+			else
+			{
+				System.out.println(" You have already registered for Course : " + courseCode);
+			}
 			
 		}
 		else 
@@ -166,7 +164,7 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return Registration Status
 	 */
-	private boolean getRegistrationStatus(int studentId)
+	private boolean getRegistrationStatus(String studentId)
 	{
 			return registrationInterface.getRegistrationStatus(studentId);
 	
@@ -176,7 +174,7 @@ public class StudentCRSMenu {
 	 * Drop Course
 	 * @param studentId
 	 */
-	private void dropCourse(int studentId)
+	private void dropCourse(String  studentId)
 	{
 		if(is_registered)
 		{
@@ -188,8 +186,8 @@ public class StudentCRSMenu {
 			System.out.println("Enter the Course Code : ");
 			String courseCode = sc.next();
 			
-				registrationInterface.dropCourse(courseCode, studentId,registeredCourseList);
-				System.out.println("You have successfully dropped Course : " + courseCode);
+			registrationInterface.dropCourse(courseCode, studentId,registeredCourseList);
+			System.out.println("You have successfully dropped Course : " + courseCode);
 				
 
 		}
@@ -205,7 +203,7 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return List of available Courses 
 	 */
-	private List<Course> viewCourse(int studentId)
+	private List<Course> viewCourse(String  studentId)
 	{
 		List<Course> course_available=null;
 		course_available = registrationInterface.viewCourses(studentId);
@@ -233,10 +231,10 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return List of Registered Courses
 	 */
-	private List<Course> viewRegisteredCourse(int studentId)
+	private List<Course> viewRegisteredCourse(String  studentId)
 	{
 		List<Course> course_registered=null;
-			course_registered = registrationInterface.viewRegisteredCourses(studentId);
+		course_registered = registrationInterface.viewRegisteredCourses(studentId);
 
 		if(course_registered.isEmpty())
 		{
@@ -248,8 +246,6 @@ public class StudentCRSMenu {
 		
 		for(Course obj : course_registered)
 		{
-			 
-			
 			System.out.println(String.format("%-20s %-20s %-20s ",obj.getCourseCode(), obj.getCourseName(),professorInterface.getProfessorById(obj.getInstructorId())));
 		}
 		
@@ -260,12 +256,12 @@ public class StudentCRSMenu {
 	 * View grade card for particular student  
 	 * @param studentId
 	 */
-	private void viewGradeCard(int studentId)
+	private void viewGradeCard(String  studentId)
 	{
 		
 		
 		List<GradeCard> grade_card=null;
-			grade_card = registrationInterface.viewGradeCard(studentId);
+		grade_card = studentInterface.viewGradeCard(studentId);
 
 		
 		System.out.println(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
@@ -278,7 +274,7 @@ public class StudentCRSMenu {
 		
 		for(GradeCard obj : grade_card)
 		{
-			System.out.println(String.format("%-20s %-20s %-20s",obj.getCourseCode(), obj.getCourseName(),obj.getGrade()));
+			System.out.println(String.format("%-20s %-20s %-20s",obj.getStudentId(), obj.getSemester(),obj.getCgpa()));
 		}
 	}
 	
@@ -286,7 +282,7 @@ public class StudentCRSMenu {
 	 * Make Payment for selected courses. Student is provided with an option to pay the fees and select the mode of payment.
 	 * @param studentId
 	 */
-	private void make_payment(int studentId)
+	private void make_payment(String  studentId)
 	{
 		
 		double fee =0.0;

@@ -9,8 +9,13 @@ public interface RegistartionInterface {
 
     public boolean dropCourse(String courseCode, String studentId, List<Course> registeredCourseList);
 
-    public List<Course> viewCourses(int studentId);
+    public List<Course> viewCourses(String studentId);
 
-    public double calculateFee(int studentId);
+    public double calculateFee(String  studentId);
 
+    boolean getRegistrationStatus(String studentId);
+
+    void setRegistrationStatus(String studentId);
+
+    List<Course> viewRegisteredCourses(String studentId);
 }
