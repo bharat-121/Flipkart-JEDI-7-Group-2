@@ -2,6 +2,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.bean.Professor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,5 +67,10 @@ public class ProfessorOperations implements ProfessorInterface {
             }
         }
         return output;
+    }
+
+    @Override
+    public Professor getProfessorById(String instructorId) {
+        return null;
     }
 }

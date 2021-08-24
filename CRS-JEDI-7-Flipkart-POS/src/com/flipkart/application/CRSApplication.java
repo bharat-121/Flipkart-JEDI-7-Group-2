@@ -83,6 +83,9 @@ public class CRSApplication {
 						professorMenu.createMenu(userId);
 						break;
 					case STUDENT:
+						System.out.println(formattedDate + " Login Successful");
+						StudentCRSMenu studentCRSMenu=new StudentCRSMenu();
+						studentCRSMenu.createMenu(userId);
 						break;
 				}
 

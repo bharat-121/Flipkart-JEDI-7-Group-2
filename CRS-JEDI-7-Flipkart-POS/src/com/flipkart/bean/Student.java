@@ -7,6 +7,15 @@ public class Student extends User{
     private int semester;
     private List<Course> registeredCourse;
 
+    public Student(String department, int semester, List<Course> registeredCourse) {
+        this.department = department;
+        this.semester = semester;
+        this.registeredCourse = registeredCourse;
+    }
+
+    public Student() {
+    }
+
     public String getDepartment() {
         return department;
     }
