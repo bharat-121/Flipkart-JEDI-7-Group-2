@@ -5,18 +5,30 @@ import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AdminOperations implements AdminInterface {
-
+    static AdminOperations instance = null;
     public AdminOperations() {
         super();
+    }
+
+    public static AdminInterface getInstance() {
+        if(instance==null){
+            instance= new AdminOperations();
+        }
+        return instance;
+    }
+
+    public static List<Student> viewPendingAdmissions() {
+        return null;
     }
 
     //delete course from courseList using courseCode
     @Override
     public void deleteCourse(String courseCode, List<Course> courseList) {
-
+//        courseList.remove(new String(courseCode));
     }
 
     // add new course into courseList
@@ -32,7 +44,7 @@ public class AdminOperations implements AdminInterface {
     }
 
     @Override
-    public void addProfessor(Professor professor, List<Professor> professorList) {
+    public void addProfessor(Professor professor) {
 
     }
 
@@ -43,7 +55,7 @@ public class AdminOperations implements AdminInterface {
 
     @Override
     public List<Course> viewCourses() {
-        return null;
+        return new ArrayList<Course>();
     }
 
     @Override

@@ -33,6 +33,6 @@ public class UserOperation implements UserInterface{
 
     @Override
     public String getRole(String userId) {
-        return "STUDENT";
+        return "ADMIN";
     }
 }
