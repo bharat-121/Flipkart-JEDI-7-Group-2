@@ -8,7 +8,7 @@ public interface StudentInterface {
 
     public boolean isApproved(int studentId);
 
-    public void viewRegiteredCourses(String studentId);
+    public void viewRegisteredCourses(String studentId);
 
     public GradeCard viewGradeCard(String studentId);
 
