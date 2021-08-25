@@ -2,7 +2,6 @@
 
 # Editor directories and files
 .idea
-/out
 
 *.suo
 *.ntvs*
