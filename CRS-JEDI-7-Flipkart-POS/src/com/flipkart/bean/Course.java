@@ -4,13 +4,7 @@ public class Course {
     private String courseCode;
     private String courseName;
     private String instructorId;
-    private  int seats = 10;
-
-    public Course(String courseCode, String courseName, String instructorId) {
-        this.courseCode = courseCode;
-        this.courseName = courseName;
-        this.instructorId = instructorId;
-    }
+    private int seats = 10;
 
     public Course(String courseCode, String courseName, String instructorId,int seats) {
         this.courseCode = courseCode;
