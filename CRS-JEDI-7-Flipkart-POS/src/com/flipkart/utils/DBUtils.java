@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class DBUtil {
+public class DBUtils {
 
     private static Connection connection = null;
 
@@ -19,7 +19,7 @@ public class DBUtil {
         else {
             try {
                 Properties prop = new Properties();
-                InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream("./config.properties");
+                InputStream inputStream = DBUtils.class.getClassLoader().getResourceAsStream("./config.properties");
                 prop.load(inputStream);
                 String driver = prop.getProperty("driver");
                 String url = prop.getProperty("url");
