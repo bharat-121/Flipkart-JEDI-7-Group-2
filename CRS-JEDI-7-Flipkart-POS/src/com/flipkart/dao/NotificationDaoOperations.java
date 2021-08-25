@@ -28,14 +28,14 @@ public class NotificationDaoOperations implements  NotificationDaoInterface{
     }
 
     @Override
-    public int sendNotification(NotificationType type, int studentId,ModeOfPayment modeOfPayment,double amount) throws SQLException {
+    public int sendNotification(NotificationType type, String studentId,ModeOfPayment modeOfPayment,double amount) throws SQLException {
         int notificationId=0;
         Connection connection= DBUtil.getConnection();
         try
         {
             //INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
             PreparedStatement ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, studentId);
+            ps.setString(1, studentId);
             ps.setString(2,type.toString());
             if(type==NotificationType.PAYMENT)
             {

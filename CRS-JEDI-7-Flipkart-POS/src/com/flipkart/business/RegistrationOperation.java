@@ -1,7 +1,10 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.Course;
+import com.flipkart.dao.RegistrationDaoInterface;
+import com.flipkart.dao.RegistrationDaoOperations;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class RegistrationOperation implements RegistartionInterface{
@@ -14,7 +17,7 @@ public class RegistrationOperation implements RegistartionInterface{
         }
         return instance;
     }
-
+    RegistrationDaoInterface registrationDaoInterface = RegistrationDaoOperations.getInstance();
 
     /**
      * Method to add Course selected by student
@@ -23,8 +26,24 @@ public class RegistrationOperation implements RegistartionInterface{
      * @return boolean indicating if the course is added successfully
      */
     @Override
-    public boolean addCourse(String courseCode, String studentId, List<Course> registeredCourseList) {
-        return false;
+    public boolean addCourse(String courseCode, String studentId, List<Course> registeredCourseList) throws Exception {
+
+        if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6)
+        {
+            System.out.println("Course limit exceeded");
+            throw new Exception();
+        }
+        else if (registrationDaoInterface.isRegistered(courseCode, studentId))
+        {
+            return false;
+        }
+        else if (!registrationDaoInterface.seatAvailable(courseCode))
+        {
+            System.out.println("Seat Not Available");
+            throw new Exception();
+        }
+
+        return registrationDaoInterface.addCourse(courseCode, studentId);
     }
 
     /**
@@ -35,13 +54,15 @@ public class RegistrationOperation implements RegistartionInterface{
      * @return boolean indicating if the course is dropped successfully
      */
     @Override
-    public boolean dropCourse(String courseCode, String studentId, List<Course> registeredCourseList) {
-        return false;
+    public boolean dropCourse(String courseCode, String studentId, List<Course> registeredCourseList) throws Exception{
+
+        return registrationDaoInterface.dropCourse(courseCode, studentId);
     }
 
     @Override
-    public List<Course> viewCourses(String  studentId) {
-        return null;
+    public List<Course> viewCourses(String  studentId) throws SQLException{
+
+        return registrationDaoInterface.viewCourses(studentId);
     }
 
     /** Method for Fee Calculation for selected courses
@@ -50,8 +71,9 @@ public class RegistrationOperation implements RegistartionInterface{
      * @return Fee Student has to pay
      */
     @Override
-    public double calculateFee(String studentId) {
-        return 0;
+    public double calculateFee(String studentId) throws SQLException {
+
+        return registrationDaoInterface.calculateFee(studentId);
     }
 
 
@@ -61,8 +83,8 @@ public class RegistrationOperation implements RegistartionInterface{
      * @return boolean indicating if the student's registration status
      */
     @Override
-    public boolean getRegistrationStatus(String studentId) {
-        return false;
+    public boolean getRegistrationStatus(String studentId) throws SQLException {
+        return registrationDaoInterface.getRegistrationStatus(studentId);
     }
 
     /**
@@ -70,13 +92,14 @@ public class RegistrationOperation implements RegistartionInterface{
      * @param studentId
      */
     @Override
-    public void setRegistrationStatus(String studentId) {
-
+    public void setRegistrationStatus(String studentId) throws SQLException {
+        registrationDaoInterface.setRegistrationStatus(studentId);
     }
 
     @Override
-    public List<Course> viewRegisteredCourses(String studentId) {
-        return null;
+    public List<Course> viewRegisteredCourses(String studentId) throws SQLException {
+        return registrationDaoInterface.viewRegisteredCourses(studentId);
     }
 
-}
+    }
+
