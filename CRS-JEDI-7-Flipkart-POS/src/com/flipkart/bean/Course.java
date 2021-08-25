@@ -10,8 +10,9 @@ public class Course {
         this.courseCode = courseCode;
         this.courseName = courseName;
         this.instructorId = instructorId;
-        this.seats = seats;
+        this.seats=seats;
     }
+
 
     public String getCourseCode() {
         return courseCode;
