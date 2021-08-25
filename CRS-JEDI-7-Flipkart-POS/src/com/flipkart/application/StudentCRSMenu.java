@@ -15,7 +15,7 @@ public class StudentCRSMenu {
 	ProfessorInterface professorInterface = ProfessorOperations.getInstance();
 	StudentInterface studentInterface = StudentOperations.getInstance();
 	NotificationInterface notificationInterface=NotificationOperation.getInstance();
-	private boolean is_registered;
+	private boolean is_registered=true;
 	
 	/**
 	 * Method to generate Student Menu for course registration, addition, removal and fee payment 
