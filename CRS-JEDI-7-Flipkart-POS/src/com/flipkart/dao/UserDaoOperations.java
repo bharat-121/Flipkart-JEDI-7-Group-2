@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.flipkart.constants.SQLQueriesConstants;
-import com.flipkart.utils.DBUtils;
+import com.flipkart.utils.DBUtil;
 public class UserDaoOperations implements UserDaoInterface{
     private static UserDaoOperations instance=null;
     public static UserDaoOperations getInstance()
@@ -19,7 +19,7 @@ public class UserDaoOperations implements UserDaoInterface{
     }
     @Override
     public boolean verifyCredentials(String userId, String password) {
-        Connection connection = DBUtils.getConnection();
+        Connection connection = DBUtil.getConnection();
         try
         {
             //open db connection
@@ -56,7 +56,7 @@ public class UserDaoOperations implements UserDaoInterface{
 
     @Override
     public String getRole(String userId) {
-        Connection connection = DBUtils.getConnection();
+        Connection connection = DBUtil.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ROLE);
             statement.setString(1, userId);
@@ -81,7 +81,7 @@ public class UserDaoOperations implements UserDaoInterface{
 
     @Override
     public boolean updatePassword(String userID, String newPassword) {
-        Connection connection=DBUtils.getConnection();
+        Connection connection= DBUtil.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.UPDATE_PASSWORD);
 
