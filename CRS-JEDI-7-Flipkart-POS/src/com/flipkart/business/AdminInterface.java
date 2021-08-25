@@ -15,7 +15,7 @@ public interface AdminInterface {
 
     public void approveStudent(String studentId, List<Student> studentList);
 
-    public void addProfessor(Professor professor, List<Professor> professorList);
+    public void addProfessor(Professor professor);
 
     public void assignCourse(String courseCode, String professorId);
 

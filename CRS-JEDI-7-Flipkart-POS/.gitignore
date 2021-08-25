@@ -1,0 +1,12 @@
+.DS_Store
+
+# Editor directories and files
+.idea
+/out
+
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.iml
+*.sw?

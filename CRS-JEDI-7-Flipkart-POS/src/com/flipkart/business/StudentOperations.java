@@ -17,35 +17,52 @@ public class StudentOperations implements StudentInterface {
     {
         if(instance==null)
         {
-            // This is a synchronized block, when multiple threads will access this instance
-            synchronized(StudentOperations.class){
+
                 instance=new StudentOperations();
-            }
+
         }
         return instance;
     }
 
+    /**
+     * Method to register Student
+     * @param name
+     * @param userID
+     * @param password
+     * @param semester
+     * @param branch
+     * @return studnetId
+     */
     @Override
     public int register(String name, String userID, String password, int semester, String branch) {
-
-        int studentId;
-        //call the DAO class, and add the student record to the DB
-//        Student newStudent=new Student(userID,name, Role.STUDENT,password,semester,branch);
-//        studentId=studentDaoInterface.addStudent(newStudent);
         return 0;
     }
 
+    /**
+     * Method to check student approved by admin or not
+     * @param studentId
+     * @return boolean indicate if student is approved
+     */
     @Override
     public boolean isApproved(int studentId) {
 
         return false;
     }
 
+    /**
+     * Method to view RegisteredCourses using studentId
+     * @param studentId
+     */
     @Override
     public void viewRegisteredCourses(String studentId) {
 
     }
 
+    /**
+     * Method to viewGradeCard using studentId
+     * @param studentId
+     * @return List of GradCard
+     */
     @Override
     public List<GradeCard> viewGradeCard(String studentId) {
         return null;

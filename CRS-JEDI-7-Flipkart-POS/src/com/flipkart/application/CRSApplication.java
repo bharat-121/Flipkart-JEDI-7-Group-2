@@ -76,6 +76,8 @@ public class CRSApplication {
 				{
 					case ADMIN:
 						System.out.println(formattedDate + " Login Successful");
+						AdminCRSMenu adminCRSMenu = new AdminCRSMenu();
+						adminCRSMenu.createMenu();
 						break;
 					case PROFESSOR:
 						System.out.println(formattedDate + " Login Successful");
