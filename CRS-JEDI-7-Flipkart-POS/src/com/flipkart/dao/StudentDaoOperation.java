@@ -36,15 +36,17 @@ public class StudentDaoOperation implements  StudentDaoInterface{
         String  studentId;
 
             //dummy query
-            String query="insert into Student values(?,?,?,?)";
+            String query="insert into User values(?,?,?,?,?,?)";
             //open db connection
         PreparedStatement preparedStatement= null;
         try {
             preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, student.getUserID());
-            preparedStatement.setString(2, student.getName());
-            preparedStatement.setString(3, student.getPassword());
-            preparedStatement.setString(4, student.getRole().toString());
+            preparedStatement.setString(2, student.getPassword());
+            preparedStatement.setString(3, student.getName());
+            preparedStatement.setString(4, student.getEmail());
+            preparedStatement.setString(5, student.getRole());
+            preparedStatement.setString(6, student.getPhone());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
