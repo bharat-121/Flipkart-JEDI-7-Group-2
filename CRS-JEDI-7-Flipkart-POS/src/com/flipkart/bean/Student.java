@@ -5,12 +5,12 @@ import java.util.List;
 public class Student extends User{
     private String department;
     private int semester;
-    private List<Course> registeredCourse;
+    private boolean isApproved;
 
-    public Student(String department, int semester, List<Course> registeredCourse) {
+    public Student(String department, int semester, boolean isApproved) {
         this.department = department;
         this.semester = semester;
-        this.registeredCourse = registeredCourse;
+        this.isApproved = isApproved;
     }
 
     public Student() {
@@ -32,12 +32,12 @@ public class Student extends User{
         this.semester = semester;
     }
 
-    public List<Course> getRegisteredCourse() {
-        return registeredCourse;
+    public boolean isApproved() {
+        return isApproved;
     }
 
-    public void setRegisteredCourse(List<Course> registeredCourse) {
-        this.registeredCourse = registeredCourse;
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class Student extends User{
         return "Student{" +
                 "department='" + department + '\'' +
                 ", semester=" + semester +
-                ", registeredCourse=" + registeredCourse +
+                ", isApproved=" + isApproved +
                 '}';
     }
 }
