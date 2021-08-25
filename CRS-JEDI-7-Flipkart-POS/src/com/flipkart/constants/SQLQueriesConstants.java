@@ -41,7 +41,7 @@ public class SQLQueriesConstants {
     public static final String APPROVE_STUDENT_QUERY = "update Student set isApproved = 1 where studentId = ?";
     public static final String ADD_PROFESSOR_QUERY = "insert into Professor(userId, department, designation) values (?, ?, ?)";
     public static final String ASSIGN_COURSE_QUERY = "update Course set professorId = ? where courseCode = ?";
-    public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, professorId from Course";
+    public static final String VIEW_COURSE_QUERY = "select courseCode, courseName, instructorId from Course";
     public static final String VIEW_PROFESSOR_QUERY = "select userId, name, department, designation from Professor natural join User";
     public static final String VIEW_PENDING_ADMISSION_QUERY = "select userId, name, password, role, studentId from student natural join user where isApproved = 0";
 

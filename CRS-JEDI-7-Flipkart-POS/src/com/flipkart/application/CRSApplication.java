@@ -56,7 +56,7 @@ public class CRSApplication {
 		String userId,password;
 
 			System.out.println("-----------------Login------------------");
-			System.out.println("Email:");
+			System.out.println("UserId:");
 			userId=sc.next();
 			System.out.println("Password:");
 			password=sc.next();
@@ -73,6 +73,7 @@ public class CRSApplication {
 
 				//logger.info("Welcome "+userId);
 				String role=userInterface.getRole(userId);
+				System.out.println(role);
 				Role userRole=Role.stringToName(role);
 				switch(userRole)
 				{

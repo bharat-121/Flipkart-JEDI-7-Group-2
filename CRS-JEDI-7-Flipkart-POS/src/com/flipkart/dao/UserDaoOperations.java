@@ -26,30 +26,20 @@ public class UserDaoOperations implements UserDaoInterface{
             PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.VERIFY_CREDENTIALS);
             preparedStatement.setString(1,userId);
             ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
 
-            if(password.equals(resultSet.getString("password")))
-            {
-                return true;
+                if (password.equals(resultSet.getString("password"))) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
-            else
-            {
-                return false;
-            }
-
         }
         catch(SQLException ex)
         {
             System.out.println("Something went wrong, please try again! "+ ex.getMessage());
         }
-        finally
-        {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+
         return false;
     }
 
@@ -58,6 +48,7 @@ public class UserDaoOperations implements UserDaoInterface{
     public String getRole(String userId) {
         Connection connection = DBUtil.getConnection();
         try {
+            System.out.println(userId);
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ROLE);
             statement.setString(1, userId);
             ResultSet rs = statement.executeQuery();
@@ -68,13 +59,6 @@ public class UserDaoOperations implements UserDaoInterface{
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
         }
         return null;
     }
