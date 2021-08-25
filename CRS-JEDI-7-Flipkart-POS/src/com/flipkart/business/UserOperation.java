@@ -1,9 +1,14 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.User;
+import com.flipkart.dao.UserDaoInterface;
+import com.flipkart.dao.UserDaoOperations;
 
 public class UserOperation implements UserInterface{
     private static UserOperation instance=null;
+
+    UserDaoInterface userDaoInterface= UserDaoOperations.getInstance();
+
     public UserOperation() {
         super();
     }
@@ -27,7 +32,7 @@ public class UserOperation implements UserInterface{
      */
     @Override
     public boolean updatePassword(String userID, String newPassword) {
-        return false;
+        return userDaoInterface.updatePassword(userID, newPassword);
     }
 
     /**
@@ -38,7 +43,7 @@ public class UserOperation implements UserInterface{
      */
     @Override
     public boolean verifyCredentials(String userID, String password) {
-        return true;
+        return userDaoInterface.verifyCredentials(userID, password);
     }
 
 
@@ -59,6 +64,6 @@ public class UserOperation implements UserInterface{
      */
     @Override
     public String getRole(String userId) {
-        return "ADMIN";
+        return userDaoInterface.getRole(userId);
     }
 }
