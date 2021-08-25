@@ -11,6 +11,10 @@ public class GradeCard {
     private float cgpa;
     private HashMap<RegisteredCourse, Grade> registeredCourses;
 
+    public GradeCard(String courseCode, String courseName, String grade) {
+
+    }
+
     public String getStudentId() {
         return studentId;
     }
