@@ -13,6 +13,12 @@ public class Course {
         this.seats=seats;
     }
 
+    public Course(String courseCode, String courseName, String instructorId) {
+        this.courseCode = courseCode;
+        this.courseName = courseName;
+        this.instructorId = instructorId;
+    }
+
 
     public String getCourseCode() {
         return courseCode;
