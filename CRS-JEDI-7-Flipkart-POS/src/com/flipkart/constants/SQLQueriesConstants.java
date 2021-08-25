@@ -12,4 +12,9 @@ public class SQLQueriesConstants {
     public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,registeredcourse.studentId from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where course.instructorId = ? order by course.courseCode";
     public static final String ADD_GRADE="update registeredcourse set Grade=? where courseCode=? and studentId=?";
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
+
+
+    //Notification
+    public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
+
 }
