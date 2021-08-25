@@ -12,7 +12,7 @@ public class CRSApplication {
 	static boolean loggedin= false;
 	UserInterface userInterface = UserOperation.getInstance();
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 
 		// application starts here
 		System.out.println("Welcome to the Course Registration System");
@@ -50,7 +50,7 @@ public class CRSApplication {
 	}
 
 
-	public void loginUser() {
+	public void loginUser() throws Exception {
 		Scanner sc=new Scanner(System.in);
 
 		String userId,password;

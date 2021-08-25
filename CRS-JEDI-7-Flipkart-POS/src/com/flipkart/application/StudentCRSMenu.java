@@ -1,13 +1,14 @@
 package com.flipkart.application;
 
-import java.util.List;
-import java.util.Scanner;
-
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.business.*;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
+
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
 
 public class StudentCRSMenu {
 	Scanner sc = new Scanner(System.in);
@@ -21,8 +22,7 @@ public class StudentCRSMenu {
 	 * Method to generate Student Menu for course registration, addition, removal and fee payment 
 	 * @param studentId student id 
 	 */
-	public void createMenu(String studentId)
-	{
+	public void createMenu(String studentId) throws Exception {
 
 		is_registered = getRegistrationStatus(studentId);
 		while (CRSApplication.loggedin) 
@@ -87,8 +87,7 @@ public class StudentCRSMenu {
 	 * Select course for registration
 	 * @param studentId
 	 */
-	private void registerCourses(String studentId)
-	{
+	private void registerCourses(String studentId) throws Exception {
 			if(is_registered)
 			{
 				System.out.println(" Registration is already completed");
@@ -130,8 +129,7 @@ public class StudentCRSMenu {
 	 * Add course for registration
 	 * @param studentId
 	 */
-	private void addCourse(String  studentId)
-	{
+	private void addCourse(String  studentId) throws Exception {
 		if(is_registered)
 		{
 			List<Course> availableCourseList=viewCourse(studentId);
@@ -164,8 +162,7 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return Registration Status
 	 */
-	private boolean getRegistrationStatus(String studentId)
-	{
+	private boolean getRegistrationStatus(String studentId) throws SQLException {
 			return registrationInterface.getRegistrationStatus(studentId);
 	
 	}
@@ -174,8 +171,7 @@ public class StudentCRSMenu {
 	 * Drop Course
 	 * @param studentId
 	 */
-	private void dropCourse(String  studentId)
-	{
+	private void dropCourse(String  studentId) throws Exception {
 		if(is_registered)
 		{
 			List<Course> registeredCourseList=viewRegisteredCourse(studentId);
@@ -203,8 +199,7 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return List of available Courses 
 	 */
-	private List<Course> viewCourse(String  studentId)
-	{
+	private List<Course> viewCourse(String  studentId) throws Exception {
 		List<Course> course_available=null;
 		course_available = registrationInterface.viewCourses(studentId);
 
@@ -231,8 +226,7 @@ public class StudentCRSMenu {
 	 * @param studentId
 	 * @return List of Registered Courses
 	 */
-	private List<Course> viewRegisteredCourse(String  studentId)
-	{
+	private List<Course> viewRegisteredCourse(String  studentId) throws SQLException {
 		List<Course> course_registered=null;
 		course_registered = registrationInterface.viewRegisteredCourses(studentId);
 
@@ -282,8 +276,7 @@ public class StudentCRSMenu {
 	 * Make Payment for selected courses. Student is provided with an option to pay the fees and select the mode of payment.
 	 * @param studentId
 	 */
-	private void make_payment(String  studentId)
-	{
+	private void make_payment(String  studentId) throws SQLException {
 		
 		double fee =0.0;
 		

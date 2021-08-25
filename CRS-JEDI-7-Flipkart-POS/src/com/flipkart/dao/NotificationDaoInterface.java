@@ -7,5 +7,5 @@ import java.sql.SQLException;
 
 public interface NotificationDaoInterface {
 
-    public int sendNotification(NotificationType type, int studentId, ModeOfPayment modeOfPayment, double amount) throws SQLException;
+    public int sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount) throws SQLException;
 }
