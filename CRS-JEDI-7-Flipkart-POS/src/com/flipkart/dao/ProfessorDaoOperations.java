@@ -11,7 +11,7 @@ import java.util.List;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.constants.SQLQueriesConstants;
-import com.flipkart.utils.DBUtils;
+import com.flipkart.utils.DBUtil;
 
 
 public class ProfessorDaoOperations implements ProfessorDaoInterface {
@@ -42,7 +42,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
     @Override
     public List<Course> getCoursesByProfessor(String profId) {
-        Connection connection=DBUtils.getConnection();
+        Connection connection=DBUtil.getConnection();
         List<Course> courseList=new ArrayList<Course>();
         try {
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_COURSES);
@@ -74,7 +74,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
     @Override
     public List<EnrolledStudent> getEnrolledStudents(String profId) {
-        Connection connection=DBUtils.getConnection();
+        Connection connection=DBUtil.getConnection();
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try {
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ENROLLED_STUDENTS);
@@ -105,7 +105,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
 
     public Boolean addGrade(String studentId,String courseCode,String grade) {
-        Connection connection=DBUtils.getConnection();
+        Connection connection=DBUtil.getConnection();
         try {
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.ADD_GRADE);
 
@@ -142,7 +142,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
     public String getProfessorById(String profId)
     {
         String prof_Name = null;
-        Connection connection=DBUtils.getConnection();
+        Connection connection=DBUtil.getConnection();
         try
         {
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_PROF_NAME);
