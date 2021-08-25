@@ -4,15 +4,16 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.sun.glass.ui.Clipboard;
+import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.AdminDaoOperations;
+import com.flipkart.validator.AdminValidator;
+//import com.sun.glass.ui.Clipboard;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminOperations implements AdminInterface {
     static AdminOperations instance = null;
-
-    private static List<Course> courseList;
 
     private AdminOperations() {
         super();
@@ -21,60 +22,112 @@ public class AdminOperations implements AdminInterface {
     public static AdminInterface getInstance() {
         if(instance==null){
             instance= new AdminOperations();
-            courseList = new ArrayList<>();
-            courseList.add(new Course("MAIR101", "Maths", "P1"));
-            courseList.add(new Course("MAIR102", "Science", "P1"));
-            courseList.add(new Course("MAIR103", "Computer", "P2"));
-            courseList.add(new Course("MAIR104", "Java", "P2"));
-            courseList.add(new Course("MAIR105", "C++", "P3"));
         }
         return instance;
     }
+    AdminDaoInterface adminDaoOperation = AdminDaoOperations.getInstance();
 
-    public static List<Student> viewPendingAdmissions() {
-        return null;
+    public List<Student> viewPendingAdmissions() {
+        return adminDaoOperation.viewPendingAdmissions();
     }
 
     //delete course from courseList using courseCode
-    @Override
-    public void deleteCourse(String courseCode, List<Course> courseList) {
-        for (Course course: courseList) {
-            if (course.getCourseCode().equals(courseCode)){
-                courseList.remove(course);
-                break;
-            }
+    public void deleteCourse(String dropCourseCode, List<Course> courseList){
+
+        if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
+            System.out.println("courseCode: " + dropCourseCode + " not present in catalog!");
         }
+
+        try {
+            adminDaoOperation.deleteCourse(dropCourseCode);
+        }
+        catch(Exception e) {
+            throw e;
+        }
+
     }
 
-    // add new course into courseList
+    /**
+     * Method to add Course to Course Catalog
+     * @param courseList : Courses available in catalog
+     */
     @Override
-    public void addCourse(Course course, List<Course> courseList) {
-        courseList.add(course);
+    public void addCourse(Course newCourse, List<Course> courseList){
+
+        if(!AdminValidator.isValidNewCourse(newCourse, courseList)) {
+            System.out.println("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
+        }
+
+        try {
+            adminDaoOperation.addCourse(newCourse);
+        }
+        catch(Exception e) {
+            throw e;
+        }
+
     }
 
-
+    /**
+     * Method to approve a Student
+     * @param studentId
+     * @param studentList
+     */
     @Override
     public void approveStudent(String studentId, List<Student> studentList) {
 
+        if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
+            System.out.println("studentId: " + studentId + " is already approvet/not-present!");
+        }
+
+        try {
+            adminDaoOperation.approveStudent(studentId);
+        }
+        catch(Exception e) {
+            throw e;
+        }
     }
 
+    /**
+     * Method to add Professor to DB
+     * @param professor : Professor Object storing details of a professor
+     */
     @Override
     public void addProfessor(Professor professor) {
-        System.out.println("Professor Sucessfully Added");
+
+        try {
+            adminDaoOperation.addProfessor(professor);
+        }
+        catch(Exception e) {
+            throw e;
+        }
+
     }
 
+    /**
+     * Method to assign Course to a Professor
+     * @param courseCode
+     * @param professorId
+     */
     @Override
-    public void assignCourse(String courseCode, String professorId) {
+    public void assignCourse(String courseCode, String professorId){
+
+        try {
+            adminDaoOperation.assignCourse(courseCode, professorId);
+        }
+        catch(Exception e) {
+            throw e;
+        }
 
     }
 
+    /**
+     * Method to get list of courses in catalog
+     * @return List of courses in catalog
+     */
     @Override
     public List<Course> viewCourses() {
-        return courseList;
-    }
 
-    @Override
-    public GradeCard generateGradeCard(String studentId) {
-        return null;
+        return adminDaoOperation.viewCourses();
+
     }
 }

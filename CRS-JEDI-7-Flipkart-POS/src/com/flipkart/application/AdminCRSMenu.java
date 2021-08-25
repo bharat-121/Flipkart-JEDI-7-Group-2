@@ -104,7 +104,7 @@ public class AdminCRSMenu {
      */
     private List<Student> viewPendingAdmissions() {
 
-        List<Student> pendingStudentsList= AdminOperations.viewPendingAdmissions();
+        List<Student> pendingStudentsList= adminOperation.viewPendingAdmissions();
         if(pendingStudentsList.size() == 0) {
             return pendingStudentsList;
         }

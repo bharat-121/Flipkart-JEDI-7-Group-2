@@ -3,16 +3,23 @@ package com.flipkart.business;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.Role;
+import com.flipkart.dao.RegistrationDaoInterface;
+import com.flipkart.dao.RegistrationDaoOperations;
+import com.flipkart.dao.StudentDaoInterface;
+import com.flipkart.dao.StudentDaoOperation;
 
 import java.util.List;
 
 public class StudentOperations implements StudentInterface {
+
+
+    private static StudentOperations instance=null;
+    StudentDaoInterface studentDaoInterface= StudentDaoOperation.getInstance();
+    //RegistartionInterface registartionDaoInterface= RegistrationDaoOperations.getInstance();
+
     public StudentOperations() {
         super();
     }
-
-    private static StudentOperations instance=null;
-
     public static StudentOperations getInstance()
     {
         if(instance==null)
@@ -34,8 +41,22 @@ public class StudentOperations implements StudentInterface {
      * @return studnetId
      */
     @Override
-    public int register(String name, String userID, String password, int semester, String branch) {
-        return 0;
+    public String register(String name, String userID, String password, int semester, String branch) {
+        String studentId="";
+        try
+        {
+            //call the DAO class, and add the student record to the DB
+           // Student newStudent=new Student(userID,name,Role.STUDENT,password,branch);
+
+            //studentId=studentDaoInterface.register(newStudent);
+
+        }
+        catch(Exception ex)
+        {
+            System.out.println(ex.getMessage());
+        }
+        return studentId;
+
     }
 
     /**
@@ -46,7 +67,7 @@ public class StudentOperations implements StudentInterface {
     @Override
     public boolean isApproved(int studentId) {
 
-        return false;
+        return studentDaoInterface.isApproved(studentId);
     }
 
     /**
@@ -55,7 +76,7 @@ public class StudentOperations implements StudentInterface {
      */
     @Override
     public void viewRegisteredCourses(String studentId) {
-
+        //return registrationDaoInterface.viewRegisteredCourses(studentId);
     }
 
     /**
@@ -65,6 +86,7 @@ public class StudentOperations implements StudentInterface {
      */
     @Override
     public List<GradeCard> viewGradeCard(String studentId) {
+        //return registrationDaoInterface.viewGradeCard(studentId);
         return null;
     }
 

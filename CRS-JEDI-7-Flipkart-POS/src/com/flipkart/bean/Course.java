@@ -19,6 +19,10 @@ public class Course {
         this.instructorId = instructorId;
     }
 
+    public Course() {
+
+    }
+
 
 
 

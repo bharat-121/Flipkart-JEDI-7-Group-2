@@ -21,7 +21,9 @@ public interface AdminInterface {
 
     public List<Course> viewCourses();
 
-    public GradeCard generateGradeCard(String studentId);
+    public List<Student> viewPendingAdmissions();
+//
+//    public GradeCard generateGradeCard(String studentId);
 
 
 

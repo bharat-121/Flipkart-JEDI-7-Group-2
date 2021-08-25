@@ -15,7 +15,7 @@ public interface StudentInterface {
      * @param branch
      * @return studnetId
      */
-    public int register(String name,String userID,String password,int semester,String branch);
+    public String register(String name,String userID,String password,int semester,String branch);
 
     /**
      * Method to check student approved by admin or not
