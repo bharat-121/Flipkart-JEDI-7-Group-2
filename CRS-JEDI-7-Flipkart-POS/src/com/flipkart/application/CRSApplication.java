@@ -13,6 +13,8 @@ public class CRSApplication {
 	UserInterface userInterface = UserOperation.getInstance();
 
 	public static void main(String[] args) {
+
+		// application starts here
 		System.out.println("Welcome to the Course Registration System");
 		mainMenu();
 		CRSApplication crsApplication=new CRSApplication();
