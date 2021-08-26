@@ -247,24 +247,7 @@ public class StudentCRSMenu {
 	 */
 	private void viewGradeCard(String  studentId)
 	{
-		
-		
-		List<GradeCard> grade_card=null;
-		grade_card = studentInterface.viewGradeCard(studentId);
-
-		
-		System.out.println(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
-		
-		if(grade_card.isEmpty())
-		{
-			System.out.println("You haven't registered for any course");
-			return;
-		}
-		
-		for(GradeCard obj : grade_card)
-		{
-			System.out.println(String.format("%-20s %-20s %-20s",obj.getStudentId(), obj.getSemester(),obj.getCgpa()));
-		}
+		 studentInterface.viewGradeCard(studentId);
 	}
 	
 	/**

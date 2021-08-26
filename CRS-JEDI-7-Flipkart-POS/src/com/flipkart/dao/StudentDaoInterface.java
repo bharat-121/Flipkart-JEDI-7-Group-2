@@ -15,5 +15,5 @@ public interface StudentDaoInterface {
     public boolean isApproved(int studentId);
 
     public void viewRegisteredCourses(String studentId);
-    public List<GradeCard> viewGradeCard(String studentId);
+    public void viewGradeCard(String studentId);
 }

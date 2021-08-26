@@ -90,9 +90,8 @@ public class StudentOperations implements StudentInterface {
      * @return List of GradCard
      */
     @Override
-    public List<GradeCard> viewGradeCard(String studentId) {
-//        return registrationDaoInterface.viewGradeCard(studentId);
-        return null;
+    public void viewGradeCard(String studentId) {
+        studentDaoInterface.viewGradeCard(studentId);
     }
 
 

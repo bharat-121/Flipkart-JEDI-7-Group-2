@@ -38,6 +38,6 @@ public interface StudentInterface {
      * @param studentId
      * @return List of GradCard
      */
-    public List<GradeCard> viewGradeCard(String studentId);
+    public void viewGradeCard(String studentId);
 
 }

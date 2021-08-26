@@ -10,7 +10,7 @@ public class SQLQueriesConstants {
 
     public static final String GET_COURSES="select * from course where instructorId=?";
     public static final String GET_ENROLLED_STUDENTS="select course.courseCode,course.courseName,registeredcourse.studentId from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where course.instructorId = ? order by course.courseCode";
-    public static final String ADD_GRADE="update registeredcourse set Grade=? where courseCode=? and studentId=?";
+    public static final String ADD_GRADE="update registeredcourse set grade=? where courseCode=? and studentId=?";
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
 
     //Student DAO Queries
@@ -18,7 +18,7 @@ public class SQLQueriesConstants {
     public static final String IS_APPROVED="select isApproved from student where studentId = ? ";
     public static final String ADD_USER_QUERY = "insert into User(userId, password, name, email,role,phone) values (?, ?, ?, ?, ?, ?)";
     public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";
-    public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ? and seats > 0";
+    public static final String VIEW_AVAILABLE_COURSES=" select * from course where courseCode not in  (select courseCode  from registeredcourse where studentId = ?) and course.isOffered = ? and seats > 0;";
     public static final String CHECK_COURSE_AVAILABILITY=" select courseCode from registeredcourse where studentId = ? ";
     public static final String DECREMENT_COURSE_SEATS="update course set seats = seats-1 where courseCode = ? ";
     public static final String ADD_COURSE="insert into registeredcourse (studentId,courseCode) values ( ? , ? )";

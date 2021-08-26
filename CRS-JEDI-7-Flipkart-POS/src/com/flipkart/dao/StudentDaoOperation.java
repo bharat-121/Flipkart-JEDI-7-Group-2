@@ -131,9 +131,8 @@ public class StudentDaoOperation implements  StudentDaoInterface{
     }
 
     @Override
-    public List<GradeCard> viewGradeCard(String studentId){
+    public void viewGradeCard(String studentId){
         Connection conn = DBUtil.getConnection();
-        List<GradeCard> grade_List = new ArrayList<>();
         PreparedStatement stmt;
 
         try
@@ -141,22 +140,20 @@ public class StudentDaoOperation implements  StudentDaoInterface{
             stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_GRADE);
             stmt.setString(1, studentId);
             ResultSet rs = stmt.executeQuery();
-
+            System.out.println(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
             while(rs.next())
             {
                 String courseCode = rs.getString("courseCode");
                 String courseName = rs.getString("courseName");
                 String grade = rs.getString("grade");
-                GradeCard obj = new GradeCard(courseCode, courseName,grade);
-                grade_List.add(obj);
-            }
+                if(grade == null)
+                    grade= "not added";
+                System.out.println(String.format("%-20s %-20s %-20s",courseCode, courseName,grade));
 
-            System.out.println(grade_List);
+            }
         }
        catch(Exception e){
            System.out.println(e.getMessage());
        }
-
-        return grade_List;
     }
 }
