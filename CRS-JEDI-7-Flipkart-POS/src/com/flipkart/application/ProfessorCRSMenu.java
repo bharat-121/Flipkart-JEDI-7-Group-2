@@ -102,7 +102,7 @@ public class ProfessorCRSMenu {
         if (enrolledStudents != null && enrolledStudents.size() == 0) {
             System.out.println("No students enrolled");
         } else {
-            System.out.println(String.format("%20s %20s %20s", "COURSE CODE", "COURSE CODE", "STUDENT ID"));
+            System.out.println(String.format("%20s %20s %20s", "COURSE CODE", "COURSE NAME", "STUDENT ID"));
             for (EnrolledStudent obj : enrolledStudents) {
                 System.out.println(String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), obj.getStudentId()));
             }
