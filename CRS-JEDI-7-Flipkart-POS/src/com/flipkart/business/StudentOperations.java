@@ -1,13 +1,14 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
-import com.flipkart.constants.Role;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperations;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class StudentOperations implements StudentInterface {
@@ -15,7 +16,7 @@ public class StudentOperations implements StudentInterface {
 
     private static StudentOperations instance=null;
     StudentDaoInterface studentDaoInterface= StudentDaoOperation.getInstance();
-    //RegistartionInterface registartionDaoInterface= RegistrationDaoOperations.getInstance();
+    RegistrationDaoInterface registrationDaoInterface= RegistrationDaoOperations.getInstance();
 
     public StudentOperations() {
         super();
@@ -31,24 +32,26 @@ public class StudentOperations implements StudentInterface {
         return instance;
     }
 
-    /**
-     * Method to register Student
-     * @param name
-     * @param userID
-     * @param password
-     * @param semester
-     * @param branch
-     * @return studnetId
-     */
+
     @Override
-    public String register(String name, String userID, String password, int semester, String branch) {
-        String studentId="";
+    public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role) {
+
+        String studentId = null;
         try
         {
             //call the DAO class, and add the student record to the DB
-           // Student newStudent=new Student(userID,name,Role.STUDENT,password,branch);
+            Student newStudent=new Student();
+            newStudent.setApproved(false);
+            newStudent.setDepartment(department);
+            newStudent.setSemester(semester);
+            newStudent.setEmail(email);
+            newStudent.setName(name);
+            newStudent.setPassword(password);
+            newStudent.setRole(role);
+            newStudent.setUserID(userID);
+            newStudent.setPhone(phone);
 
-            //studentId=studentDaoInterface.register(newStudent);
+             studentId=studentDaoInterface.register(newStudent);
 
         }
         catch(Exception ex)
@@ -73,10 +76,11 @@ public class StudentOperations implements StudentInterface {
     /**
      * Method to view RegisteredCourses using studentId
      * @param studentId
+     * @return
      */
     @Override
-    public void viewRegisteredCourses(String studentId) {
-        //return registrationDaoInterface.viewRegisteredCourses(studentId);
+    public List<Course> viewRegisteredCourses(String studentId) throws SQLException {
+        return registrationDaoInterface.viewRegisteredCourses(studentId);
     }
 
     /**
@@ -86,7 +90,7 @@ public class StudentOperations implements StudentInterface {
      */
     @Override
     public List<GradeCard> viewGradeCard(String studentId) {
-        //return registrationDaoInterface.viewGradeCard(studentId);
+//        return registrationDaoInterface.viewGradeCard(studentId);
         return null;
     }
 

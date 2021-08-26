@@ -14,9 +14,14 @@ public class DBUtil {
 
     public static Connection getConnection() {
 
-        if (connection != null)
+        if (connection != null){
+            System.out.println("i ma in if connection!-null");
             return connection;
+        }
+
         else {
+
+            System.out.println("i ma in else connection!-null");
             try {
                 Properties prop = new Properties();
                 InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream("./config.properties");

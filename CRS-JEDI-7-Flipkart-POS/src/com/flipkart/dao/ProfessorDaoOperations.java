@@ -1,17 +1,16 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.EnrolledStudent;
+import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.utils.DBUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-
-import com.flipkart.bean.Course;
-import com.flipkart.bean.EnrolledStudent;
-import com.flipkart.constants.SQLQueriesConstants;
-import com.flipkart.utils.DBUtil;
 
 
 public class ProfessorDaoOperations implements ProfessorDaoInterface {
@@ -95,6 +94,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         {
             try {
                 connection.close();
+                connection=null;
             } catch (SQLException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
