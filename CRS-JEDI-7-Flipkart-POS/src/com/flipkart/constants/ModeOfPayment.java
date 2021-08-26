@@ -1,5 +1,12 @@
 package com.flipkart.constants;
 
+/**
+ *
+ * @author JEDI-07
+ * Enumeration class for Mode of Payments
+ *
+ */
+
 public enum ModeOfPayment {
     CREDIT_CARD, NET_BANKING, DEBIT_CARD;
 

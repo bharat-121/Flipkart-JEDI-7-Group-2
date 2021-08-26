@@ -11,9 +11,22 @@ import com.flipkart.validator.StudentValidator;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * @author JEDI-07
+ * The Registration Operation provides the business logic for student registration.
+ *
+ */
+
 public class RegistrationOperation implements RegistartionInterface{
 
     static RegistrationOperation instance = null;
+
+
+    /**
+     * Method to make Registration Operation Singleton
+     *
+     * @return
+     */
 
     public static RegistartionInterface getInstance() {
         if (instance == null) {
@@ -27,7 +40,12 @@ public class RegistrationOperation implements RegistartionInterface{
      * Method to add Course selected by student
      * @param courseCode
      * @param studentId
+     * @param availableCourseList
      * @return boolean indicating if the course is added successfully
+     * @throws CourseNotFoundException
+     * @throws SeatNotAvailableException
+     * @throws CourseLimitExceedException
+     * @throws SQLException
      */
     @Override
     public boolean addCourse(String courseCode, String studentId, List<Course> availableCourseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException{
@@ -58,6 +76,8 @@ public class RegistrationOperation implements RegistartionInterface{
      * @param studentId
      * @param registeredCourseList
      * @return boolean indicating if the course is dropped successfully
+     * @throws CourseNotFoundException
+     * @throws SQLException
      */
     @Override
     public boolean dropCourse(String courseCode, String studentId, List<Course> registeredCourseList) throws CourseNotFoundException, SQLException{
@@ -70,6 +90,14 @@ public class RegistrationOperation implements RegistartionInterface{
         return registrationDaoInterface.dropCourse(courseCode, studentId);
     }
 
+
+    /**
+     *  Method to view the list of available courses
+     * @param studentId
+     * @return List of courses
+     * @throws SQLException
+     */
+
     @Override
     public List<Course> viewAvailableCourses(String  studentId) throws SQLException{
 
@@ -80,6 +108,7 @@ public class RegistrationOperation implements RegistartionInterface{
      * Fee calculation for selected courses
      * @param studentId
      * @return Fee Student has to pay
+     * @throws SQLException
      */
     @Override
     public double calculateFee(String studentId) throws SQLException {
@@ -92,6 +121,7 @@ public class RegistrationOperation implements RegistartionInterface{
      *  Method to check student registration status
      * @param studentId
      * @return boolean indicating if the student's registration status
+     * @throws SQLException
      */
     @Override
     public boolean getRegistrationStatus(String studentId) throws SQLException {
@@ -101,11 +131,20 @@ public class RegistrationOperation implements RegistartionInterface{
     /**
      * Method to set student registration status
      * @param studentId
+     * @throws SQLException
      */
     @Override
     public void setRegistrationStatus(String studentId) throws SQLException {
         registrationDaoInterface.setRegistrationStatus(studentId);
     }
+
+
+    /**
+     * Method to view the list of courses registered by the student
+     * @param studentId
+     * @return List of courses
+     * @throws SQLException
+     */
 
     @Override
     public List<Course> viewRegisteredCourses(String studentId) throws SQLException {

@@ -1,5 +1,11 @@
 package com.flipkart.constants;
 
+/**
+ *
+ * @author JEDI-07
+ * SQL Queries Constants
+ */
+
 public class SQLQueriesConstants {
 
     //User DAO Queries

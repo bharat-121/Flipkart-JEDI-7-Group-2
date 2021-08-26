@@ -1,5 +1,12 @@
 package com.flipkart.constants;
 
+/**
+ *
+ * @author JEDI-07
+ * Enumeration class for Grade
+ *
+ */
+
 public enum Grade {
     A(10),
     A_MINUS(9),

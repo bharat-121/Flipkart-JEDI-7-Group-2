@@ -9,7 +9,7 @@ import com.flipkart.bean.User;
 import com.flipkart.exception.*;
 
 /**
- * @author JEDI-03
+ * @author JEDI-07
  * Interface for Admin Dao Operations
  *
  */
@@ -18,29 +18,37 @@ public interface AdminDaoInterface {
     /**
      * Delete Course using SQL commands
      * @param courseCode
+     * @throws CourseNotFoundException
+     * @throws CourseNotDeletedException
      */
     public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException;
 
     /**
      * Add Course using SQL commands
      * @param course
+     * @throws CourseFoundException
      */
     public void addCourse(Course course) throws CourseFoundException;
     /**
      * Approve Student using SQL commands
      * @param studentId
+     * @throws StudentNotFoundForApprovalException
      */
     public void approveStudent(String studentId) throws StudentNotFoundForApprovalException;
 
     /**
      * Add professor using SQL commands
      * @param professor
+     * @throws ProfessorNotAddedException
+     * @throws UserIdAlreadyInUseException
      */
     public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;;
 
     /**
      * Method to add user using SQL commands
      * @param user
+     * @throws UserNotAddedException
+     * @throws UserIdAlreadyInUseException
      */
     public void addUser(User user) throws UserNotAddedException, UserIdAlreadyInUseException;
 
@@ -48,6 +56,8 @@ public interface AdminDaoInterface {
      * Assign courses to Professor using SQL commands
      * @param courseCode
      * @param professorId
+     * @throws CourseNotFoundException
+     * @throws UserNotFoundException
      */
     public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException;
 

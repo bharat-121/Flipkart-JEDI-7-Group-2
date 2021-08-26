@@ -13,13 +13,22 @@ import com.flipkart.validator.AdminValidator;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author JEDI-07
+ * Implementations of Admin Operations
+ *
+ */
+
 public class AdminOperations implements AdminInterface {
     static AdminOperations instance = null;
 
     private AdminOperations() {
         super();
     }
-
+    /**
+     * Method to make AdminOperation Singleton
+     */
     public static AdminInterface getInstance() {
         if(instance==null){
             instance= new AdminOperations();
@@ -32,7 +41,12 @@ public class AdminOperations implements AdminInterface {
         return adminDaoOperation.viewPendingAdmissions();
     }
 
-    //delete course from courseList using courseCode
+    /**
+     * Method to Delete Course from Course Catalog
+     * @param dropCourseCode
+     * @param courseList : Courses available in the catalog
+     * @throws CourseNotFoundException
+     */
     public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException {
 
         if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
@@ -52,7 +66,9 @@ public class AdminOperations implements AdminInterface {
 
     /**
      * Method to add Course to Course Catalog
+     * @param newCourse : Course object storing details of a course
      * @param courseList : Courses available in catalog
+     * @throws CourseFoundException
      */
     @Override
     public void addCourse(Course newCourse, List<Course> courseList) throws CourseFoundException{
@@ -75,6 +91,7 @@ public class AdminOperations implements AdminInterface {
      * Method to approve a Student
      * @param studentId
      * @param studentList
+     * @throws StudentNotFoundForApprovalException
      */
     @Override
     public void approveStudent(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
@@ -95,6 +112,8 @@ public class AdminOperations implements AdminInterface {
     /**
      * Method to add Professor to DB
      * @param professor : Professor Object storing details of a professor
+     * @throws ProfessorNotAddedException
+     * @throws UserIdAlreadyInUseException
      */
     @Override
     public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
@@ -107,11 +126,12 @@ public class AdminOperations implements AdminInterface {
         }
 
     }
-
     /**
      * Method to assign Course to a Professor
      * @param courseCode
      * @param professorId
+     * @throws CourseNotFoundException
+     * @throws UserNotFoundException
      */
     @Override
     public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException{

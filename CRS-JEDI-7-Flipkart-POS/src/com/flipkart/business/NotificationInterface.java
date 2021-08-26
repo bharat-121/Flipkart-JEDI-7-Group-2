@@ -5,8 +5,32 @@ import com.flipkart.constants.NotificationType;
 
 import java.util.UUID;
 
+/**
+ *
+ * @author JEDI-07
+ * Notification logic for sending notifications for multiple events such as
+ * 1. Student Registration
+ * 2. Registration Approval
+ * 3. Fee payment
+ */
+
 public interface NotificationInterface {
 
     public void sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount);
+
+    /**
+     * Method to send notification
+     * @param type: type of the notification to be sent
+     * @param studentId: student to be notified
+     * @param modeOfPayment: payment mode used
+     * @return notification id for the record added in the database
+     */
+
+    /**
+     * Method to return UUID for a transaction
+     * @param notificationId: notification id added in the database
+     * @return transaction id of the payment
+     */
+
     public UUID getReferenceId(int notificationId);
 }

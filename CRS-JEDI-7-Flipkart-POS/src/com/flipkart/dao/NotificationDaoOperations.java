@@ -8,16 +8,30 @@ import com.flipkart.utils.DBUtil;
 import java.sql.*;
 import java.util.UUID;
 
-public class NotificationDaoOperations implements NotificationDaoInterface {
-    private static volatile NotificationDaoOperations instance = null;
+/**
+ *
+ * @author JEDI-07
+ * Class to implement Notification Dao Operations
+ * Used for adding the notification to the database
+ *
+ */
 
+public class NotificationDaoOperations implements  NotificationDaoInterface{
+    private static volatile NotificationDaoOperations instance=null;
 
-    private NotificationDaoOperations() {
-    }
+    /**
+     * Default Constructor
+     */
+    private NotificationDaoOperations() {}
 
-
-    public static NotificationDaoOperations getInstance() {
-        if (instance == null) {
+    /**
+     * Method to make NotificationDaoOperation Singleton
+     * @return
+     */
+    public static NotificationDaoOperations getInstance()
+    {
+        if(instance==null)
+        {
             // This is a synchronized block, when multiple threads will access this instance
             synchronized (NotificationDaoOperations.class) {
                 instance = new NotificationDaoOperations();
@@ -26,6 +40,15 @@ public class NotificationDaoOperations implements NotificationDaoInterface {
         return instance;
     }
 
+    /**
+     * Send Notification using SQL commands
+     * @param type
+     * @param studentId
+     * @param modeOfPayment
+     * @param amount
+     * @return
+     * @throws SQLException
+     */
     @Override
     public void sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount) throws SQLException {
         Connection connection = DBUtil.getConnection();
@@ -71,6 +94,4 @@ public class NotificationDaoOperations implements NotificationDaoInterface {
             throw ex;
         }
     }
-
-
 }

@@ -10,9 +10,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+/**
+ *
+ * @author JEDI-07
+ * Class that display Professor Client Menu
+ *
+ */
 public class ProfessorCRSMenu {
     ProfessorInterface professorInterface = ProfessorOperations.getInstance();
+
+    /**
+     * Method to create Professor menu
+     * @param profId: professor id obtained after logging into the system
+     * returns displays all the options for the professor, and provides navigation
+     */
 
     public void createMenu(String profId) {
         //Display the options available for the PRofessor
@@ -55,7 +66,10 @@ public class ProfessorCRSMenu {
 
 
     }
-
+    /**
+     * Method to help Professor grade a student
+     * @param profId
+     */
     private void addGrade(String profId) {
         Scanner sc = new Scanner(System.in);
 
@@ -89,7 +103,10 @@ public class ProfessorCRSMenu {
         }
         System.out.println("Grade added successfully for " + studentId);
     }
-
+    /**
+     * Method to view enrolled Students in courses
+     * @param profId
+     */
     private void viewEnrolledStudents(String profId) {
 
         List<EnrolledStudent> enrolledStudents = null;
@@ -108,7 +125,10 @@ public class ProfessorCRSMenu {
             }
         }
     }
-
+    /**
+     * Method to get list of all Courses Professor has to teach
+     * @param profId
+     */
     private void getCourses(String profId) {
         List<Course> coursesEnrolled = professorInterface.getCourses(profId);
         if(coursesEnrolled!=null && coursesEnrolled.size()==0){

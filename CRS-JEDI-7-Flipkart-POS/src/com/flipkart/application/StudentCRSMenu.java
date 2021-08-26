@@ -9,6 +9,13 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *
+ * @author JEDI-07
+ *  The class displays the Student Client Menu
+ *
+ */
+
 public class StudentCRSMenu {
 	Scanner sc = new Scanner(System.in);
 	RegistartionInterface registrationInterface = RegistrationOperation.getInstance();

@@ -12,7 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ *
+ * @author JEDI-07
+ * Class to implement Professor Dao Operations
+ *
+ */
 public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
     private static ProfessorDaoOperations instance=null;
@@ -37,8 +42,11 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         }
         return instance;
     }
-
-
+    /**
+     * Method to get Courses by Professor Id using SQL Commands
+     * @param profId, prof id of the professor
+     * @return get the courses offered by the professor.
+     */
     @Override
     public List<Course> getCoursesByProfessor(String profId) {
         Connection connection=DBUtil.getConnection();
@@ -71,6 +79,11 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
     }
 
+    /**
+     * Method to view list of enrolled Students using SQL Commands
+     * @param profId
+     * @return
+     */
     @Override
     public List<EnrolledStudent> getEnrolledStudents(String profId) {
         Connection connection=DBUtil.getConnection();
@@ -103,7 +116,13 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         return enrolledStudents;
     }
 
-
+    /**
+     * Method to Grade a student using SQL Commands
+     * @param studentId
+     * @param courseCode
+     * @param grade
+     * @return
+     */
     public Boolean addGrade(String studentId,String courseCode,String grade) {
         Connection connection=DBUtil.getConnection();
         try {
@@ -137,7 +156,11 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
     }
 
 
-
+    /**
+     * Method to Get professor name by id
+     * @param profId
+     * @return Professor Id in string
+     */
     @Override
     public String getProfessorById(String profId)
     {

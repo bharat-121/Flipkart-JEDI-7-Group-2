@@ -7,6 +7,13 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ *
+ * @author JEDI-07
+ * Interface for Student Operations
+ *
+ */
+
 public interface StudentInterface {
 
     /**
@@ -16,6 +23,7 @@ public interface StudentInterface {
      * @param password
      * @param semester
      * @return studnetId
+     * @throws StudentNotRegisteredException
      */
     public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role) throws StudentNotRegisteredException;
 
@@ -30,6 +38,7 @@ public interface StudentInterface {
      * Method to view RegisteredCourses using studentId
      * @param studentId
      * @return
+     * @throws SQLException
      */
     public List<Course> viewRegisteredCourses(String studentId) throws SQLException;
 

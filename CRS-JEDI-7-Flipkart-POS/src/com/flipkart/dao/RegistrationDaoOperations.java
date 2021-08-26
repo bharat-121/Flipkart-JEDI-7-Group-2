@@ -18,7 +18,13 @@ import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.utils.DBUtil;
-
+/**
+ *
+ * @author JEDI-07
+ * Class to implement Registration Dao Operations
+ * This class communicates with the database.
+ *
+ */
 public class RegistrationDaoOperations implements RegistrationDaoInterface{
 
 
@@ -30,7 +36,10 @@ public class RegistrationDaoOperations implements RegistrationDaoInterface{
      */
     private RegistrationDaoOperations()
     {}
-
+    /**
+     * Method to make RegistrationDaoOperation Singleton
+     * @return
+     */
     public static RegistrationDaoOperations getInstance()
     {
         if(instance==null)
@@ -40,7 +49,13 @@ public class RegistrationDaoOperations implements RegistrationDaoInterface{
         return instance;
     }
 
-
+    /**
+     * Method to add course in database
+     * @param courseCode
+     * @param studentId
+     * @return boolean indicating if the course is added successfully
+     * @throws SQLException
+     */
 
     @Override
     public boolean addCourse(String courseCode, String studentId) throws SQLException{
@@ -193,7 +208,13 @@ public class RegistrationDaoOperations implements RegistrationDaoInterface{
 
     }
 
-
+    /**
+     * Drop Course selected by student
+     * @param courseCode : code for selected course
+     * @param studentId
+     * @return status of drop course operation
+     * @throws SQLException
+     */
     @Override
     public boolean dropCourse(String courseCode, String studentId) throws SQLException {
 

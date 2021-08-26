@@ -1,5 +1,10 @@
 package com.flipkart.constants;
-
+/**
+ *
+ * @author JEDI-07
+ * Enumeration class for Role
+ *
+ */
 public enum Role {
     ADMIN,PROFESSOR,STUDENT;
 

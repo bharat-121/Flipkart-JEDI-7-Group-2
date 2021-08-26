@@ -8,8 +8,18 @@ import java.sql.SQLException;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
+/**
+ *
+ * @author JEDI-07
+ * Class to implement User Dao Operations
+ */
 public class UserDaoOperations implements UserDaoInterface{
     private static UserDaoOperations instance=null;
+
+    /**
+     * Method to make UserDaoOperation Singleton
+     * @return
+     */
     public static UserDaoOperations getInstance()
     {
         if(instance==null)
@@ -18,6 +28,13 @@ public class UserDaoOperations implements UserDaoInterface{
         }
         return instance;
     }
+    /**
+     * Method to verify credentials of Users from DataBase
+     * @param userId
+     * @param password
+     * @return Verify credentials operation status
+     * @throws UserNotFoundException
+     */
     @Override
     public boolean verifyCredentials(String userId, String password)  throws UserNotFoundException {
         Connection connection = DBUtil.getConnection();
@@ -56,7 +73,11 @@ public class UserDaoOperations implements UserDaoInterface{
 
     }
 
-
+    /**
+     * Method to get Role of User from DataBase
+     * @param userId
+     * @return Role
+     */
     @Override
     public String getRole(String userId) {
         Connection connection = DBUtil.getConnection();
@@ -74,7 +95,11 @@ public class UserDaoOperations implements UserDaoInterface{
         }
         return null;
     }
-
+    /**
+     * Method to update password of user in DataBase
+     * @param userID
+     * @return Update Password operation Status
+     */
     @Override
     public boolean updatePassword(String userID, String newPassword) {
         Connection connection= DBUtil.getConnection();
