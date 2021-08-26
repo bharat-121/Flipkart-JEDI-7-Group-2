@@ -3,6 +3,13 @@ package com.flipkart.business;
 import com.flipkart.bean.User;
 import com.flipkart.exception.UserNotFoundException;
 
+/**
+ *
+ * @author JEDI-03
+ * Interface for User Operations
+ *
+ */
+
 public interface UserInterface {
     /**
      * Method to updatePassword using userID
@@ -17,6 +24,7 @@ public interface UserInterface {
      * @param userID
      * @param password
      * @return boolean to indicate verifyCredentails or not
+     * @throws UserNotFoundException
      */
     public boolean verifyCredentials(String userID, String password)throws UserNotFoundException;
 

@@ -10,6 +10,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *
+ * @author JEDI-07
+ * Implementations of Professor Operations
+ *
+ */
+
 public class ProfessorOperations implements ProfessorInterface {
     public ProfessorOperations() {
         super();
@@ -19,12 +26,26 @@ public class ProfessorOperations implements ProfessorInterface {
 
     ProfessorDaoInterface professorDAOInterface= ProfessorDaoOperations.getInstance();
 
+    /**
+     * Method to make ProfessorOperation Singleton
+     * @return instance
+     */
+
     public static ProfessorInterface getInstance() {
         if (instance == null) {
             instance = new ProfessorOperations();
         }
         return instance;
     }
+
+    /**
+     * Method to grade a Student
+     * @param studentId
+     * @param courseCode
+     * @param grade
+     * @return boolean indicating if grade is added or not
+     * @throws GradeNotAddedException
+     */
 
     @Override
     public Boolean addGrades(String studentId, String courseCode, String grade) throws GradeNotAddedException {
@@ -40,6 +61,13 @@ public class ProfessorOperations implements ProfessorInterface {
 
     }
 
+
+    /**
+     * Method to view all the enrolled students
+     * @param profId: professor id
+     * @return List of enrolled students
+     */
+
     @Override
     public List<EnrolledStudent> viewEnrolledStudents(String profId) throws SQLException {
         List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
@@ -53,6 +81,12 @@ public class ProfessorOperations implements ProfessorInterface {
         }
         return enrolledStudents;
     }
+
+    /**
+     * Method to get list of all course a professor is teaching
+     * @param profId: professor id
+     * @return List of courses the professor is teaching
+     */
 
     @Override
     public List<Course> getCourses(String profId) {
@@ -68,6 +102,12 @@ public class ProfessorOperations implements ProfessorInterface {
         }
         return coursesOffered;
     }
+
+    /**
+     * Method to get the professor name with ID
+     * @param instructorId
+     * @return Professor name
+     */
 
     @Override
     public String getProfessorById(String instructorId) {

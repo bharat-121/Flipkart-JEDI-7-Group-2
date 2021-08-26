@@ -8,7 +8,7 @@ import com.flipkart.bean.EnrolledStudent;
 
 
 /**
- * @author JEDI-02
+ * @author JEDI-07
  * Class for Professor Validator
  */
 public class ProfessorValidator {

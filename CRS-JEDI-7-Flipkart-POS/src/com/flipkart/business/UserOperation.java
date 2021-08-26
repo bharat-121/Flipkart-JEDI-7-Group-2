@@ -5,6 +5,13 @@ import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperations;
 import com.flipkart.exception.UserNotFoundException;
 
+/**
+ *
+ * @author JEDI-07
+ * Implementations of User Operations
+ *
+ */
+
 public class UserOperation implements UserInterface{
     private static UserOperation instance=null;
 
@@ -41,6 +48,7 @@ public class UserOperation implements UserInterface{
      * @param userID
      * @param password
      * @return boolean to indicate verifyCredentails or not
+     * @throws UserNotFoundException
      */
     @Override
     public boolean verifyCredentials(String userID, String password)  throws UserNotFoundException {

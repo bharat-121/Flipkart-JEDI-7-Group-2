@@ -12,7 +12,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ *
+ * @author JEDI-07
+ * Class to implement Professor Dao Operations
+ *
+ */
 public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
     private static ProfessorDaoOperations instance=null;
@@ -37,8 +42,11 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         }
         return instance;
     }
-
-
+    /**
+     * Method to get Courses by Professor Id using SQL Commands
+     * @param profId, prof id of the professor
+     * @return get the courses offered by the professor.
+     */
     @Override
     public List<Course> getCoursesByProfessor(String profId) {
         Connection connection=DBUtil.getConnection();
@@ -70,7 +78,12 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         return courseList;
 
     }
-
+    /**
+     * Method to view list of enrolled Students using SQL Commands
+     * @param: profId: professor id
+     * @param: courseCode: course code of the professor
+     * @return: return the enrolled students for the corresponding professor and course code.
+     */
     @Override
     public List<EnrolledStudent> getEnrolledStudents(String profId) {
         Connection connection=DBUtil.getConnection();
@@ -103,7 +116,12 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         return enrolledStudents;
     }
 
-
+    /**
+     * Method to Grade a student using SQL Commands
+     * @param: profId: professor id
+     * @param: courseCode: course code for the corresponding
+     * @return: returns the status after adding the grade
+     */
     public Boolean addGrade(String studentId,String courseCode,String grade) {
         Connection connection=DBUtil.getConnection();
         try {
@@ -137,7 +155,11 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
     }
 
 
-
+    /**
+     * Method to Get professor name by id
+     * @param profId
+     * @return Professor Id in string
+     */
     @Override
     public String getProfessorById(String profId)
     {

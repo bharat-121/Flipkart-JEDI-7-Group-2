@@ -9,7 +9,7 @@ import com.flipkart.exception.SeatNotAvailableException;
 
 /**
  *
- * @author JEDI-07-Group2
+ * @author JEDI-07
  * Class for Student Validator
  *
  */

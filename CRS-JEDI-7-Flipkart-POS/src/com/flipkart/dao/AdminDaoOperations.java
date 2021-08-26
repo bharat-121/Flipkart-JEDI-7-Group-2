@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author JEDI-03
+ * @author JEDI-07
  * Dao Class Operations for Admin
  *
  */
@@ -51,6 +51,8 @@ public class AdminDaoOperations implements AdminDaoInterface{
     /**
      * Delete Course using SQL commands
      * @param courseCode
+     * @throws CourseNotFoundException
+     * @throws CourseNotDeletedException
      */
     @Override
     public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException {
@@ -82,6 +84,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
     /**
      * Add Course using SQL commands
      * @param course
+     * @throws  CourseFoundException
      */
     @Override
     public void addCourse(Course course) throws CourseFoundException {
@@ -118,6 +121,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
     /**
      * Approve Student using SQL commands
      * @param studentId
+     * @throws StudentNotFoundForApprovalException
      */
     @Override
     public void approveStudent(String studentId) throws StudentNotFoundForApprovalException {
@@ -146,8 +150,10 @@ public class AdminDaoOperations implements AdminDaoInterface{
     }
 
     /**
-     * Method to add user using SQL commands
+     *  Method to add user using SQL commands
      * @param user
+     * @throws UserNotAddedException
+     * @throws UserIdAlreadyInUseException
      */
     @Override
     public void addUser(User user) throws UserNotAddedException, UserIdAlreadyInUseException{
@@ -187,6 +193,8 @@ public class AdminDaoOperations implements AdminDaoInterface{
     /**
      * Add professor using SQL commands
      * @param professor
+     * @throws UserIdAlreadyInUseException
+     * @throws ProfessorNotAddedException
      */
     @Override
     public void addProfessor(Professor professor) throws UserIdAlreadyInUseException, ProfessorNotAddedException{
@@ -237,6 +245,8 @@ public class AdminDaoOperations implements AdminDaoInterface{
      * Assign courses to Professor using SQL commands
      * @param courseCode
      * @param professorId
+     * @throws CourseNotFoundException
+     * @throws UserNotFoundException
      */
     @Override
     public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException{

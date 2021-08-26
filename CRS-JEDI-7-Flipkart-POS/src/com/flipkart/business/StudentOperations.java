@@ -12,6 +12,13 @@ import com.flipkart.exception.StudentNotRegisteredException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ *
+ * @author JEDI-07
+ * Implementations of Student Operations
+ *
+ */
+
 public class StudentOperations implements StudentInterface {
 
 
@@ -22,6 +29,12 @@ public class StudentOperations implements StudentInterface {
     public StudentOperations() {
         super();
     }
+
+    /**
+     * Method to make StudentOperation Singleton
+     * @return
+     */
+
     public static StudentOperations getInstance()
     {
         if(instance==null)
@@ -33,6 +46,19 @@ public class StudentOperations implements StudentInterface {
         return instance;
     }
 
+    /**
+     * Method to register a student, although student can't login until it's approved by admin
+     * @param name
+     * @param userID
+     * @param password
+     * @param semester
+     * @param department
+     * @param email
+     * @param phone
+     * @param role
+     * @return
+     * @throws StudentNotRegisteredException
+     */
 
     @Override
     public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role) throws StudentNotRegisteredException{
@@ -78,6 +104,7 @@ public class StudentOperations implements StudentInterface {
      * Method to view RegisteredCourses using studentId
      * @param studentId
      * @return
+     * @throws SQLException
      */
     @Override
     public List<Course> viewRegisteredCourses(String studentId) throws SQLException {

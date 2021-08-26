@@ -10,10 +10,18 @@ import com.flipkart.utils.DBUtil;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ *
+ * @author JEDI-07
+ * Class to implement Student Dao Operations
+ *
+ */
 public class StudentDaoOperation implements  StudentDaoInterface{
     private static StudentDaoOperation instance=null;
-
+    /**
+     * Method to make StudentDaoOperation Singleton
+     * @return
+     */
     public static StudentDaoOperation getInstance()
     {
         if(instance==null)
@@ -25,7 +33,12 @@ public class StudentDaoOperation implements  StudentDaoInterface{
         return instance;
     }
 
-
+    /**
+     * Method to add student to database
+     * @param student: student object containing all the fields
+     * @return true if student is added, else false
+     * @throws StudentNotRegisteredException
+     */
     @Override
     public String register(Student student)  throws StudentNotRegisteredException {
         Connection connection=DBUtil.getConnection();
@@ -76,7 +89,11 @@ public class StudentDaoOperation implements  StudentDaoInterface{
     }
 
 
-
+    /**
+     * Method to check if Student is approved
+     * @param studentId
+     * @return boolean indicating if student is approved
+     */
 
     @Override
     public boolean isApproved(int studentId) {
@@ -102,6 +119,10 @@ public class StudentDaoOperation implements  StudentDaoInterface{
         return false;
     }
 
+    /**]
+     * Method to viewRegisteredCourses
+     * @param studentId
+     */
     @Override
     public void viewRegisteredCourses(String studentId){
         Connection conn =DBUtil.getConnection();
@@ -130,6 +151,11 @@ public class StudentDaoOperation implements  StudentDaoInterface{
 
     }
 
+    /**
+     * Method to view Grade Card
+     * @param studentId
+     * @return
+     */
     @Override
     public List<GradeCard> viewGradeCard(String studentId){
         Connection conn = DBUtil.getConnection();

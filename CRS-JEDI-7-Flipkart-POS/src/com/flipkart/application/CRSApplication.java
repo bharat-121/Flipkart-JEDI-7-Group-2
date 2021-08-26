@@ -10,6 +10,14 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+/**
+ *
+ * @author JEDI-07
+ * This class is used as the main entry point of the application
+ * In main menu to login, register are displayed
+ *
+ */
+
 public class CRSApplication {
     static boolean loggedin = false;
     UserInterface userInterface = UserOperation.getInstance();
@@ -57,6 +65,10 @@ public class CRSApplication {
 
     }
 
+    /**
+     * Method to Create Main menu of the CRS Application
+     */
+
     public static void mainMenu() {
         System.out.println("---------Menu-----------");
         System.out.println("1. Login");
@@ -65,6 +77,9 @@ public class CRSApplication {
         System.out.println("4. Exit");
     }
 
+    /**
+     * Method for Login functionality
+     */
 
     public void loginUser() throws Exception {
         Scanner sc = new Scanner(System.in);

@@ -13,6 +13,12 @@ import com.flipkart.exception.*;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ *
+ * @author JEDI-07
+ * Class that display Admin Client Menu
+ *
+ */
 public class AdminCRSMenu {
     AdminInterface adminOperation = AdminOperations.getInstance();
     Scanner scanner = new Scanner(System.in);
