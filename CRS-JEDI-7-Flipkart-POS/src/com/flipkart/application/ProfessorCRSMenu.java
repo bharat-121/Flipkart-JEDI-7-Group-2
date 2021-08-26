@@ -4,7 +4,9 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperations;
+import com.flipkart.exception.GradeNotAddedException;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -61,7 +63,11 @@ public class ProfessorCRSMenu {
         String courseCode, grade;
 
         List<EnrolledStudent> enrolledStudents = new ArrayList<EnrolledStudent>();
-        enrolledStudents = professorInterface.viewEnrolledStudents(profId);
+        try {
+            enrolledStudents = professorInterface.viewEnrolledStudents(profId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         System.out.println(String.format("%20s %20s %20s", "COURSE CODE", "COURSE NAME", "Student ID"));
         for (EnrolledStudent obj : enrolledStudents) {
             System.out.println(String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), obj.getStudentId()));
@@ -76,7 +82,11 @@ public class ProfessorCRSMenu {
         courseCode = sc.next();
         System.out.println("Enter grade");
         grade = sc.next();
-        professorInterface.addGrades(studentId, courseCode, grade);
+        try {
+            professorInterface.addGrades(studentId, courseCode, grade);
+        } catch (GradeNotAddedException e) {
+            e.printStackTrace();
+        }
         System.out.println("Grade added successfully for " + studentId);
     }
 
@@ -84,8 +94,12 @@ public class ProfessorCRSMenu {
         List<Course> coursesEnrolled=professorInterface.getCourses(profId);
         System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
             List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+        try {
             enrolledStudents=professorInterface.viewEnrolledStudents(profId);
-            for(EnrolledStudent obj: enrolledStudents)
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for(EnrolledStudent obj: enrolledStudents)
             {
                 System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
             }

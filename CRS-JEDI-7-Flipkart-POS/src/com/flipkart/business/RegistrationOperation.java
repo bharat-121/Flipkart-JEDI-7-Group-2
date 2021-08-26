@@ -3,6 +3,10 @@ package com.flipkart.business;
 import com.flipkart.bean.Course;
 import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperations;
+import com.flipkart.exception.CourseLimitExceedException;
+import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.SeatNotAvailableException;
+import com.flipkart.validator.StudentValidator;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -26,12 +30,11 @@ public class RegistrationOperation implements RegistartionInterface{
      * @return boolean indicating if the course is added successfully
      */
     @Override
-    public boolean addCourse(String courseCode, String studentId, List<Course> registeredCourseList) throws Exception {
+    public boolean addCourse(String courseCode, String studentId, List<Course> availableCourseList) throws CourseNotFoundException, CourseLimitExceedException, SeatNotAvailableException, SQLException{
 
         if (registrationDaoInterface.numOfRegisteredCourses(studentId) >= 6)
         {
-            System.out.println("Course limit exceeded");
-            throw new Exception();
+            throw new CourseLimitExceedException(6);
         }
         else if (registrationDaoInterface.isRegistered(courseCode, studentId))
         {
@@ -39,8 +42,11 @@ public class RegistrationOperation implements RegistartionInterface{
         }
         else if (!registrationDaoInterface.seatAvailable(courseCode))
         {
-            System.out.println("Seat Not Available");
-            throw new Exception();
+            throw new SeatNotAvailableException(courseCode);
+        }
+        else if(!StudentValidator.isValidCourseCode(courseCode, availableCourseList))
+        {
+            throw new CourseNotFoundException(courseCode);
         }
 
         return registrationDaoInterface.addCourse(courseCode, studentId);
@@ -54,7 +60,12 @@ public class RegistrationOperation implements RegistartionInterface{
      * @return boolean indicating if the course is dropped successfully
      */
     @Override
-    public boolean dropCourse(String courseCode, String studentId, List<Course> registeredCourseList) throws Exception{
+    public boolean dropCourse(String courseCode, String studentId, List<Course> registeredCourseList) throws CourseNotFoundException, SQLException{
+
+        if(!StudentValidator.isRegistered(courseCode, studentId, registeredCourseList))
+        {
+            throw new CourseNotFoundException(courseCode);
+        }
 
         return registrationDaoInterface.dropCourse(courseCode, studentId);
     }

@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.utils.DBUtil;
 
 import java.sql.*;
@@ -26,7 +27,7 @@ public class StudentDaoOperation implements  StudentDaoInterface{
 
 
     @Override
-    public String register(Student student){
+    public String register(Student student)  throws StudentNotRegisteredException {
         Connection connection=DBUtil.getConnection();
         String studentId="";
         try
@@ -60,7 +61,7 @@ public class StudentDaoOperation implements  StudentDaoInterface{
         }
         catch(Exception ex)
         {
-            System.out.println(ex.getMessage());
+            throw new StudentNotRegisteredException(student.getName());
         }
         finally
         {

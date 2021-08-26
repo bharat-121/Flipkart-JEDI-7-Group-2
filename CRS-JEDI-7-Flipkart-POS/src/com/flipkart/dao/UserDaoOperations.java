@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
 public class UserDaoOperations implements UserDaoInterface{
     private static UserDaoOperations instance=null;
@@ -18,7 +19,7 @@ public class UserDaoOperations implements UserDaoInterface{
         return instance;
     }
     @Override
-    public boolean verifyCredentials(String userId, String password) {
+    public boolean verifyCredentials(String userId, String password)  throws UserNotFoundException {
         Connection connection = DBUtil.getConnection();
         try
         {
@@ -26,12 +27,15 @@ public class UserDaoOperations implements UserDaoInterface{
             PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.VERIFY_CREDENTIALS);
             preparedStatement.setString(1,userId);
             ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()) {
-                if (password.equals(resultSet.getString("password"))) {
-                    return true;
-                } else {
-                    return false;
-                }
+            if(!resultSet.next())
+                throw new UserNotFoundException(userId);
+            else if(password.equals(resultSet.getString("password")))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
         catch(SQLException ex)
@@ -39,7 +43,17 @@ public class UserDaoOperations implements UserDaoInterface{
             System.out.println("Something went wrong, please try again! "+ ex.getMessage());
         }
 
+        finally
+        {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
         return false;
+
     }
 
 

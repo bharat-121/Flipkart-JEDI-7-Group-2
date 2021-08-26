@@ -6,6 +6,7 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperations;
+import com.flipkart.exception.*;
 import com.flipkart.validator.AdminValidator;
 //import com.sun.glass.ui.Clipboard;
 
@@ -32,16 +33,18 @@ public class AdminOperations implements AdminInterface {
     }
 
     //delete course from courseList using courseCode
-    public void deleteCourse(String dropCourseCode, List<Course> courseList){
+    public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException {
 
         if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
             System.out.println("courseCode: " + dropCourseCode + " not present in catalog!");
+            throw new CourseNotFoundException(dropCourseCode);
+
         }
 
         try {
             adminDaoOperation.deleteCourse(dropCourseCode);
         }
-        catch(Exception e) {
+        catch(CourseNotFoundException | CourseNotDeletedException e) {
             throw e;
         }
 
@@ -52,16 +55,17 @@ public class AdminOperations implements AdminInterface {
      * @param courseList : Courses available in catalog
      */
     @Override
-    public void addCourse(Course newCourse, List<Course> courseList){
+    public void addCourse(Course newCourse, List<Course> courseList) throws CourseFoundException{
 
         if(!AdminValidator.isValidNewCourse(newCourse, courseList)) {
             System.out.println("courseCode: " + newCourse.getCourseCode() + " already present in catalog!");
+            throw new CourseFoundException(newCourse.getCourseCode());
         }
 
         try {
             adminDaoOperation.addCourse(newCourse);
         }
-        catch(Exception e) {
+        catch(CourseFoundException e) {
             throw e;
         }
 
@@ -73,16 +77,17 @@ public class AdminOperations implements AdminInterface {
      * @param studentList
      */
     @Override
-    public void approveStudent(String studentId, List<Student> studentList) {
+    public void approveStudent(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException {
 
         if(!AdminValidator.isValidUnapprovedStudent(studentId, studentList)) {
             System.out.println("studentId: " + studentId + " is already approvet/not-present!");
+            throw new StudentNotFoundForApprovalException(studentId);
         }
 
         try {
             adminDaoOperation.approveStudent(studentId);
         }
-        catch(Exception e) {
+        catch(StudentNotFoundForApprovalException e) {
             throw e;
         }
     }
@@ -92,12 +97,12 @@ public class AdminOperations implements AdminInterface {
      * @param professor : Professor Object storing details of a professor
      */
     @Override
-    public void addProfessor(Professor professor) {
+    public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException {
 
         try {
             adminDaoOperation.addProfessor(professor);
         }
-        catch(Exception e) {
+        catch(ProfessorNotAddedException | UserIdAlreadyInUseException e) {
             throw e;
         }
 
@@ -109,12 +114,12 @@ public class AdminOperations implements AdminInterface {
      * @param professorId
      */
     @Override
-    public void assignCourse(String courseCode, String professorId){
+    public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException{
 
         try {
             adminDaoOperation.assignCourse(courseCode, professorId);
         }
-        catch(Exception e) {
+        catch(CourseNotFoundException | UserNotFoundException e) {
             throw e;
         }
 
