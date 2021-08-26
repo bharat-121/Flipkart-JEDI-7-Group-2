@@ -13,5 +13,5 @@ public interface ProfessorInterface {
 
     public List<Course> getCourses(String profId);
 
-    String  getProfessorById(String instructorId);
+    public String  getProfessorById(String instructorId);
 }
