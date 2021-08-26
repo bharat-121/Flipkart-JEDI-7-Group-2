@@ -1,8 +1,6 @@
 package com.flipkart.application;
 
 import com.flipkart.business.*;
-import com.flipkart.constants.ModeOfPayment;
-import com.flipkart.constants.NotificationType;
 import com.flipkart.constants.Role;
 
 import java.time.LocalDateTime;
@@ -10,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class CRSApplication {
-    static boolean loggedin = false;
+    static boolean loggedIn = false;
     UserInterface userInterface = UserOperation.getInstance();
     NotificationInterface notificationInterface= NotificationOperation.getInstance();
 
@@ -76,10 +74,10 @@ public class CRSApplication {
         userId = sc.next();
         System.out.println("Password:");
         password = sc.next();
-        loggedin = userInterface.verifyCredentials(userId, password);
+        loggedIn = userInterface.verifyCredentials(userId, password);
         //2 cases
         //true->role->student->approved
-        if (loggedin) {
+        if (loggedIn) {
             DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
             LocalDateTime myDateObj = LocalDateTime.now();

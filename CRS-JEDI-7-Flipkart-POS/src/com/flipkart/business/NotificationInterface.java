@@ -7,6 +7,6 @@ import java.util.UUID;
 
 public interface NotificationInterface {
 
-    public int sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount);
+    public void sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount);
     public UUID getReferenceId(int notificationId);
 }

@@ -1,7 +1,6 @@
 package com.flipkart.application;
 
 import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
 import com.flipkart.business.*;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
@@ -25,7 +24,7 @@ public class StudentCRSMenu {
 	public void createMenu(String studentId) throws Exception {
 
 		is_registered = getRegistrationStatus(studentId);
-		while (CRSApplication.loggedin) 
+		while (CRSApplication.loggedIn)
 		{
 			System.out.println("*****************************");
 			System.out.println("**********Student Menu*********");
@@ -73,7 +72,7 @@ public class StudentCRSMenu {
 						break;
 						
 				case 8: 
-						CRSApplication.loggedin = false;
+						CRSApplication.loggedIn = false;
 						return;
 						
 				default:
@@ -258,9 +257,7 @@ public class StudentCRSMenu {
 		
 		double fee =0.0;
 		
-			fee=registrationInterface.calculateFee(studentId);
-		
-
+		fee=registrationInterface.calculateFee(studentId);
 
 		if(fee == 0.0)
 		{

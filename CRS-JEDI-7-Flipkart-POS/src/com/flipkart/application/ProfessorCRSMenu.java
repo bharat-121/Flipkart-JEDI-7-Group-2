@@ -19,7 +19,7 @@ public class ProfessorCRSMenu {
         Scanner sc = new Scanner(System.in);
 
         int input;
-        while (CRSApplication.loggedin) {
+        while (CRSApplication.loggedIn) {
             System.out.println("**********Professor Menu*********");
             System.out.println("*****************************");
             System.out.println("1. View Courses");
@@ -46,7 +46,7 @@ public class ProfessorCRSMenu {
                     break;
                 case 4:
                     //logout from the system
-                    CRSApplication.loggedin = false;
+                    CRSApplication.loggedIn = false;
                     return;
                 default:
                     System.out.println("***** Wrong Choice *****");

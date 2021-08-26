@@ -7,7 +7,6 @@ import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperations;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
-import com.flipkart.constants.NotificationType;
 import com.flipkart.exception.*;
 
 import java.util.List;
@@ -22,7 +21,7 @@ public class AdminCRSMenu {
      * Method to Create Admin Menu
      */
     public void createMenu(){
-        while(CRSApplication.loggedin) {
+        while(CRSApplication.loggedIn) {
             System.out.println("*****************************");
             System.out.println("**********Admin Menu*********");
             System.out.println("*****************************");
@@ -58,7 +57,7 @@ public class AdminCRSMenu {
                     break;
 
                 case 6:
-                    CRSApplication.loggedin = false;
+                    CRSApplication.loggedIn = false;
                     return;
 
                 default:

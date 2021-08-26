@@ -26,19 +26,17 @@ public class NotificationOperation implements NotificationInterface{
         return instance;
     }
     @Override
-    public int sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount){
+    public void sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount){
 
-        int notificationId=0;
         try
         {
-            notificationId=notificationDaoInterface.sendNotification(type, studentId,modeOfPayment,amount);
+            notificationDaoInterface.sendNotification(type, studentId,modeOfPayment,amount);
 
         }
         catch(SQLException ex)
         {
             System.out.println("Error occured "+ex.getMessage());
         }
-        return notificationId;
 
     }
 
