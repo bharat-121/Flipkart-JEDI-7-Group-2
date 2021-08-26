@@ -8,6 +8,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 import org.apache.log4j.Logger;
 
+import static com.flipkart.constants.Colors.*;
+
 /**
  *
  * @author JEDI-07
@@ -23,8 +25,11 @@ public class CRSApplication {
 
     public static void main(String[] args) throws Exception {
 
+
         // application starts here
-        System.out.println("Welcome to the Course Registration System");
+
+        System.out.println(RED_BRIGHT+"*****  Welcome to the Course Registration System  *****"+ANSI_RESET);
+
         CRSApplication crsApplication = new CRSApplication();
 
         Scanner sc = new Scanner(System.in);
@@ -35,7 +40,7 @@ public class CRSApplication {
             //until user do not exit the application
             do {
                 mainMenu();
-                System.out.println("Enter your choice : ");
+                System.out.print(ANSI_RED+"Enter your choice :-"+ANSI_RESET);
                 input = sc.nextInt();
                 switch (input) {
                     case 1:
@@ -57,7 +62,7 @@ public class CRSApplication {
                 }
             }while (input != 4);
         } catch (Exception ex) {
-            System.out.println("Error occured " + ex);
+            System.out.println(ANSI_RED+"Error occured " + ex+ANSI_RESET);
         } finally {
             sc.close();
         }
@@ -69,13 +74,13 @@ public class CRSApplication {
      */
 
     public static void mainMenu() {
-        System.out.println("---------Menu-----------");
-        System.out.println("1. Login");
-        System.out.println("2. Change Password");
-        System.out.println("3. Student Registration");
-        System.out.println("4. Exit");
-    }
 
+        System.out.println(RED_BRIGHT+"---- Menu ----"+ANSI_RESET);
+        System.out.println(ANSI_CYAN+"1."+CYAN_BRIGHT+"   Login"+ANSI_RESET);
+        System.out.println(ANSI_CYAN+"2."+CYAN_BRIGHT+"   Change Password"+ANSI_RESET);
+        System.out.println(ANSI_CYAN+"3."+CYAN_BRIGHT+"   Student Registration"+ANSI_RESET);
+        System.out.println(ANSI_CYAN+"4."+CYAN_BRIGHT+"   Exit"+ANSI_RESET);
+    }
     /**
      * Method for Login functionality
      */
@@ -85,10 +90,10 @@ public class CRSApplication {
 
         String userId, password;
 
-        System.out.println("-----------------Login------------------");
-        System.out.println("UserId:");
+        System.out.println(ANSI_CYAN + "---- Login ----" + ANSI_RESET);
+        System.out.print(ANSI_RED + "UserId:-" + ANSI_RESET);
         userId = sc.next();
-        System.out.println("Password:");
+        System.out.print(ANSI_RED + "Password:-" + ANSI_RESET);
         password = sc.next();
         loggedIn = userInterface.verifyCredentials(userId, password);
         //2 cases
@@ -105,25 +110,24 @@ public class CRSApplication {
             Role userRole = Role.stringToName(role);
             switch (userRole) {
                 case ADMIN:
-                    System.out.println(formattedDate + " Login Successful");
+                    System.out.println(CYAN_BRIGHT + "Login Successful:-" + formattedDate + ANSI_RESET);
                     AdminCRSMenu adminCRSMenu = new AdminCRSMenu();
                     adminCRSMenu.createMenu();
                     break;
                 case PROFESSOR:
-                    System.out.println(formattedDate + " Login Successful");
+                    System.out.println(CYAN_BRIGHT + "Login Successful:-" + formattedDate + ANSI_RESET);
                     ProfessorCRSMenu professorMenu = new ProfessorCRSMenu();
                     professorMenu.createMenu(userId);
                     break;
                 case STUDENT:
-                    System.out.println(formattedDate + " Login Successful");
+                    System.out.println(CYAN_BRIGHT + "Login Successful:-" + formattedDate + ANSI_RESET);
                     StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
                     studentCRSMenu.createMenu(userId);
                     break;
             }
         } else {
-            System.out.println("Invalid Credentials!");
+            System.out.println(RED_BRIGHT + "Invalid Credentials!!" + ANSI_RESET);
         }
-
     }
 
     /**
@@ -131,68 +135,67 @@ public class CRSApplication {
      */
     public void registerStudent() {
 
-        Scanner sc = new Scanner(System.in);
+        Scanner sc=new Scanner(System.in);
 
-        String userId, name, password, email, role, phone, department;
-        int semester;
+        String userId,name,password,email,role,phone,department;
+        int semester ;
         role = "STUDENT";
-        try {
+        try
+        {
             //input all the student details
-            System.out.println("---------------Student Registration-------------");
-            System.out.println("User ID:");
-            userId = sc.next();
+            System.out.println(ANSI_CYAN+"----Student Registration----"+ANSI_RESET);
+            System.out.print(ANSI_RED+"User ID   :-"+ANSI_RESET);
+            userId=sc.next();
 
-            System.out.println("Name:");
-            name = sc.next();
-            System.out.println("Email:");
-            email = sc.next();
-            System.out.println("Password:");
-            password = sc.next();
+            System.out.print(ANSI_RED+"Name      :-"+ANSI_RESET);
+            name=sc.next();
+            System.out.print(ANSI_RED+"Email     :-"+ANSI_RESET);
+            email=sc.next();
+            System.out.print(ANSI_RED+"Password  :-"+ANSI_RESET);
+            password=sc.next();
 
-            System.out.println("Phone:");
-            phone = sc.next();
-            System.out.println("Semester:");
-            semester = sc.nextInt();
+            System.out.print(ANSI_RED+"Phone     :-"+ANSI_RESET);
+            phone=sc.next();
+            System.out.print(ANSI_RED+"Semester  :-"+ANSI_RESET);
+            semester=sc.nextInt();
             sc.nextLine();
-            System.out.println("Department:");
-            department = sc.next();
+            System.out.print(ANSI_RED+"Department:-"+ANSI_RESET);
+            department=sc.next();
 
             StudentInterface studentInterface = new StudentOperations();
-            String newStudentId = studentInterface.register(name, userId, password, semester, department, email, phone, role);
+            String newStudentId=studentInterface.register(name, userId, password,semester,department,email,phone,role);
+//            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null,0);
 
-            if(newStudentId != null) {
-               // notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, ModeOfPayment.CREDIT_CARD, 1000);
-                System.out.println("Student Sucessfully Registered");
-            }
-            else{
-                System.out.println("Some Error occured!! try again");
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Something went wrong! " + ex.getMessage());
+        }
+        catch(Exception ex)
+        {
+            System.out.println(RED_BRIGHT+"Something went wrong! "+ex.getMessage()+ANSI_RESET );
         }
     }
+
 
     /**
      * Method to update password of User
      */
     public void changePassword() {
+
         Scanner sc = new Scanner(System.in);
         String userId, newPassword;
         try {
-            System.out.println("------------------Change Password--------------------");
-            System.out.println("UserId");
+            System.out.println(ANSI_CYAN+"----Change Password----"+ANSI_RESET);
+            System.out.print(ANSI_RED+"UserId      :-"+ANSI_RESET);
             userId = sc.next();
-            System.out.println("New Password:");
+            System.out.print(ANSI_RED+"New Password:-"+ANSI_RESET);
             newPassword = sc.next();
             boolean isUpdated = userInterface.updatePassword(userId, newPassword);
+
             if (isUpdated)
-                System.out.println("Password updated successfully!");
+                System.out.println(GREEN_BRIGHT+"Password updated successfully!"+ANSI_RESET);
 
             else
-                System.out.println("Something went wrong, please try again!");
+                System.out.println(RED_BRIGHT+"Something went wrong, please try again!"+ANSI_RESET);
         } catch (Exception ex) {
-            System.out.println("Error Occured " + ex.getMessage());
+            System.out.println(RED_BRIGHT+"Error Occured " + ex.getMessage()+ANSI_RESET);
         }
     }
 }

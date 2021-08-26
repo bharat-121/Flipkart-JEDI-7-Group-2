@@ -13,6 +13,8 @@ import org.apache.log4j.Logger;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.flipkart.constants.Colors.*;
+
 /**
  *
  * @author JEDI-07
@@ -30,7 +32,7 @@ public class AdminCRSMenu {
      */
     public void createMenu(){
         while(CRSApplication.loggedIn) {
-            System.out.println("*****************************");
+           /* System.out.println("*****************************");
             System.out.println("**********Admin Menu*********");
             System.out.println("*****************************");
             System.out.println("1. View Course");
@@ -39,8 +41,19 @@ public class AdminCRSMenu {
             System.out.println("4. Approve Students");
             System.out.println("5. Add Professor");
             System.out.println("6. Logout");
-            System.out.println("*****************************");
+            System.out.println("*****************************");*/
 
+            System.out.println(GREEN_BRIGHT+"*****************************");
+            System.out.println(GREEN_BRIGHT+"**********Admin Menu*********");
+            System.out.println(GREEN_BRIGHT+"*****************************");
+            System.out.println(ANSI_CYAN+"1."+CYAN_BRIGHT+"   View Courses in Catalog");
+            System.out.println(ANSI_CYAN+"2."+CYAN_BRIGHT+"   Add Course to Catalog");
+            System.out.println(ANSI_CYAN+"3."+CYAN_BRIGHT+"   Delete Course from Catalog");
+            System.out.println(ANSI_CYAN+"4."+CYAN_BRIGHT+"   Approve Students");
+            System.out.println(ANSI_CYAN+"5."+CYAN_BRIGHT+"   Add Professor");
+            System.out.println(ANSI_CYAN+"6."+CYAN_BRIGHT+"   Logout");
+            System.out.println(GREEN_BRIGHT+"***************************");
+            System.out.print(ANSI_RED+"Enter your choice :-"+ANSI_RESET);
             int choice = scanner.nextInt();
 
             switch(choice) {
@@ -69,7 +82,7 @@ public class AdminCRSMenu {
                     return;
 
                 default:
-                    System.out.println("***** Wrong Choice *****");
+                    System.out.println(RED_BRIGHT+"***** Wrong Choice *****"+ANSI_RESET);
             }
         }
     }
@@ -81,31 +94,31 @@ public class AdminCRSMenu {
 
         Professor professor = new Professor();
 
-        System.out.println("Enter Professor Name:");
+        System.out.print(ANSI_RED+"Enter Professor Name:-"+ANSI_RESET);
         String professorName = scanner.next();
         professor.setName(professorName);
 
-        System.out.println("Enter Department:");
+        System.out.print(ANSI_RED+"Enter Department    :-"+ANSI_RESET);
         String department = scanner.next();
         professor.setDepartment(department);
 
-        System.out.println("Enter Designation:");
+        System.out.print(ANSI_RED+"Enter Designation   :-"+ANSI_RESET);
         String designation = scanner.next();
         professor.setDesignation(designation);
 
-        System.out.println("Enter Contact no:");
+        System.out.print(ANSI_RED+"Enter Contact no    :-"+ANSI_RESET);
         String contact = scanner.next();
         professor.setPhone(contact);
 
-        System.out.println("Enter email:");
+        System.out.print(ANSI_RED+"Enter email         :-"+ANSI_RESET);
         String email = scanner.next();
         professor.setEmail(email);
 
-        System.out.println("Enter User Id:");
+        System.out.print(ANSI_RED+"Enter User Id        :-"+ANSI_RESET);
         String userId = scanner.next();
         professor.setUserID(userId);
 
-        System.out.println("Enter Password:");
+        System.out.print(ANSI_RED+"Enter Password      :-"+ANSI_RESET);
         String password = scanner.next();
         professor.setPassword(password);
 
@@ -119,6 +132,7 @@ public class AdminCRSMenu {
         }
     }
 
+
     /**
      * Method to view Students who are yet to be approved
      * @return List of Students whose admissions are pending
@@ -129,12 +143,13 @@ public class AdminCRSMenu {
         if(pendingStudentsList.size() == 0) {
             return pendingStudentsList;
         }
-        System.out.println(String.format("%20s | %20s", "UserId", "Name"));
+        System.out.println(ANSI_RED+String.format("%20s | %20s", "UserId", "Name")+ANSI_RESET);
         for(Student student : pendingStudentsList) {
-            System.out.println(String.format("%20s | %20s", student.getUserID(), student.getName()));
+            System.out.println(ANSI_CYAN+String.format("%20s | %20s", student.getUserID(), student.getName())+ANSI_RESET);
         }
         return pendingStudentsList;
     }
+
 
     /**
      * Method to approve a Student using Student's ID
@@ -146,7 +161,7 @@ public class AdminCRSMenu {
             return;
         }
 
-        System.out.println("Enter Student's ID:");
+        System.out.print(ANSI_RED+"Enter Student's ID:-"+ANSI_RESET);
         String studentUserIdApproval = scanner.next();
         try {
             adminOperation.approveStudent(studentUserIdApproval, studentList);
@@ -154,7 +169,7 @@ public class AdminCRSMenu {
             e.printStackTrace();
         }
         //send notification from system
-      //  notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
+        //notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
     }
 
     /**
@@ -162,7 +177,7 @@ public class AdminCRSMenu {
      */
     private void deleteCourse() {
         List<Course> courseList = viewCoursesInCatalogue();
-        System.out.println("Enter Course Code:");
+        System.out.print(ANSI_RED+"Enter Course Code:-"+ANSI_RESET);
         String courseCode = scanner.next();
         try {
             adminOperation.deleteCourse(courseCode, courseList);
@@ -180,13 +195,13 @@ public class AdminCRSMenu {
         List<Course> courseList = viewCoursesInCatalogue();
 
         scanner.nextLine();
-        System.out.println("Enter Course Code:");
+        System.out.print(ANSI_RED+"Enter Course Code  :-"+ANSI_RESET);
         String courseCode = scanner.nextLine();
 
-        System.out.println("Enter Course Name:");
+        System.out.print(ANSI_RED+"Enter Course Name  :-"+ANSI_RESET);
         String courseName = scanner.next();
 
-        System.out.println("Enter Instructor ID:");
+        System.out.print(ANSI_RED+"Enter Instructor ID:-"+ANSI_RESET);
         String instructorID = scanner.next();
 
         Course course = new Course(courseCode, courseName,instructorID);
@@ -197,6 +212,7 @@ public class AdminCRSMenu {
         }
     }
 
+
     /**
      * Method to display courses in catalogue
      * @return List of courses in catalogue
@@ -204,12 +220,12 @@ public class AdminCRSMenu {
     private List<Course> viewCoursesInCatalogue() {
         List<Course> courseList = adminOperation.viewCourses();
         if(courseList.size() == 0) {
-            System.out.println("No course in the catalogue!");
+            System.out.println(RED_BRIGHT+"---- No course in the catalogue!!----"+ANSI_RESET);
             return courseList;
         }
-        System.out.println(String.format("%20s | %20s | %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR"));
+        System.out.println(ANSI_RED+String.format("%20s | %20s | %20s","COURSE CODE", "COURSE NAME", "INSTRUCTOR")+ANSI_RESET);
         for(Course course : courseList) {
-            System.out.println(String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId()));
+            System.out.println(ANSI_CYAN+String.format("%20s | %20s | %20s", course.getCourseCode(), course.getCourseName(), course.getInstructorId())+ANSI_RESET);
         }
         return courseList;
     }
