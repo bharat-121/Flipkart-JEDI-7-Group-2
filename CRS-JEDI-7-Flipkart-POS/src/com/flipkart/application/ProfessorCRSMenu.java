@@ -91,7 +91,6 @@ public class ProfessorCRSMenu {
     }
 
     private void viewEnrolledStudents(String profId) {
-        getCourses(profId);
 
         List<EnrolledStudent> enrolledStudents = null;
         try {
