@@ -147,7 +147,7 @@ public class AdminCRSMenu {
             e.printStackTrace();
         }
         //send notification from system
-        notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
+      //  notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
     }
 
     /**

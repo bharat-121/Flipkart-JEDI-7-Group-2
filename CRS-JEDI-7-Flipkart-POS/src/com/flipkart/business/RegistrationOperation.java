@@ -71,9 +71,9 @@ public class RegistrationOperation implements RegistartionInterface{
     }
 
     @Override
-    public List<Course> viewCourses(String  studentId) throws SQLException{
+    public List<Course> viewAvailableCourses(String  studentId) throws SQLException{
 
-        return registrationDaoInterface.viewCourses(studentId);
+        return registrationDaoInterface.viewAvailableCourses(studentId);
     }
 
     /** Method for Fee Calculation for selected courses

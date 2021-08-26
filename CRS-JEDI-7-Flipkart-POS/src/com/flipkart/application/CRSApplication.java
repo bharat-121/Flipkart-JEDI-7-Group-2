@@ -1,9 +1,8 @@
 package com.flipkart.application;
 
-import com.flipkart.business.StudentInterface;
-import com.flipkart.business.StudentOperations;
-import com.flipkart.business.UserInterface;
-import com.flipkart.business.UserOperation;
+import com.flipkart.business.*;
+import com.flipkart.constants.ModeOfPayment;
+import com.flipkart.constants.NotificationType;
 import com.flipkart.constants.Role;
 
 import java.time.LocalDateTime;
@@ -13,6 +12,7 @@ import java.util.Scanner;
 public class CRSApplication {
     static boolean loggedin = false;
     UserInterface userInterface = UserOperation.getInstance();
+    NotificationInterface notificationInterface= NotificationOperation.getInstance();
 
     public static void main(String[] args) throws Exception {
 
@@ -117,41 +117,45 @@ public class CRSApplication {
      */
     public void registerStudent() {
 
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
 
-        String userId,name,password,email,role,phone,department;
-        int semester ;
+        String userId, name, password, email, role, phone, department;
+        int semester;
         role = "STUDENT";
-        try
-        {
+        try {
             //input all the student details
             System.out.println("---------------Student Registration-------------");
             System.out.println("User ID:");
-            userId=sc.next();
+            userId = sc.next();
 
             System.out.println("Name:");
-            name=sc.next();
+            name = sc.next();
             System.out.println("Email:");
-            email=sc.next();
+            email = sc.next();
             System.out.println("Password:");
-            password=sc.next();
+            password = sc.next();
 
             System.out.println("Phone:");
-            phone=sc.next();
+            phone = sc.next();
             System.out.println("Semester:");
-            semester=sc.nextInt();
+            semester = sc.nextInt();
             sc.nextLine();
             System.out.println("Department:");
-            department=sc.next();
+            department = sc.next();
 
             StudentInterface studentInterface = new StudentOperations();
-            String newStudentId=studentInterface.register(name, userId, password,semester,department,email,phone,role);
-//            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null,0);
+            String newStudentId = studentInterface.register(name, userId, password, semester, department, email, phone, role);
 
-        }
-        catch(Exception ex)
-        {
-            System.out.println("Something went wrong! "+ex.getMessage() );
+            if(newStudentId != null) {
+               // notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, ModeOfPayment.CREDIT_CARD, 1000);
+                System.out.println("Student Sucessfully Registered");
+            }
+            else{
+                System.out.println("Some Error occured!! try again");
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Something went wrong! " + ex.getMessage());
         }
     }
 

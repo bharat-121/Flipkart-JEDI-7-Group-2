@@ -16,7 +16,7 @@ public class StudentCRSMenu {
 	ProfessorInterface professorInterface = ProfessorOperations.getInstance();
 	StudentInterface studentInterface = StudentOperations.getInstance();
 	NotificationInterface notificationInterface=NotificationOperation.getInstance();
-	private boolean is_registered=true;
+	private boolean is_registered=false;
 	
 	/**
 	 * Method to generate Student Menu for course registration, addition, removal and fee payment 
@@ -33,7 +33,7 @@ public class StudentCRSMenu {
 			System.out.println("1. Course Registration");
 			System.out.println("2. Add Course");
 			System.out.println("3. Drop Course");
-			System.out.println("4. View Course");
+			System.out.println("4. View Available Courses");
 			System.out.println("5. View Registered Courses");
 			System.out.println("6. View grade card");
 			System.out.println("7. Make Payment");
@@ -93,16 +93,13 @@ public class StudentCRSMenu {
 				System.out.println(" Registration is already completed");
 				return;
 			}
-			
+			List<Course> courseList=viewCourse(studentId);
 			int count = 0;
+
 			while(count < 6)
 			{
-					List<Course> courseList=viewCourse(studentId);
 					
-					if(courseList==null)
-						return;
-					
-					System.out.println("Enter Course Code : " + (count+1));
+					System.out.println("Enter Course Code: ");
 					String courseCode = sc.next();
 					
 					if(registrationInterface.addCourse(courseCode,studentId,courseList))
@@ -116,10 +113,8 @@ public class StudentCRSMenu {
 					}
 				
 			}
-			
 			System.out.println("Registration Successful");	
 		    is_registered = true;
-		    
 			registrationInterface.setRegistrationStatus(studentId);
 		
 		
@@ -201,7 +196,7 @@ public class StudentCRSMenu {
 	 */
 	private List<Course> viewCourse(String  studentId) throws Exception {
 		List<Course> course_available=null;
-		course_available = registrationInterface.viewCourses(studentId);
+		course_available = registrationInterface.viewAvailableCourses(studentId);
 
 	
 		if(course_available.isEmpty())

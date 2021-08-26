@@ -277,7 +277,7 @@ public class RegistrationDaoOperations implements RegistrationDaoInterface{
      * @throws SQLException
      */
     @Override
-    public List<Course> viewCourses(String studentId) throws SQLException {
+    public List<Course> viewAvailableCourses(String studentId) throws SQLException {
 
         List<Course> availableCourseList = new ArrayList<>();
         Connection conn = DBUtil.getConnection();
@@ -291,7 +291,7 @@ public class RegistrationDaoOperations implements RegistrationDaoInterface{
 
             while (rs.next()) {
                 availableCourseList.add(new Course(rs.getString("courseCode"), rs.getString("courseName"),
-                        rs.getString("professorId"), rs.getInt("seats")));
+                        rs.getString("instructorId"), rs.getInt("seats")));
 
             }
 
@@ -335,7 +335,7 @@ public class RegistrationDaoOperations implements RegistrationDaoInterface{
 
             while (rs.next()) {
                 registeredCourseList.add(new Course(rs.getString("courseCode"), rs.getString("courseName"),
-                        rs.getString("professorId"), rs.getInt("seats")));
+                        rs.getString("instructorId"), rs.getInt("seats")));
 
             }
         }

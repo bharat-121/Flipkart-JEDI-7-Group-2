@@ -12,7 +12,7 @@ public interface RegistrationDaoInterface {
 
     public boolean dropCourse(String courseCode, String studentId) throws SQLException;
 
-    public List<Course> viewCourses(String studentId) throws SQLException;
+    public List<Course> viewAvailableCourses(String studentId) throws SQLException;
 
     List<Course> viewRegisteredCourses(String studentId) throws SQLException;
 

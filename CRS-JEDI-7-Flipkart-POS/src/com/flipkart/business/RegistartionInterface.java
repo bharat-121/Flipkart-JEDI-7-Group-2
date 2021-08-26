@@ -26,7 +26,7 @@ public interface RegistartionInterface {
      */
     public boolean dropCourse(String courseCode, String studentId, List<Course> registeredCourseList) throws CourseNotFoundException, SQLException;
 
-    public List<Course> viewCourses(String studentId) throws SQLException;
+    public List<Course> viewAvailableCourses(String studentId) throws SQLException;
 
     /** Method for Fee Calculation for selected courses
      * Fee calculation for selected courses

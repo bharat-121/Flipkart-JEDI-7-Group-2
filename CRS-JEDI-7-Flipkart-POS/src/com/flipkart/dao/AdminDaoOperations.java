@@ -121,7 +121,6 @@ public class AdminDaoOperations implements AdminDaoInterface{
      */
     @Override
     public void approveStudent(String studentId) throws StudentNotFoundForApprovalException {
-
         statement = null;
         try {
             String sql = SQLQueriesConstants.APPROVE_STUDENT_QUERY;

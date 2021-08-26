@@ -91,26 +91,35 @@ public class ProfessorCRSMenu {
     }
 
     private void viewEnrolledStudents(String profId) {
-        List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-        System.out.println(String.format("%20s %20s %20s","COURSE CODE","COURSE CODE","Students  enrolled" ));
-            List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
+        getCourses(profId);
+
+        List<EnrolledStudent> enrolledStudents = null;
         try {
-            enrolledStudents=professorInterface.viewEnrolledStudents(profId);
+            enrolledStudents = professorInterface.viewEnrolledStudents(profId);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        for(EnrolledStudent obj: enrolledStudents)
-            {
-                System.out.println(String.format("%20s %20s %20s",obj.getCourseCode(), obj.getCourseName(),obj.getStudentId()));
+
+        if (enrolledStudents != null && enrolledStudents.size() == 0) {
+            System.out.println("No students enrolled");
+        } else {
+            System.out.println(String.format("%20s %20s %20s", "COURSE CODE", "COURSE CODE", "STUDENT ID"));
+            for (EnrolledStudent obj : enrolledStudents) {
+                System.out.println(String.format("%20s %20s %20s", obj.getCourseCode(), obj.getCourseName(), obj.getStudentId()));
             }
+        }
     }
 
     private void getCourses(String profId) {
-        List<Course> coursesEnrolled=professorInterface.getCourses(profId);
-        System.out.println(String.format("%20s %20s","COURSE CODE","COURSE NAME" ));
-        for(Course obj: coursesEnrolled)
-        {
-            System.out.println(String.format("%20s %20s",obj.getCourseCode(), obj.getCourseName()));
+        List<Course> coursesEnrolled = professorInterface.getCourses(profId);
+        if(coursesEnrolled!=null && coursesEnrolled.size()==0){
+            System.out.println("No courses found!!");
+        }
+        else {
+            System.out.println(String.format("%20s %20s", "COURSE CODE", "COURSE NAME"));
+            for (Course obj : coursesEnrolled) {
+                System.out.println(String.format("%20s %20s", obj.getCourseCode(), obj.getCourseName()));
+            }
         }
     }
 }

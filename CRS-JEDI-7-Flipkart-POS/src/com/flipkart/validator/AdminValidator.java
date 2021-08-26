@@ -51,7 +51,7 @@ public class AdminValidator {
      */
     public static boolean isValidUnapprovedStudent(String studentId, List<Student> studentList) {
         for(Student student : studentList) {
-            if(studentId == student.getUserID()) {
+            if(studentId.equals(student.getUserID())) {
                 return true;
             }
         }
