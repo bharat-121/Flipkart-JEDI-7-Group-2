@@ -8,7 +8,6 @@ import com.flipkart.business.AdminOperations;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.constants.NotificationType;
-import com.flipkart.constants.Role;
 
 import java.util.List;
 import java.util.Scanner;
@@ -85,6 +84,14 @@ public class AdminCRSMenu {
         System.out.println("Enter Designation:");
         String designation = scanner.next();
         professor.setDesignation(designation);
+
+        System.out.println("Enter Contact no:");
+        String contact = scanner.next();
+        professor.setPhone(contact);
+
+        System.out.println("Enter email:");
+        String email = scanner.next();
+        professor.setEmail(email);
 
         System.out.println("Enter User Id:");
         String userId = scanner.next();

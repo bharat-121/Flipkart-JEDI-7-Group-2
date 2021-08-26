@@ -1,19 +1,18 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
+import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.utils.DBUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.flipkart.bean.Course;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.User;
-import com.flipkart.constants.Role;
-import com.flipkart.constants.SQLQueriesConstants;
-import com.flipkart.utils.DBUtil;
 
 /**
  * @author JEDI-03
@@ -202,6 +201,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
             statement.setString(1, professor.getUserID());
             statement.setString(2, professor.getDepartment());
             statement.setString(3, professor.getDesignation());
+
             int row = statement.executeUpdate();
 
             System.out.println(row + " professor added.");
@@ -314,7 +314,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
 
             }
 
-            System.out.println(courseList);
+//            System.out.println(courseList);
 
         }catch(SQLException se) {
 
