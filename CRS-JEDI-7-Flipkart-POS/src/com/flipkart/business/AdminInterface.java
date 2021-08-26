@@ -4,8 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
-import com.flipkart.exception.CourseNotDeletedException;
-import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.*;
 
 import java.util.List;
 
@@ -13,13 +12,13 @@ public interface AdminInterface {
 
     public void deleteCourse(String courseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException;
 
-    public void addCourse(Course course, List<Course> courseList);
+    public void addCourse(Course course, List<Course> courseList)throws CourseFoundException;
 
-    public void approveStudent(String studentId, List<Student> studentList);
+    public void approveStudent(String studentId, List<Student> studentList) throws StudentNotFoundForApprovalException;
 
-    public void addProfessor(Professor professor);
+    public void addProfessor(Professor professor) throws ProfessorNotAddedException, UserIdAlreadyInUseException;
 
-    public void assignCourse(String courseCode, String professorId);
+    public void assignCourse(String courseCode, String professorId) throws CourseNotFoundException, UserNotFoundException;
 
     public List<Course> viewCourses();
 

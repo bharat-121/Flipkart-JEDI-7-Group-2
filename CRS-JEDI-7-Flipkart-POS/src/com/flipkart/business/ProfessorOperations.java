@@ -4,7 +4,10 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.dao.ProfessorDaoInterface;
 import com.flipkart.dao.ProfessorDaoOperations;
+import com.flipkart.exception.GradeNotAddedException;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfessorOperations implements ProfessorInterface {
@@ -24,22 +27,22 @@ public class ProfessorOperations implements ProfessorInterface {
     }
 
     @Override
-    public Boolean addGrades(String studentId, String courseCode, String grade) {
+    public Boolean addGrades(String studentId, String courseCode, String grade) throws GradeNotAddedException {
 
-//        try
-//        {
+        try
+        {
             return professorDAOInterface.addGrade(studentId, courseCode, grade);
-//        }
-//        catch(Exception ex)
-//        {
-//            throw new GradeNotAddedException(studentId);
-//        }
+        }
+        catch(Exception ex)
+        {
+            throw new GradeNotAddedException(studentId);
+        }
 
     }
 
     @Override
-    public List<EnrolledStudent> viewEnrolledStudents(String profId) {
-        List<EnrolledStudent> enrolledStudents =null ;
+    public List<EnrolledStudent> viewEnrolledStudents(String profId) throws SQLException {
+        List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
         try
         {
             enrolledStudents=professorDAOInterface.getEnrolledStudents(profId);
@@ -54,7 +57,7 @@ public class ProfessorOperations implements ProfessorInterface {
     @Override
     public List<Course> getCourses(String profId) {
 
-        List<Course> coursesOffered=null;
+        List<Course> coursesOffered=new ArrayList<Course>();
         try
         {
             coursesOffered=professorDAOInterface.getCoursesByProfessor(profId);

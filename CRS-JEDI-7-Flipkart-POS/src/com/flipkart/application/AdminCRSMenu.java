@@ -8,6 +8,7 @@ import com.flipkart.business.AdminOperations;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.constants.NotificationType;
+import com.flipkart.exception.*;
 
 import java.util.List;
 import java.util.Scanner;
@@ -102,7 +103,13 @@ public class AdminCRSMenu {
         professor.setPassword(password);
 
         professor.setRole("PROFESSOR");
-        adminOperation.addProfessor(professor);
+        try {
+            adminOperation.addProfessor(professor);
+        } catch (ProfessorNotAddedException e) {
+            e.printStackTrace();
+        } catch (UserIdAlreadyInUseException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -134,7 +141,11 @@ public class AdminCRSMenu {
 
         System.out.println("Enter Student's ID:");
         String studentUserIdApproval = scanner.next();
-        adminOperation.approveStudent(studentUserIdApproval, studentList);
+        try {
+            adminOperation.approveStudent(studentUserIdApproval, studentList);
+        } catch (StudentNotFoundForApprovalException e) {
+            e.printStackTrace();
+        }
         //send notification from system
         notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
     }
@@ -146,7 +157,13 @@ public class AdminCRSMenu {
         List<Course> courseList = viewCoursesInCatalogue();
         System.out.println("Enter Course Code:");
         String courseCode = scanner.next();
-        adminOperation.deleteCourse(courseCode, courseList);
+        try {
+            adminOperation.deleteCourse(courseCode, courseList);
+        } catch (CourseNotFoundException e) {
+            e.printStackTrace();
+        } catch (CourseNotDeletedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -166,7 +183,11 @@ public class AdminCRSMenu {
         String instructorID = scanner.next();
 
         Course course = new Course(courseCode, courseName,instructorID);
-        adminOperation.addCourse(course, courseList);
+        try {
+            adminOperation.addCourse(course, courseList);
+        } catch (CourseFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
