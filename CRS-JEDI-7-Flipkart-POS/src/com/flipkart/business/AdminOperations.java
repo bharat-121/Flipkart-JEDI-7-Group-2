@@ -6,6 +6,8 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.AdminDaoOperations;
+import com.flipkart.exception.CourseNotDeletedException;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.validator.AdminValidator;
 //import com.sun.glass.ui.Clipboard;
 
@@ -32,16 +34,18 @@ public class AdminOperations implements AdminInterface {
     }
 
     //delete course from courseList using courseCode
-    public void deleteCourse(String dropCourseCode, List<Course> courseList){
+    public void deleteCourse(String dropCourseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException {
 
         if(!AdminValidator.isValidDropCourse(dropCourseCode, courseList)) {
             System.out.println("courseCode: " + dropCourseCode + " not present in catalog!");
+            throw new CourseNotFoundException(dropCourseCode);
+
         }
 
         try {
             adminDaoOperation.deleteCourse(dropCourseCode);
         }
-        catch(Exception e) {
+        catch(CourseNotFoundException | CourseNotDeletedException e) {
             throw e;
         }
 

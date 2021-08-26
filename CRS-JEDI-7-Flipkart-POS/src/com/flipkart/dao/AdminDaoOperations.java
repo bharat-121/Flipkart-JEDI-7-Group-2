@@ -5,6 +5,9 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.exception.CourseFoundException;
+import com.flipkart.exception.CourseNotDeletedException;
+import com.flipkart.exception.CourseNotFoundException;
 import com.flipkart.utils.DBUtil;
 
 import java.sql.Connection;
@@ -52,7 +55,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
      * @param courseCode
      */
     @Override
-    public void deleteCourse(String courseCode){
+    public void deleteCourse(String courseCode) throws CourseNotFoundException, CourseNotDeletedException {
 
         statement = null;
         try {
@@ -65,6 +68,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
             System.out.println(row + " entries deleted.");
             if(row == 0) {
                 System.out.println(courseCode + " not in catalog!");
+                throw new CourseNotFoundException(courseCode);
             }
 
             System.out.println("Course with courseCode: " + courseCode + " deleted.");
@@ -72,6 +76,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
         }catch(SQLException se) {
 
             System.out.println(se.getMessage());
+            throw new CourseNotDeletedException(courseCode);
         }
 
     }
@@ -81,7 +86,7 @@ public class AdminDaoOperations implements AdminDaoInterface{
      * @param course
      */
     @Override
-    public void addCourse(Course course){
+    public void addCourse(Course course) throws CourseFoundException {
 
         statement = null;
         try {
