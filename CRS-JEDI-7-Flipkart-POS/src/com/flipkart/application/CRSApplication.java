@@ -6,6 +6,7 @@ import com.flipkart.constants.Role;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -99,7 +100,7 @@ public class CRSApplication {
 
             String formattedDate = myDateObj.format(myFormatObj);
 
-            //logger.info("Welcome "+userId);
+            //System.out.println("Welcome "+userId);
             String role = userInterface.getRole(userId);
             Role userRole = Role.stringToName(role);
             switch (userRole) {

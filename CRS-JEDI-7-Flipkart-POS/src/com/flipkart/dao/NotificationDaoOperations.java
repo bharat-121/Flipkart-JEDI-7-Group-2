@@ -1,9 +1,11 @@
 package com.flipkart.dao;
 
+import com.flipkart.application.CRSApplication;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.utils.DBUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.UUID;
@@ -18,6 +20,7 @@ import java.util.UUID;
 
 public class NotificationDaoOperations implements  NotificationDaoInterface{
     private static volatile NotificationDaoOperations instance=null;
+    private static Logger logger = Logger.getLogger(NotificationDaoOperations.class);
 
     /**
      * Default Constructor
@@ -69,7 +72,7 @@ public class NotificationDaoOperations implements  NotificationDaoInterface{
                 ps.setString(1, studentId);
                 ps.setString(2, type.toString());
                 ps.setString(3, referenceId.toString());
-                System.out.println("Payment successful, Reference ID: " + referenceId);
+                logger.info("Payment successful, Reference ID: " + referenceId);
             }
             else {
                 ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION, Statement.RETURN_GENERATED_KEYS);
@@ -81,13 +84,13 @@ public class NotificationDaoOperations implements  NotificationDaoInterface{
             ResultSet results = ps.getGeneratedKeys();
             switch (type) {
                 case REGISTRATION:
-                    System.out.println("Registration successfull. Administration will verify the details and approve it!");
+                    logger.info("Registration successfull. Administration will verify the details and approve it!");
                     break;
                 case REGISTRATION_APPROVAL:
-                    System.out.println("Student with id " + studentId + " has been approved!");
+                    logger.info("Student with id " + studentId + " has been approved!");
                     break;
                 case PAYMENT:
-                    System.out.println("Student with id " + studentId + " fee has been paid");
+                    logger.info("Student with id " + studentId + " fee has been paid");
             }
 
         } catch (Exception ex) {

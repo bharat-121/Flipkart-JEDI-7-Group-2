@@ -8,6 +8,7 @@ import com.flipkart.business.AdminOperations;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
 import com.flipkart.exception.*;
+import org.apache.log4j.Logger;
 
 import java.util.List;
 import java.util.Scanner;
@@ -22,6 +23,7 @@ public class AdminCRSMenu {
     AdminInterface adminOperation = AdminOperations.getInstance();
     Scanner scanner = new Scanner(System.in);
     NotificationInterface notificationInterface= NotificationOperation.getInstance();
+    private static Logger logger = Logger.getLogger(AdminCRSMenu.class);
 
     /**
      * Method to Create Admin Menu

@@ -1,9 +1,11 @@
 package com.flipkart.dao;
 
+import com.flipkart.application.CRSApplication;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.utils.DBUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -21,6 +23,7 @@ import java.util.List;
 public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
     private static ProfessorDaoOperations instance=null;
+    private static Logger logger = Logger.getLogger(ProfessorDaoOperations.class);
 
     /**
      * Default Constructor
@@ -64,7 +67,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         }
         catch(SQLException e)
         {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         finally
         {
@@ -101,7 +104,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         }
         catch(SQLException e)
         {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         finally
         {
@@ -141,7 +144,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         }
         catch(SQLException e)
         {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         finally
         {
@@ -179,7 +182,7 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         }
         catch(SQLException e)
         {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         finally
         {

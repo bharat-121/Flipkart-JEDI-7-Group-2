@@ -4,6 +4,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.business.*;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +24,7 @@ public class StudentCRSMenu {
 	StudentInterface studentInterface = StudentOperations.getInstance();
 	NotificationInterface notificationInterface=NotificationOperation.getInstance();
 	private boolean is_registered=false;
+	private static Logger logger = Logger.getLogger(StudentCRSMenu.class);
 	
 	/**
 	 * Method to generate Student Menu for course registration, addition, removal and fee payment 

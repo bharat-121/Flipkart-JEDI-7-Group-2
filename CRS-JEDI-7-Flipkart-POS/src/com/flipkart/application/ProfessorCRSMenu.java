@@ -5,6 +5,7 @@ import com.flipkart.bean.EnrolledStudent;
 import com.flipkart.business.ProfessorInterface;
 import com.flipkart.business.ProfessorOperations;
 import com.flipkart.exception.GradeNotAddedException;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Scanner;
  */
 public class ProfessorCRSMenu {
     ProfessorInterface professorInterface = ProfessorOperations.getInstance();
+    private static Logger logger = Logger.getLogger(ProfessorCRSMenu.class);
 
     /**
      * Method to create Professor menu

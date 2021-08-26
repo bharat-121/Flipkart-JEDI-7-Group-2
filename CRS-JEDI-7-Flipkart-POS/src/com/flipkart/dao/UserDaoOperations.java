@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author JEDI-07
@@ -15,6 +17,7 @@ import com.flipkart.utils.DBUtil;
  */
 public class UserDaoOperations implements UserDaoInterface{
     private static UserDaoOperations instance=null;
+    private static Logger logger = Logger.getLogger(UserDaoOperations.class);
 
     /**
      * Method to make UserDaoOperation Singleton
@@ -57,7 +60,7 @@ public class UserDaoOperations implements UserDaoInterface{
         }
         catch(SQLException ex)
         {
-            System.out.println("Something went wrong, please try again! "+ ex.getMessage());
+            logger.error("Something went wrong, please try again! "+ ex.getMessage());
         }
 
         finally
@@ -91,7 +94,7 @@ public class UserDaoOperations implements UserDaoInterface{
             }
 
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         return null;
     }
@@ -118,7 +121,7 @@ public class UserDaoOperations implements UserDaoInterface{
         }
         catch(SQLException e)
         {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
         finally
         {

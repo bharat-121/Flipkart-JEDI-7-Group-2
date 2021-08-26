@@ -1,9 +1,11 @@
 package com.flipkart.business;
 
+import com.flipkart.application.CRSApplication;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
 import com.flipkart.dao.NotificationDaoInterface;
 import com.flipkart.dao.NotificationDaoOperations;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -21,6 +23,7 @@ public class NotificationOperation implements NotificationInterface{
     //return notification Id
 
     static NotificationOperation instance = null;
+    private static Logger logger = Logger.getLogger(NotificationOperation.class);
 
     NotificationDaoInterface notificationDaoInterface= NotificationDaoOperations.getInstance();
     Scanner scn = new Scanner(System.in);
@@ -47,7 +50,7 @@ public class NotificationOperation implements NotificationInterface{
         }
         catch(SQLException ex)
         {
-            System.out.println("Error occured "+ex.getMessage());
+            logger.error("Error occured "+ex.getMessage());
         }
 
     }

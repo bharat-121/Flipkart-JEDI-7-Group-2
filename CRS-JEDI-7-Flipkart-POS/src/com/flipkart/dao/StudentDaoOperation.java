@@ -1,11 +1,13 @@
 package com.flipkart.dao;
 
+import com.flipkart.application.CRSApplication;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.utils.DBUtil;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import java.util.List;
  */
 public class StudentDaoOperation implements  StudentDaoInterface{
     private static StudentDaoOperation instance=null;
+    private static Logger logger = Logger.getLogger(StudentDaoOperation.class);
     /**
      * Method to make StudentDaoOperation Singleton
      * @return
@@ -81,7 +84,7 @@ public class StudentDaoOperation implements  StudentDaoInterface{
             try {
                 connection.close();
             } catch (SQLException e) {
-                System.out.println(e.getMessage()+"SQL error");
+                logger.error(e.getMessage()+"SQL error");
                 e.printStackTrace();
             }
         }
@@ -113,7 +116,7 @@ public class StudentDaoOperation implements  StudentDaoInterface{
         }
         catch(SQLException e)
         {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
         return false;
@@ -142,11 +145,11 @@ public class StudentDaoOperation implements  StudentDaoInterface{
 
             }
 
-            System.out.println(registeredCourseList);
+            logger.info(registeredCourseList);
         }
         catch (Exception e)
         {
-            System.out.println(e.getMessage());
+            logger.error(e.getMessage());
         }
 
     }
@@ -166,7 +169,7 @@ public class StudentDaoOperation implements  StudentDaoInterface{
             stmt = conn.prepareStatement(SQLQueriesConstants.VIEW_GRADE);
             stmt.setString(1, studentId);
             ResultSet rs = stmt.executeQuery();
-            System.out.println(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
+            logger.info(String.format("%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"));
             while(rs.next())
             {
                 String courseCode = rs.getString("courseCode");
@@ -174,12 +177,12 @@ public class StudentDaoOperation implements  StudentDaoInterface{
                 String grade = rs.getString("grade");
                 if(grade == null)
                     grade= "not added";
-                System.out.println(String.format("%-20s %-20s %-20s",courseCode, courseName,grade));
+                logger.info(String.format("%-20s %-20s %-20s",courseCode, courseName,grade));
 
             }
         }
        catch(Exception e){
-           System.out.println(e.getMessage());
+           logger.error(e.getMessage());
        }
     }
 }
