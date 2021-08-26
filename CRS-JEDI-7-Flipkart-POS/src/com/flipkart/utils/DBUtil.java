@@ -14,8 +14,10 @@ public class DBUtil {
 
     public static Connection getConnection() {
 
-        if (connection != null)
+        if (connection != null){
             return connection;
+        }
+
         else {
             try {
                 Properties prop = new Properties();

@@ -1,7 +1,5 @@
 package com.flipkart.bean;
 
-import java.util.List;
-
 public class Student extends User{
     private String department;
     private int semester;

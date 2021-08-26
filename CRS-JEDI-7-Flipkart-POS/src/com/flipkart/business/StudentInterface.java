@@ -1,7 +1,9 @@
 package com.flipkart.business;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface StudentInterface {
@@ -15,7 +17,7 @@ public interface StudentInterface {
      * @param branch
      * @return studnetId
      */
-    public String register(String name,String userID,String password,int semester,String branch);
+    public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role);
 
     /**
      * Method to check student approved by admin or not
@@ -27,8 +29,9 @@ public interface StudentInterface {
     /**
      * Method to view RegisteredCourses using studentId
      * @param studentId
+     * @return
      */
-    public void viewRegisteredCourses(String studentId);
+    public List<Course> viewRegisteredCourses(String studentId) throws SQLException;
 
     /**
      * Method to viewGradeCard using studentId

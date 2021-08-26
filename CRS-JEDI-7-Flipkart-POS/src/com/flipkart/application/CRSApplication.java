@@ -1,5 +1,7 @@
 package com.flipkart.application;
 
+import com.flipkart.business.StudentInterface;
+import com.flipkart.business.StudentOperations;
 import com.flipkart.business.UserInterface;
 import com.flipkart.business.UserOperation;
 import com.flipkart.constants.Role;
@@ -16,16 +18,18 @@ public class CRSApplication {
 
         // application starts here
         System.out.println("Welcome to the Course Registration System");
-        mainMenu();
         CRSApplication crsApplication = new CRSApplication();
 
         Scanner sc = new Scanner(System.in);
 
         try {
 
-			int input = sc.nextInt();
+			int input = 0;
             //until user do not exit the application
-            while (input != 4) {
+            do {
+                mainMenu();
+                System.out.println("Enter your choice : ");
+                input = sc.nextInt();
                 switch (input) {
                     case 1:
                         //login
@@ -38,10 +42,13 @@ public class CRSApplication {
                         //student registration
                         crsApplication.registerStudent();
                         break;
+                    case 4 :
+                        System.out.println("Thank you ! Bye ! ");
+                        break;
                     default:
                         System.out.println("Invalid Input");
                 }
-            }
+            }while (input != 4);
         } catch (Exception ex) {
             System.out.println("Error occured " + ex);
         } finally {
@@ -109,6 +116,43 @@ public class CRSApplication {
      * Method to help Student register themselves, pending admin approval
      */
     public void registerStudent() {
+
+        Scanner sc=new Scanner(System.in);
+
+        String userId,name,password,email,role,phone,department;
+        int semester ;
+        role = "STUDENT";
+        try
+        {
+            //input all the student details
+            System.out.println("---------------Student Registration-------------");
+            System.out.println("User ID:");
+            userId=sc.next();
+
+            System.out.println("Name:");
+            name=sc.next();
+            System.out.println("Email:");
+            email=sc.next();
+            System.out.println("Password:");
+            password=sc.next();
+
+            System.out.println("Phone:");
+            phone=sc.next();
+            System.out.println("Semester:");
+            semester=sc.nextInt();
+            sc.nextLine();
+            System.out.println("Department:");
+            department=sc.next();
+
+            StudentInterface studentInterface = new StudentOperations();
+            String newStudentId=studentInterface.register(name, userId, password,semester,department,email,phone,role);
+//            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null,0);
+
+        }
+        catch(Exception ex)
+        {
+            System.out.println("Something went wrong! "+ex.getMessage() );
+        }
     }
 
     /**
