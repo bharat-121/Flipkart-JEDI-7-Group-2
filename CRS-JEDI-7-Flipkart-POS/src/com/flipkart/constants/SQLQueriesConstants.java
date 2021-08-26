@@ -14,7 +14,7 @@ public class SQLQueriesConstants {
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
 
     //Student DAO Queries
-    public static final String ADD_STUDENT="insert into student (userId,semester,department,isApproved) values (?,?,?,?)";
+    public static final String ADD_STUDENT="insert into student (studentId,semester,department,isApproved) values (?,?,?,?)";
     public static final String IS_APPROVED="select isApproved from student where studentId = ? ";
     public static final String ADD_USER_QUERY = "insert into User(userId, password, name, email,role,phone) values (?, ?, ?, ?, ?, ?)";
     public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";

@@ -18,16 +18,18 @@ public class CRSApplication {
 
         // application starts here
         System.out.println("Welcome to the Course Registration System");
-        mainMenu();
         CRSApplication crsApplication = new CRSApplication();
 
         Scanner sc = new Scanner(System.in);
 
         try {
 
-			int input = sc.nextInt();
+			int input = 0;
             //until user do not exit the application
-            while (input != 4) {
+            do {
+                mainMenu();
+                System.out.println("Enter your choice : ");
+                input = sc.nextInt();
                 switch (input) {
                     case 1:
                         //login
@@ -40,10 +42,13 @@ public class CRSApplication {
                         //student registration
                         crsApplication.registerStudent();
                         break;
+                    case 4 :
+                        System.out.println("Thank you ! Bye ! ");
+                        break;
                     default:
                         System.out.println("Invalid Input");
                 }
-            }
+            }while (input != 4);
         } catch (Exception ex) {
             System.out.println("Error occured " + ex);
         } finally {

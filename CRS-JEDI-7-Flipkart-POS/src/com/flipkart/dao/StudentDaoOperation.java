@@ -2,15 +2,12 @@ package com.flipkart.dao;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
-import com.flipkart.bean.RegisteredCourse;
 import com.flipkart.bean.Student;
-import com.flipkart.constants.Grade;
 import com.flipkart.constants.SQLQueriesConstants;
 import com.flipkart.utils.DBUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class StudentDaoOperation implements  StudentDaoInterface{
@@ -37,9 +34,12 @@ public class StudentDaoOperation implements  StudentDaoInterface{
             //open db connection
             PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY);
             preparedStatement.setString(1, student.getUserID());
-            preparedStatement.setString(2, student.getName());
-            preparedStatement.setString(3, student.getPassword());
-            preparedStatement.setString(4, student.getRole().toString());
+            preparedStatement.setString(2, student.getPassword());
+            preparedStatement.setString(3, student.getName());
+            preparedStatement.setString(4,student.getEmail());
+            preparedStatement.setString(5, student.getRole());
+            preparedStatement.setString(6,student.getPhone());
+
             int rowsAffected=preparedStatement.executeUpdate();
             if(rowsAffected==1)
             {
