@@ -7,6 +7,7 @@ import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperations;
 import com.flipkart.dao.StudentDaoInterface;
 import com.flipkart.dao.StudentDaoOperation;
+import com.flipkart.exception.StudentNotRegisteredException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -34,7 +35,7 @@ public class StudentOperations implements StudentInterface {
 
 
     @Override
-    public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role) {
+    public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role) throws StudentNotRegisteredException{
 
         String studentId = null;
         try
@@ -54,9 +55,9 @@ public class StudentOperations implements StudentInterface {
              studentId=studentDaoInterface.register(newStudent);
 
         }
-        catch(Exception ex)
+        catch(StudentNotRegisteredException ex)
         {
-            System.out.println(ex.getMessage());
+            throw ex;
         }
         return studentId;
 
