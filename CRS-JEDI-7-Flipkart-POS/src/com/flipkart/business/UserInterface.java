@@ -1,6 +1,7 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.User;
+import com.flipkart.exception.UserNotFoundException;
 
 public interface UserInterface {
     /**
@@ -17,7 +18,7 @@ public interface UserInterface {
      * @param password
      * @return boolean to indicate verifyCredentails or not
      */
-    public boolean verifyCredentials(String userID, String password);
+    public boolean verifyCredentials(String userID, String password)throws UserNotFoundException;
 
     /**
      * Method to updateDetail using userId

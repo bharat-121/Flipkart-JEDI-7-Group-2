@@ -2,6 +2,7 @@ package com.flipkart.business;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
+import com.flipkart.exception.StudentNotRegisteredException;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -14,10 +15,9 @@ public interface StudentInterface {
      * @param userID
      * @param password
      * @param semester
-     * @param branch
      * @return studnetId
      */
-    public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role);
+    public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role) throws StudentNotRegisteredException;
 
     /**
      * Method to check student approved by admin or not
