@@ -27,7 +27,6 @@ public class UserDaoOperations implements UserDaoInterface{
             preparedStatement.setString(1,userId);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-
                 if (password.equals(resultSet.getString("password"))) {
                     return true;
                 } else {
@@ -48,7 +47,6 @@ public class UserDaoOperations implements UserDaoInterface{
     public String getRole(String userId) {
         Connection connection = DBUtil.getConnection();
         try {
-            System.out.println(userId);
             PreparedStatement statement = connection.prepareStatement(SQLQueriesConstants.GET_ROLE);
             statement.setString(1, userId);
             ResultSet rs = statement.executeQuery();
