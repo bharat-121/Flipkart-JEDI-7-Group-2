@@ -78,11 +78,11 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
         return courseList;
 
     }
+
     /**
      * Method to view list of enrolled Students using SQL Commands
-     * @param: profId: professor id
-     * @param: courseCode: course code of the professor
-     * @return: return the enrolled students for the corresponding professor and course code.
+     * @param profId
+     * @return
      */
     @Override
     public List<EnrolledStudent> getEnrolledStudents(String profId) {
@@ -118,9 +118,10 @@ public class ProfessorDaoOperations implements ProfessorDaoInterface {
 
     /**
      * Method to Grade a student using SQL Commands
-     * @param: profId: professor id
-     * @param: courseCode: course code for the corresponding
-     * @return: returns the status after adding the grade
+     * @param studentId
+     * @param courseCode
+     * @param grade
+     * @return
      */
     public Boolean addGrade(String studentId,String courseCode,String grade) {
         Connection connection=DBUtil.getConnection();

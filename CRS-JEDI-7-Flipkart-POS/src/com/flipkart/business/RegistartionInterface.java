@@ -69,7 +69,6 @@ public interface RegistartionInterface {
     /**
      *  Method to check student registration status
      * @param studentId
-     * @return boolean indicating if the student's registration status
      * @throws SQLException
      */
     public void setRegistrationStatus(String studentId) throws SQLException;

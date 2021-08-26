@@ -95,7 +95,6 @@ public class Course {
 
     /**
      * Method to get Instructor Id of professor teaching the course
-     * @return Instructor Id
      */
     public void setInstructorId(String instructorId) {
         this.instructorId = instructorId;
