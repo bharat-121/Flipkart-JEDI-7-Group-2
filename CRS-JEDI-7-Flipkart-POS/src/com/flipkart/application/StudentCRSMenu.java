@@ -1,7 +1,9 @@
 package com.flipkart.application;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.GradeCard;
 import com.flipkart.business.*;
+import com.flipkart.constants.Grade;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
 import org.apache.log4j.Logger;
@@ -245,7 +247,20 @@ public class StudentCRSMenu {
      * @param studentId
      */
     private void viewGradeCard(String studentId) {
-        studentInterface.viewGradeCard(studentId);
+
+        List<GradeCard> gradeCards = studentInterface.viewGradeCard(studentId);
+
+        if(gradeCards==null || gradeCards.isEmpty())
+        {
+            System.out.println(RED_BRIGHT+"You have not registered for any course yet"+ANSI_RESET);
+        }
+        else
+        {
+            System.out.println(String.format(ANSI_RED+"%-20s %-20s %-20s","COURSE CODE", "COURSE NAME", "GRADE"+ANSI_RESET));
+            for(GradeCard gradeCard : gradeCards){
+                System.out.println(String.format(ANSI_CYAN+"%-20s %-20s %-20s",gradeCard.getCourseCode(),gradeCard.getCourseName(),gradeCard.getGrade()+ANSI_RESET));
+            }
+        }
     }
 
     /**
