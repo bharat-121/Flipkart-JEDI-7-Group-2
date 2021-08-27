@@ -3,6 +3,7 @@ package com.flipkart.business;
 import com.flipkart.bean.User;
 import com.flipkart.dao.UserDaoInterface;
 import com.flipkart.dao.UserDaoOperations;
+import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 
 /**
@@ -52,15 +53,12 @@ public class UserOperation implements UserInterface{
      */
     @Override
     public boolean verifyCredentials(String userID, String password)  throws UserNotFoundException {
-        try
-        {
             return userDaoInterface.verifyCredentials(userID, password);
-        }
-        finally
-        {
+    }
 
-        }
-
+    @Override
+    public boolean verifyApproval(String userID) throws UserNotApprovedException {
+        return userDaoInterface.verifyApproved(userID);
     }
 
 

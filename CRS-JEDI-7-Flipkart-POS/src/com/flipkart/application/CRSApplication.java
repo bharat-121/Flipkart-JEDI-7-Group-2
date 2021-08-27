@@ -120,9 +120,15 @@ public class CRSApplication {
                     professorMenu.createMenu(userId);
                     break;
                 case STUDENT:
-                    System.out.println(CYAN_BRIGHT + "Login Successful:-" + formattedDate + ANSI_RESET);
-                    StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
-                    studentCRSMenu.createMenu(userId);
+                    boolean isApproved = userInterface.verifyApproval(userId);
+                    if(isApproved) {
+                        System.out.println(CYAN_BRIGHT + "Login Successful:-" + formattedDate + ANSI_RESET);
+                        StudentCRSMenu studentCRSMenu = new StudentCRSMenu();
+                        studentCRSMenu.createMenu(userId);
+                    }
+                    else {
+                        System.out.println(RED_BRIGHT + "You are not approved by admin yet!!" + ANSI_RESET);
+                    }
                     break;
             }
         } else {

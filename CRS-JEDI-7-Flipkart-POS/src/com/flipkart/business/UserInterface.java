@@ -1,7 +1,7 @@
 package com.flipkart.business;
 
 import com.flipkart.bean.User;
-import com.flipkart.exception.UserNotFoundException;
+import com.flipkart.exception.*;
 
 /**
  *
@@ -27,6 +27,14 @@ public interface UserInterface {
      * @throws UserNotFoundException
      */
     public boolean verifyCredentials(String userID, String password)throws UserNotFoundException;
+
+    /**
+     * Method to verfiy if the student is approved or not
+     * @param userID
+     * @return boolean to indicate verifyCredentails or not
+     * @throws UserNotApprovedException
+     */
+    public boolean verifyApproval(String userID) throws UserNotApprovedException;
 
     /**
      * Method to updateDetail using userId

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 import com.flipkart.utils.DBUtil;
 import org.apache.log4j.Logger;
@@ -74,6 +75,47 @@ public class UserDaoOperations implements UserDaoInterface{
         }
         return false;
 
+    }
+
+    @Override
+    public boolean verifyApproved(String userId) throws UserNotApprovedException {
+        Connection connection = DBUtil.getConnection();
+        try
+        {
+            //open db connection
+            PreparedStatement preparedStatement=connection.prepareStatement(SQLQueriesConstants.VERIFY_APPROVAL);
+            preparedStatement.setString(1,userId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Boolean isApproved;
+            if(resultSet.next())
+            {
+                isApproved= resultSet.getBoolean("isApproved");
+            }
+            else
+            {
+                isApproved=false;
+            }
+            if(isApproved == true){
+                return true;
+            }
+            else {
+                throw new UserNotApprovedException(userId);
+            }
+        }
+        catch(SQLException ex)
+        {
+            logger.error("Something went wrong, please try again! "+ ex.getMessage());
+        }
+        finally
+        {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     /**

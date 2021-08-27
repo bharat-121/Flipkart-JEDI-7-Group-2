@@ -1,5 +1,6 @@
 package com.flipkart.dao;
 
+import com.flipkart.exception.UserNotApprovedException;
 import com.flipkart.exception.UserNotFoundException;
 
 /**
@@ -18,6 +19,13 @@ public interface UserDaoInterface {
      * @throws UserNotFoundException
      */
     public boolean verifyCredentials(String userId,String password) throws UserNotFoundException;
+    /**
+     * Method to verify if user is approved or not by admin
+     * @param userId
+     * @return Verify credentials operation status
+     * @throws UserNotApprovedException
+     */
+    public boolean verifyApproved(String userId) throws UserNotApprovedException;
 
     /**
      * Method to get Role of User from DataBase
