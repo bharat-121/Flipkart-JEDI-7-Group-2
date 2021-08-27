@@ -55,10 +55,10 @@ public class CRSApplication {
                         crsApplication.registerStudent();
                         break;
                     case 4 :
-                        System.out.println("Thank you ! Bye ! ");
+                        System.out.println(ANSI_CYAN+"Thank you ! Bye ! "+ANSI_RESET);
                         break;
                     default:
-                        System.out.println("Invalid Input");
+                        System.out.println(ANSI_RED+"Invalid Input"+ANSI_RESET);
                 }
             }while (input != 4);
         } catch (Exception ex) {
@@ -164,7 +164,13 @@ public class CRSApplication {
 
             StudentInterface studentInterface = new StudentOperations();
             String newStudentId=studentInterface.register(name, userId, password,semester,department,email,phone,role);
-//            notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, null,0);
+            if(newStudentId != null) {
+                // notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, ModeOfPayment.CREDIT_CARD, 1000);
+                System.out.println(GREEN_BRIGHT+"Student Sucessfully Registered" + ANSI_RESET);
+            }
+            else{
+                System.out.println(RED_BRIGHT+"Some Error occured!! try again"+ANSI_RESET);
+            }
 
         }
         catch(Exception ex)
