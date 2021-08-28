@@ -5,6 +5,7 @@ import com.flipkart.bean.Course;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.exception.FeeAlreadyPaidException;
 import com.flipkart.exception.StudentNotRegisteredException;
 import com.flipkart.utils.DBUtil;
 import org.apache.log4j.Logger;
@@ -45,9 +46,10 @@ public class StudentDaoOperation implements StudentDaoInterface {
     @Override
     public String register(Student student) throws StudentNotRegisteredException {
         Connection connection = DBUtil.getConnection();
-        String studentId = "";
+        String studentId = null;
         try {
             //open db connection
+            logger.info("Registering Student with studentId " + student.getUserID());
             PreparedStatement preparedStatement = connection.prepareStatement(SQLQueriesConstants.ADD_USER_QUERY);
             preparedStatement.setString(1, student.getUserID());
             preparedStatement.setString(2, student.getPassword());
@@ -62,13 +64,17 @@ public class StudentDaoOperation implements StudentDaoInterface {
                 PreparedStatement preparedStatementStudent;
                 preparedStatementStudent = connection.prepareStatement(SQLQueriesConstants.ADD_STUDENT, Statement.RETURN_GENERATED_KEYS);
                 preparedStatementStudent.setString(1, student.getUserID());
-                preparedStatementStudent.setInt(2, student.getSemester());
-                preparedStatementStudent.setString(3, student.getDepartment());
-                preparedStatementStudent.setBoolean(4, false);
-                preparedStatementStudent.executeUpdate();
-                ResultSet results = preparedStatementStudent.getGeneratedKeys();
+                preparedStatementStudent.setString(2, student.getDepartment());
+                preparedStatementStudent.setBoolean(3, false);
+                int result = preparedStatementStudent.executeUpdate();
+
+                /*ResultSet results = preparedStatementStudent.getGeneratedKeys();
                 if (results.next())
-                    studentId = results.getString(1);
+                    studentId = results.getString(1);*/
+                if(result == 1)
+                {
+                    studentId= student.getUserID();
+                }
             }
 
 
@@ -117,4 +123,45 @@ public class StudentDaoOperation implements StudentDaoInterface {
         }
         return null;
     }
+    /**
+     * Method to pay the fee
+     * @param studentId: studentId
+     * @return boolean
+     */
+    @Override
+    public boolean payFees(String studentId) throws FeeAlreadyPaidException {
+        Connection conn = DBUtil.getConnection();
+        PreparedStatement stmt;
+        boolean ans = false;
+        try {
+            stmt = conn.prepareStatement(SQLQueriesConstants.GET_PAYMENT_STATUS);
+            stmt.setString(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+            boolean paymentStatus = false;
+            if (rs.next()) {
+              paymentStatus = rs.getBoolean("paymentDone");
+            }
+            if(paymentStatus == true)
+            {
+                throw new FeeAlreadyPaidException(studentId);
+            }
+            else
+            {
+                //pay the fees
+                stmt = conn.prepareStatement(SQLQueriesConstants.SET_PAYMENT_STATUS);
+                stmt.setString(1, studentId);
+                int rows = stmt.executeUpdate();
+                if (rows == 1) {
+                  ans = true;
+                }
+            }
+        } catch (FeeAlreadyPaidException e) {
+            throw e;
+        }
+        catch (SQLException e){
+            logger.error(e.getMessage());
+        }
+        return ans;
+    }
+
 }

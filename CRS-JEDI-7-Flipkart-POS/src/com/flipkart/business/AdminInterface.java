@@ -9,29 +9,32 @@ import com.flipkart.exception.*;
 import java.util.List;
 
 /**
- *
  * @author JEDI-07
  * Interface for Admin Operations
- *
  */
 
 public interface AdminInterface {
     /**
      * Method to Delete Course from Course Catalog
+     *
      * @param courseCode
      * @param courseList
      * @throws CourseNotFoundException
      * @throws CourseNotDeletedException
      */
     public void deleteCourse(String courseCode, List<Course> courseList) throws CourseNotFoundException, CourseNotDeletedException;
+
     /**
      * Method to add Course to Course Catalog
-     * @param course : Course object storing details of a course
+     *
+     * @param course     : Course object storing details of a course
      * @param courseList : Courses available in the catalog
      */
-    public void addCourse(Course course, List<Course> courseList)throws CourseFoundException;
+    public void addCourse(Course course, List<Course> courseList) throws CourseFoundException;
+
     /**
      * Method to approve a Student
+     *
      * @param studentId
      * @param studentList
      * @throws StudentNotFoundForApprovalException
@@ -42,6 +45,7 @@ public interface AdminInterface {
 
     /**
      * Method to add Professor to DB
+     *
      * @param professor : Professor Object storing details of a professor
      * @throws ProfessorNotAddedException
      * @throws UserIdAlreadyInUseException
@@ -51,6 +55,7 @@ public interface AdminInterface {
 
     /**
      * Method to assign Course to a Professor
+     *
      * @param courseCode
      * @param professorId
      * @throws CourseNotFoundException
@@ -62,6 +67,7 @@ public interface AdminInterface {
 
     /**
      * Method to get list of courses in catalog
+     *
      * @return List of courses in catalog
      */
 
@@ -69,11 +75,10 @@ public interface AdminInterface {
 
     /**
      * Method to view Students yet to be approved by Admin
+     *
      * @return List of Students with pending admissions
      */
 
     public List<Student> viewPendingAdmissions();
-//
-//    public GradeCard generateGradeCard(String studentId);
 
 }

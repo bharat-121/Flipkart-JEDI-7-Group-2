@@ -96,12 +96,12 @@ public class ProfessorCRSMenu {
 
         List<Course> coursesEnrolled = new ArrayList<Course>();
         coursesEnrolled = professorInterface.getCourses(profId);
-        System.out.println(RED_BRIGHT+"---- Add Grade ----"+ANSI_RESET);
-        System.out.print(ANSI_RED+"Enter student id :-"+ANSI_RESET);
+        System.out.println(RED_BRIGHT+"---------- Add Grade ----------"+ANSI_RESET);
+        System.out.print(ANSI_RED+"Enter student id  :- "+ANSI_RESET);
         studentId = sc.next();
-        System.out.print(ANSI_RED+"Enter course code:-"+ANSI_RESET);
+        System.out.print(ANSI_RED+"Enter course code :- "+ANSI_RESET);
         courseCode = sc.next();
-        System.out.println(ANSI_RED+"Enter grade    :-"+ANSI_RESET);
+        System.out.print(ANSI_RED+"Enter grade      :- "+ANSI_RESET);
         grade = sc.next();
         try {
             professorInterface.addGrades(studentId, courseCode, grade);

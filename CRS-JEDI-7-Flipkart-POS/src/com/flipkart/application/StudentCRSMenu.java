@@ -270,6 +270,7 @@ public class StudentCRSMenu {
      */
     private void make_payment(String studentId) throws SQLException {
 
+
         double fee = 0.0;
 
         fee = registrationInterface.calculateFee(studentId);
@@ -280,6 +281,11 @@ public class StudentCRSMenu {
         } else {
 
             System.out.println(ANSI_CYAN + "Your total fee                   :-" + fee + ANSI_RESET);
+            boolean paymentStatus = registrationInterface.getPaymentStatus(studentId);
+            if(paymentStatus == true){
+                System.out.println(RED_BRIGHT+"Fees has already been paid"+ANSI_RESET);
+                return ;
+            }
             System.out.print(ANSI_RED + "Want to continue Fee Payment(y/n):-" + ANSI_RESET);
             String ch = sc.next();
             if (ch.equals("y")) {
@@ -293,16 +299,24 @@ public class StudentCRSMenu {
 
                 ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
 
+
+
                 if (mode == null)
                     System.out.println(RED_BRIGHT + "Invalid Input" + ANSI_RESET);
                 else {
-                    notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
-
+                    boolean payment = studentInterface.payFees(studentId);
+                    if(payment == true) {
+                        int notificationId = notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
+                        if (notificationId != 0) {
+                            System.out.println(GREEN_BRIGHT + "Notification Sent Successfully with Id : " + notificationId + ANSI_RESET);
+                        }
+                    }
+                    else
+                    {
+                        System.out.println(RED_BRIGHT+"Payment Unsuccessful"+ANSI_RESET);
+                    }
                 }
-
             }
-
         }
-
     }
 }

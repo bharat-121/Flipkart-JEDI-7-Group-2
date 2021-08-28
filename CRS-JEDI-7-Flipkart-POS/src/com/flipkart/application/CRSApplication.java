@@ -1,6 +1,8 @@
 package com.flipkart.application;
 
 import com.flipkart.business.*;
+import com.flipkart.constants.ModeOfPayment;
+import com.flipkart.constants.NotificationType;
 import com.flipkart.constants.Role;
 
 import java.time.LocalDateTime;
@@ -144,7 +146,6 @@ public class CRSApplication {
         Scanner sc=new Scanner(System.in);
 
         String userId,name,password,email,role,phone,department;
-        int semester ;
         role = "STUDENT";
         try
         {
@@ -162,16 +163,17 @@ public class CRSApplication {
 
             System.out.print(ANSI_RED+"Phone     :-"+ANSI_RESET);
             phone=sc.next();
-            System.out.print(ANSI_RED+"Semester  :-"+ANSI_RESET);
-            semester=sc.nextInt();
-            sc.nextLine();
             System.out.print(ANSI_RED+"Department:-"+ANSI_RESET);
             department=sc.next();
 
             StudentInterface studentInterface = new StudentOperations();
-            String newStudentId=studentInterface.register(name, userId, password,semester,department,email,phone,role);
+            String newStudentId=studentInterface.register(name, userId, password,department,email,phone,role);
             if(newStudentId != null) {
-                // notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, ModeOfPayment.CREDIT_CARD, 1000);
+                int notificationId=notificationInterface.sendNotification(NotificationType.REGISTRATION, newStudentId, ModeOfPayment.CREDIT_CARD, 1000);
+                if(notificationId!=0)
+                {
+                    System.out.println(GREEN_BRIGHT+"Notification Sent Successfully with Id : " + notificationId + ANSI_RESET);
+                }
                 System.out.println(GREEN_BRIGHT+"Student Sucessfully Registered" + ANSI_RESET);
             }
             else{

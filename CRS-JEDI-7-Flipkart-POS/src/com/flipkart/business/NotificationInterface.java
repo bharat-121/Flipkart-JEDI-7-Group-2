@@ -15,9 +15,6 @@ import java.util.UUID;
  */
 
 public interface NotificationInterface {
-
-    public void sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount);
-
     /**
      * Method to send notification
      * @param type: type of the notification to be sent
@@ -25,6 +22,9 @@ public interface NotificationInterface {
      * @param modeOfPayment: payment mode used
      * @return notification id for the record added in the database
      */
+    public int sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount);
+
+
 
     /**
      * Method to return UUID for a transaction

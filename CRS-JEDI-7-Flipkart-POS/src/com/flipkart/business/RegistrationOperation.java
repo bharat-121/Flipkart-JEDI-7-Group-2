@@ -5,8 +5,10 @@ import com.flipkart.dao.RegistrationDaoInterface;
 import com.flipkart.dao.RegistrationDaoOperations;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
+import com.flipkart.exception.FeeAlreadyPaidException;
 import com.flipkart.exception.SeatNotAvailableException;
 import com.flipkart.validator.StudentValidator;
+import org.apache.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 public class RegistrationOperation implements RegistartionInterface{
 
     static RegistrationOperation instance = null;
+    private static Logger logger = Logger.getLogger(RegistrationOperation.class);
 
 
     /**
@@ -151,5 +154,16 @@ public class RegistrationOperation implements RegistartionInterface{
         return registrationDaoInterface.viewRegisteredCourses(studentId);
     }
 
+    @Override
+    public boolean getPaymentStatus(String studentId) {
+        try {
+            return registrationDaoInterface.getPaymentStatus(studentId);
+        }
+        catch (FeeAlreadyPaidException ex){
+            logger.error(ex.getMessage());
+        }
+        return true;
     }
+
+}
 

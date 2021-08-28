@@ -3,6 +3,7 @@ package com.flipkart.dao;
 import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 import com.flipkart.constants.Grade;
+import com.flipkart.exception.FeeAlreadyPaidException;
 import com.flipkart.exception.StudentNotRegisteredException;
 
 import java.util.List;
@@ -29,4 +30,11 @@ public interface StudentDaoInterface {
      * @return void
      */
     public List<GradeCard> viewGradeCard(String studentId);
+
+    /**
+     * Method to pay the fee
+     * @param studentId: studentId
+     * @return boolean
+     */
+    public boolean payFees(String studentId) throws FeeAlreadyPaidException;
 }

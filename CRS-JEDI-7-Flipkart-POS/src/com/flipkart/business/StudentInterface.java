@@ -21,11 +21,13 @@ public interface StudentInterface {
      * @param name
      * @param userID
      * @param password
-     * @param semester
-     * @return studnetId
+     * @param department
+     * @param email
+     * @param phone
+     * @param role
      * @throws StudentNotRegisteredException
      */
-    public String register(String name,String userID,String password,int semester,String department, String email , String phone , String role) throws StudentNotRegisteredException;
+    public String register(String name,String userID,String password,String department, String email , String phone , String role) throws StudentNotRegisteredException;
 
     /**
      * Method to viewGradeCard using studentId
@@ -33,5 +35,7 @@ public interface StudentInterface {
      * @return List of GradCard
      */
     public List<GradeCard> viewGradeCard(String studentId);
+
+    public boolean payFees(String studentId);
 
 }

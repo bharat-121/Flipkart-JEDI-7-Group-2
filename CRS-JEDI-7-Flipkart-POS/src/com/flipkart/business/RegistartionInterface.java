@@ -81,4 +81,11 @@ public interface RegistartionInterface {
      */
 
     public List<Course> viewRegisteredCourses(String studentId) throws SQLException;
+
+    /**
+     *  Method to check student payment status
+     * @param studentId
+     * @return boolean indicating if the student's payment status
+     */    public boolean getPaymentStatus(String studentId) ;
+
 }

@@ -53,12 +53,21 @@ public class NotificationDaoOperations implements  NotificationDaoInterface{
      * @throws SQLException
      */
     @Override
-    public void sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount) throws SQLException {
+    public int sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount) throws SQLException {
         Connection connection = DBUtil.getConnection();
-        try {
-            //INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
-            PreparedStatement ps;
+        int notificationId = 0;
 
+        try {
+            PreparedStatement ps;
+            ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, studentId);
+            ps.setString(2, type.toString());
+            ps.executeUpdate();
+            ResultSet results = ps.getGeneratedKeys();
+
+            if(results.next())
+                notificationId=results.getInt(1);
+            //System.out.println("Notification ID : " + notificationId );
             if (type == NotificationType.PAYMENT) {
                 //insert into payment, get reference id and add here
                 ps = connection.prepareStatement(SQLQueriesConstants.INSERT_PAYMENT, Statement.RETURN_GENERATED_KEYS);
@@ -67,21 +76,10 @@ public class NotificationDaoOperations implements  NotificationDaoInterface{
                 ps.setString(2, modeOfPayment.name());
                 ps.setString(3, referenceId.toString());
                 ps.setDouble(4, amount);
+                ps.setInt(5, notificationId);
                 ps.executeUpdate();
-                ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, studentId);
-                ps.setString(2, type.toString());
-                ps.setString(3, referenceId.toString());
                 logger.info("Payment successful, Reference ID: " + referenceId);
             }
-            else {
-                ps = connection.prepareStatement(SQLQueriesConstants.INSERT_NOTIFICATION, Statement.RETURN_GENERATED_KEYS);
-                ps.setString(1, studentId);
-                ps.setString(2, type.toString());
-                ps.setString(3, "");
-            }
-            ps.executeUpdate();
-            ResultSet results = ps.getGeneratedKeys();
             switch (type) {
                 case REGISTRATION:
                     logger.info("Registration successfull. Administration will verify the details and approve it!");
@@ -96,5 +94,6 @@ public class NotificationDaoOperations implements  NotificationDaoInterface{
         } catch (Exception ex) {
             throw ex;
         }
+        return notificationId;
     }
 }
