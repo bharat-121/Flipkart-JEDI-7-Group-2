@@ -90,4 +90,20 @@ public class StudentRestAPI {
         return registrationInterface.viewAvailableCourses(studentId);
 
     }
+
+    /**
+     * Method handles API request to view the list of available courses for a student
+
+     * @return
+     * @throws ValidationException
+     */
+    @GET
+    @Path("/viewRegisteredCourses")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Course> viewRegisteredCourses(
+    ) throws ValidationException{
+        String studentId = "Student1";
+        return registrationInterface.viewRegisteredCourses(studentId);
+
+    }
 }
