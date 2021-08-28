@@ -12,6 +12,8 @@ public class SQLQueriesConstants {
     public static final String VERIFY_CREDENTIALS="select password from user where userId = ?";
     public static final String GET_ROLE="select role from user where userId = ? ";
     public static final String UPDATE_PASSWORD="update user set password=? where userId = ? ";
+    public static final String VERIFY_APPROVAL="select isApproved from student inner join user on userId=studentId where userId = ?";
+
 
 
     public static final String GET_COURSES="select * from course where instructorId=?";
@@ -20,7 +22,7 @@ public class SQLQueriesConstants {
     public static final String GET_PROF_NAME = "select name from user where userId = ?";
 
     //Student DAO Queries
-    public static final String ADD_STUDENT="insert into student (studentId,semester,department,isApproved) values (?,?,?,?)";
+    public static final String ADD_STUDENT="insert into student (studentId,department,isApproved) values (?,?,?)";
     public static final String IS_APPROVED="select isApproved from student where studentId = ? ";
     public static final String ADD_USER_QUERY = "insert into User(userId, password, name, email,role,phone) values (?, ?, ?, ?, ?, ?)";
     public static final String VIEW_REGISTERED_COURSES=" select * from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?";
@@ -33,13 +35,15 @@ public class SQLQueriesConstants {
     public static final String CALCULATE_FEES  = "select sum(courseFee) from course where courseCode in (select courseCode from registeredcourse where studentId = ?);";
     public static final String VIEW_GRADE = "select course.courseCode,course.courseName,registeredcourse.grade from course inner join registeredcourse on course.courseCode = registeredcourse.courseCode where registeredcourse.studentId = ?;";
     public static final String GET_SEATS = "select seats from course where courseCode = ?;";
-    public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount) values(?,?,?,?);";
-    public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type,referenceId) values(?,?,?);";
+    public static final String INSERT_PAYMENT = "insert into payment(studentId,modeofPayment,referenceId,amount,notificationId) values(?,?,?,?,?);";
+    public static final String INSERT_NOTIFICATION = "insert into notification(studentId,type) values(?,?);";
     public static final String GET_NOTIFICATION = "select * from notification where referenceId = ?;";
     public static final String GET_REGISTRATION_STATUS=" select isRegistered from student where studentId = ? ";
     public static final String SET_REGISTRATION_STATUS="update student set isRegistered = true  where studentId=?";
     public static final String NUMBER_OF_REGISTERED_COURSES=" select studentId from registeredcourse where studentId = ? ";
     public static final String IS_REGISTERED=" select courseCode from registeredcourse where courseCode=? and studentId=? ";
+    public static final String GET_PAYMENT_STATUS=" select paymentDone from student where studentId = ? ";
+    public static final String SET_PAYMENT_STATUS=" update student set paymentDone = true  where studentId=?";
 
     //AdminDao Queries
     public static final String DELETE_COURSE_QUERY = "delete from Course where courseCode = ?";
