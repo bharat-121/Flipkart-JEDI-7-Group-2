@@ -31,7 +31,7 @@ public class ProfessorCRSMenu {
      */
 
     public void createMenu(String profId) {
-        //Display the options available for the PRofessor
+        //Display the options available for the Professor
         Scanner sc = new Scanner(System.in);
 
         int input;
