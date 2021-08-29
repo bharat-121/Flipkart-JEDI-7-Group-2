@@ -36,23 +36,20 @@ public class NotificationOperation implements NotificationInterface{
     }
 
     /**
-     * Method to make NotificationDaoOperation Singleton
+     * Method to send Notification
      * @return notificationId
      */
 
     @Override
-    public void sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount){
-
-        try
-        {
-            notificationDaoInterface.sendNotification(type, studentId,modeOfPayment,amount);
-
+    public int sendNotification(NotificationType type, String studentId, ModeOfPayment modeOfPayment, double amount) {
+        try {
+            return notificationDaoInterface.sendNotification(type, studentId, modeOfPayment, amount);
         }
-        catch(SQLException ex)
+        catch (SQLException ex)
         {
-            logger.error("Error occured "+ex.getMessage());
+            logger.error("Some error occured while adding notification to database : " + ex.getMessage());
+            return 0;
         }
-
     }
     /**
      * Method to return UUID for a transaction

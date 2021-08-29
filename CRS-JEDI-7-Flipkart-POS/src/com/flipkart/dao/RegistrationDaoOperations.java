@@ -18,6 +18,7 @@ import com.flipkart.constants.Grade;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
 import com.flipkart.constants.SQLQueriesConstants;
+import com.flipkart.exception.FeeAlreadyPaidException;
 import com.flipkart.utils.DBUtil;
 import org.apache.log4j.Logger;
 
@@ -438,5 +439,35 @@ public class RegistrationDaoOperations implements RegistrationDaoInterface{
             conn.close();
         }
 
+    }
+
+    /**
+     * Method to set Student's payment status
+     * @param studentId
+     * @throws FeeAlreadyPaidException
+     */
+    @Override
+    public boolean getPaymentStatus(String studentId) throws FeeAlreadyPaidException {
+        Connection conn = DBUtil.getConnection();
+        try {
+            stmt = conn.prepareStatement(SQLQueriesConstants.GET_PAYMENT_STATUS);
+            stmt.setString(1, studentId);
+            ResultSet rs = stmt.executeQuery();
+            boolean paymentStatus = false;
+            if (rs.next()) {
+                paymentStatus = rs.getBoolean("paymentDone");
+            }
+            if (paymentStatus == true) {
+                throw new FeeAlreadyPaidException(studentId);
+            }
+        }
+        catch (SQLException e)
+        {
+            logger.error(e.getMessage());
+        }
+        catch (FeeAlreadyPaidException e){
+            throw e;
+        }
+        return false;
     }
 }

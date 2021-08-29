@@ -1,7 +1,9 @@
 package com.flipkart.application;
 
 import com.flipkart.bean.Course;
+import com.flipkart.bean.GradeCard;
 import com.flipkart.business.*;
+import com.flipkart.constants.Grade;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
 import org.apache.log4j.Logger;
@@ -62,7 +64,6 @@ public class StudentCRSMenu {
                     break;
 
                 case 3:
-
                     dropCourse(studentId);
                     break;
 
@@ -123,7 +124,6 @@ public class StudentCRSMenu {
         is_registered = true;
         registrationInterface.setRegistrationStatus(studentId);
 
-
     }
 
     /**
@@ -133,6 +133,15 @@ public class StudentCRSMenu {
      */
     private void addCourse(String studentId) throws Exception {
         if (is_registered) {
+            List<Course> course_registered;
+            course_registered = registrationInterface.viewRegisteredCourses(studentId);
+
+            if(course_registered!=null && course_registered.size()==6)
+            {
+                System.out.println(RED_BRIGHT+"You have already added 6 courses for registration. Use Drop Course to remove any course and then use add course.!!"+ANSI_RESET);
+                return ;
+            }
+
             List<Course> availableCourseList = viewCourse(studentId);
 
             if (availableCourseList == null)
@@ -161,7 +170,6 @@ public class StudentCRSMenu {
      */
     private boolean getRegistrationStatus(String studentId) throws SQLException {
         return registrationInterface.getRegistrationStatus(studentId);
-
     }
 
     /**
@@ -186,7 +194,6 @@ public class StudentCRSMenu {
         } else {
             System.out.println(RED_BRIGHT + "Please complete registration" + ANSI_RESET);
         }
-
     }
 
     /**
@@ -245,7 +252,17 @@ public class StudentCRSMenu {
      * @param studentId
      */
     private void viewGradeCard(String studentId) {
-        studentInterface.viewGradeCard(studentId);
+
+        List<GradeCard> gradeCards = studentInterface.viewGradeCard(studentId);
+
+        if (gradeCards == null || gradeCards.isEmpty()) {
+            System.out.println(RED_BRIGHT + "You have not registered for any course yet" + ANSI_RESET);
+        } else {
+            System.out.println(String.format(ANSI_RED + "%-20s %-20s %-20s", "COURSE CODE", "COURSE NAME", "GRADE" + ANSI_RESET));
+            for (GradeCard gradeCard : gradeCards) {
+                System.out.println(String.format(ANSI_CYAN + "%-20s %-20s %-20s", gradeCard.getCourseCode(), gradeCard.getCourseName(), gradeCard.getGrade() + ANSI_RESET));
+            }
+        }
     }
 
     /**
@@ -254,6 +271,15 @@ public class StudentCRSMenu {
      * @param studentId
      */
     private void make_payment(String studentId) throws SQLException {
+
+        List<Course> course_registered;
+        course_registered = registrationInterface.viewRegisteredCourses(studentId);
+
+        if(course_registered!=null && course_registered.size()!=6)
+        {
+            System.out.println(RED_BRIGHT+"Please choose 6 courses first. Use add course option.!!"+ANSI_RESET);
+            return ;
+        }
 
         double fee = 0.0;
 
@@ -265,6 +291,11 @@ public class StudentCRSMenu {
         } else {
 
             System.out.println(ANSI_CYAN + "Your total fee                   :-" + fee + ANSI_RESET);
+            boolean paymentStatus = registrationInterface.getPaymentStatus(studentId);
+            if (paymentStatus == true) {
+                System.out.println(RED_BRIGHT + "Fees has already been paid" + ANSI_RESET);
+                return;
+            }
             System.out.print(ANSI_RED + "Want to continue Fee Payment(y/n):-" + ANSI_RESET);
             String ch = sc.next();
             if (ch.equals("y")) {
@@ -278,16 +309,21 @@ public class StudentCRSMenu {
 
                 ModeOfPayment mode = ModeOfPayment.getModeofPayment(sc.nextInt());
 
+
                 if (mode == null)
                     System.out.println(RED_BRIGHT + "Invalid Input" + ANSI_RESET);
                 else {
-                    notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
-
+                    boolean payment = studentInterface.payFees(studentId);
+                    if (payment == true) {
+                        int notificationId = notificationInterface.sendNotification(NotificationType.PAYMENT, studentId, mode, fee);
+                        if (notificationId != 0) {
+                            System.out.println(GREEN_BRIGHT + "Notification Sent Successfully with Id : " + notificationId + ANSI_RESET);
+                        }
+                    } else {
+                        System.out.println(RED_BRIGHT + "Payment Unsuccessful" + ANSI_RESET);
+                    }
                 }
-
             }
-
         }
-
     }
 }

@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.flipkart.bean.Course;
+import com.flipkart.exception.FeeAlreadyPaidException;
 
 /**
  * @author JEDI-07
@@ -95,5 +96,14 @@ public interface RegistrationDaoInterface {
      */
 
     public void setRegistrationStatus(String studentId) throws SQLException;
+
+    /**
+     *  Method to get student payment status
+     * @param studentId
+     * @return Student's payment status
+     * @throws FeeAlreadyPaidException
+     */
+    public boolean getPaymentStatus(String studentId) throws FeeAlreadyPaidException;
+
 
 }

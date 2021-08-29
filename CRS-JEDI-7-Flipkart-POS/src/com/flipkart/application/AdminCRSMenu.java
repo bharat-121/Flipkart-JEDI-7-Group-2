@@ -7,6 +7,7 @@ import com.flipkart.business.AdminInterface;
 import com.flipkart.business.AdminOperations;
 import com.flipkart.business.NotificationInterface;
 import com.flipkart.business.NotificationOperation;
+import com.flipkart.constants.NotificationType;
 import com.flipkart.exception.*;
 import org.apache.log4j.Logger;
 
@@ -32,16 +33,6 @@ public class AdminCRSMenu {
      */
     public void createMenu(){
         while(CRSApplication.loggedIn) {
-           /* System.out.println("*****************************");
-            System.out.println("**********Admin Menu*********");
-            System.out.println("*****************************");
-            System.out.println("1. View Course");
-            System.out.println("2. Add Course");
-            System.out.println("3. Delete Course ");
-            System.out.println("4. Approve Students");
-            System.out.println("5. Add Professor");
-            System.out.println("6. Logout");
-            System.out.println("*****************************");*/
 
             System.out.println(GREEN_BRIGHT+"*****************************");
             System.out.println(GREEN_BRIGHT+"**********Admin Menu*********");
@@ -114,7 +105,7 @@ public class AdminCRSMenu {
         String email = scanner.next();
         professor.setEmail(email);
 
-        System.out.print(ANSI_RED+"Enter User Id        :-"+ANSI_RESET);
+        System.out.print(ANSI_RED+"Enter User Id       :-"+ANSI_RESET);
         String userId = scanner.next();
         professor.setUserID(userId);
 
@@ -169,7 +160,13 @@ public class AdminCRSMenu {
             e.printStackTrace();
         }
         //send notification from system
-        //notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
+
+        int notificatioId= notificationInterface.sendNotification(NotificationType.REGISTRATION_APPROVAL, studentUserIdApproval, null,0);
+        if(notificatioId!=0)
+        {
+            System.out.println(GREEN_BRIGHT+"Notification Sent Successfully with Id : " + notificatioId + ANSI_RESET);
+        }
+
     }
 
     /**
