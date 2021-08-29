@@ -7,6 +7,6 @@ public class ApplicationConfig extends ResourceConfig {
     public ApplicationConfig() {
 
         register(StudentRestAPI.class);
-
+        register(AdminRestAPI.class);
     }
 }
