@@ -1,11 +1,9 @@
 package com.flipkart.restController;
 
 import com.flipkart.bean.Course;
-import com.flipkart.business.ProfessorInterface;
+import com.flipkart.bean.GradeCard;
+import com.flipkart.business.*;
 
-import com.flipkart.business.ProfessorOperations;
-import com.flipkart.business.RegistartionInterface;
-import com.flipkart.business.RegistrationOperation;
 import com.flipkart.exception.CourseAlreadyRegisteredException;
 import com.flipkart.exception.CourseLimitExceedException;
 import com.flipkart.exception.CourseNotFoundException;
@@ -31,6 +29,9 @@ import java.util.Set;
 public class StudentRestAPI {
     RegistartionInterface registrationInterface = RegistrationOperation.getInstance();
     ProfessorInterface professorInterface = ProfessorOperations.getInstance();
+
+    StudentInterface studentInterface = StudentOperations.getInstance();
+    NotificationInterface notificationInterface = NotificationOperation.getInstance();
     private static Logger logger = Logger.getLogger(StudentRestAPI.class);
 
     /**
@@ -62,7 +63,7 @@ public class StudentRestAPI {
             }
 
             for (String courseCode : courseList)
-                registrationInterface.addCourse(courseCode, studentId,null);
+                registrationInterface.addCourse(courseCode, studentId, null);
 
             registrationInterface.setRegistrationStatus(studentId);
         } catch (CourseLimitExceedException | SQLException | SeatNotAvailableException | CourseNotFoundException | CourseAlreadyRegisteredException e) {
@@ -77,7 +78,8 @@ public class StudentRestAPI {
 
     /**
      * Method handles API request to view the list of available courses for a student
-
+     *
+     * @param studentId
      * @return
      * @throws ValidationException
      */
@@ -85,15 +87,17 @@ public class StudentRestAPI {
     @Path("/viewAvailableCourses")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> viewCourse(
-           ) throws ValidationException{
-        String studentId = "Student1";
+            @NotNull
+            @QueryParam("studentId") String studentId) throws ValidationException {
+
         return registrationInterface.viewAvailableCourses(studentId);
 
     }
 
     /**
-     * Method handles API request to view the list of available courses for a student
-
+     * Method handles API request to view the list of registered courses for a student
+     *
+     * @param studentId
      * @return
      * @throws ValidationException
      */
@@ -101,9 +105,51 @@ public class StudentRestAPI {
     @Path("/viewRegisteredCourses")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> viewRegisteredCourses(
-    ) throws ValidationException{
-        String studentId = "Student1";
+            @NotNull
+            @QueryParam("studentId") String studentId) throws ValidationException {
         return registrationInterface.viewRegisteredCourses(studentId);
+    }
+
+    /**
+     * Method handles request to display the total fees for student
+     *
+     * @param studentId
+     * @return
+     * @throws ValidationException
+     */
+    @GET
+    @Path("/calculateFees")
+    public Response calculateFee(
+            @NotNull
+            @QueryParam("studentId") String studentId) throws ValidationException {
+        try {
+            double fee = registrationInterface.calculateFee(studentId);
+            return Response.status(200).entity("Your total fee  = " + fee + "\n").build();
+        } catch (Exception ex) {
+            return Response.status(500).entity(" DB is down. " + "\n").build();
+        }
+    }
+
+    /**
+     * Method handles request to display the grade card for student
+     *
+     * @param studentId
+     * @return
+     * @throws ValidationException
+     */
+
+    @GET
+    @Path("/viewGradeCard")
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<GradeCard> viewGradeCard(
+            @NotNull
+            @QueryParam("studentId") String studentId) throws ValidationException {
+
+
+        List<GradeCard> gradeCards = studentInterface.viewGradeCard(studentId);
+
+        return gradeCards;
 
     }
+
 }
