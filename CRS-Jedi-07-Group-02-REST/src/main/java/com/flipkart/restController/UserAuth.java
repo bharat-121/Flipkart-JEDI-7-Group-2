@@ -8,11 +8,6 @@ public class UserAuth {
     public static Map<String,String> loggedInStudents = new HashMap<>();
     public static Map<String,String> loggedInProfessor = new HashMap<>();
     public static Map<String,String> loggedInAdmin = new HashMap<>();
-    static {
-        loggedInStudents.put(null,"");
-        loggedInProfessor.put(null,"");
-        loggedInAdmin.put(null,"");
-    }
 
     public static String generateRandomString(){
         String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -26,7 +21,6 @@ public class UserAuth {
         return saltStr;
 
     }
-
 
 
     public static String loginProfessor(String profId){
@@ -81,8 +75,7 @@ public class UserAuth {
 
 
     public static Boolean isUserLogin(String key){
-      //  return loggedInStudents.containsKey(key) || loggedInAdmin.containsKey((key)) || loggedInProfessor.containsKey(key);
-        return true;
+      return loggedInStudents.containsKey(key) || loggedInAdmin.containsKey((key)) || loggedInProfessor.containsKey(key);
     }
 
 

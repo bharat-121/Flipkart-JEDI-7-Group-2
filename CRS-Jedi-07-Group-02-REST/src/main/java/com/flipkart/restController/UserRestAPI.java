@@ -2,6 +2,7 @@ package com.flipkart.restController;
 
 
 import com.flipkart.bean.Student;
+import com.flipkart.bean.User;
 import com.flipkart.business.*;
 import com.flipkart.constants.ModeOfPayment;
 import com.flipkart.constants.NotificationType;
@@ -53,19 +54,16 @@ public class UserRestAPI {
     }
 
     /**
-     * @param userId
-     * @param password
+     *
+     * @param user
      * @return
      */
 
-    @GET
+    @POST
     @Path("/login")
-    public Response verifyCredentials(
-            @NotNull
-            @QueryParam("userId") String userId,
-            @NotNull
-            @Size(min = 4, max = 20, message = "Password length should be between 4 and 20 characters")
-            @QueryParam("password") String password) throws ValidationException {
+    public Response verifyCredentials(User user) throws ValidationException {
+        String userId=user.getUserID();
+        String password=user.getPassword();
 
         try {
             boolean loggedIn = userInterface.verifyCredentials(userId, password);

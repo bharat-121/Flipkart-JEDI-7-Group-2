@@ -11,10 +11,13 @@
 <h1>1. User</h1>
 <ul>
     <li>
-        <h3>Login : GET</h3>
-        <h3>EndPoint : <span style="color: green">http://localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/user/login?studentId=Student1&password=Bharat@123</span>
+        <h3>Login : POST</h3>
+        <h3>EndPoint : <span style="color: green">http://localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/user/login?userId=Student1&password=Bharat@123</span>
         </h3>
-        <h3>Request : {}</h3>
+        <h3>Request : {
+            "userID":"Student1",
+            "password":"Bharat@123"
+            }</h3>
     </li>
 
     <li>
@@ -30,6 +33,22 @@
         </h3>
         <h3>Request : {}</h3>
     </li>
+
+    <li>
+        <h3>Student Registration : POST</h3>
+        <h3>EndPoint : <span style="color: green"> http://localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/user/studentRegistration</span>
+        </h3>
+        <h3>Request : {
+            "name":"Student2",
+            "userID":"student2",
+            "password":"studen2t@123",
+            "department":"CSE",
+            "email":"student2@gmail.com",
+            "phone":"9876543210",
+            "role":"STUDENT"
+            }</h3>
+    </li>
+
 </ul>
 <hr>
 <h1>2. Admin</h1>
@@ -55,10 +74,7 @@
         <h3>View Courses in Catalog : GET</h3>
         <h3>EndPoint : <span style="color: green">localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/admin/viewCoursesInCatalogue</span>
         </h3>
-        <h3>Request : { "courseCode" : "FK10" ,
-            "instructorId" : "Prof1",
-            "courseName" : “Maths"
-            }</h3>
+        <h3>Request : {}</h3>
     </li>
 
     <li>
@@ -117,7 +133,7 @@
     </li>
 </ul>
 
-<h1>1. Student</h1>
+<h1>4. Student</h1>
 
 <ul>
     <li>

@@ -122,10 +122,8 @@ public class AdminRestAPI {
         List<Student> studentList = adminOperation.viewPendingAdmissions();
 
         try {
-
             adminOperation.approveStudent(studentId, studentList);
             return Response.status(201).entity("Student with studentId: " + studentId + " approved").build();
-
         } catch (StudentNotFoundForApprovalException e) {
 
             return Response.status(409).entity(e.getMessage()).build();
