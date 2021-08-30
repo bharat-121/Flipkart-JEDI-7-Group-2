@@ -17,23 +17,17 @@ public class DBUtil {
             if (connection != null && !connection.isClosed()) {
                 return connection;
             } else {
-                Properties prop = new Properties();
-                InputStream inputStream = DBUtil.class.getClassLoader().getResourceAsStream("./config.properties");
-                prop.load(inputStream);
-                String driver = prop.getProperty("driver");
-                String url = prop.getProperty("url");
-                String user = prop.getProperty("user");
-                String password = prop.getProperty("password");
+
+                String driver = "com.mysql.jdbc.Driver";
+                String url = "jdbc:mysql://localhost:3306/test?characterEncoding=latin1&useConfigs=maxPerformance";
+                String user = "root";
+                String password = "root";
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         }
         return connection;
