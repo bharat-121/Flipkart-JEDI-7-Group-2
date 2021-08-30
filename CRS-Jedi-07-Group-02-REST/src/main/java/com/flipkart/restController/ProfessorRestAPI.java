@@ -53,7 +53,7 @@ public class ProfessorRestAPI {
 
     /**
      * Mrthod to get courses
-     * @param profId
+     * @param professorId
      * @return
      * @throws ValidationException
      */
@@ -63,12 +63,12 @@ public class ProfessorRestAPI {
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> getCourses(
             @NotNull
-            @QueryParam("professorId") String profId) throws ValidationException	{
+            @QueryParam("professorId") String professorId) throws ValidationException	{
 
         List<Course> courses;
         try
         {
-            courses=professorInterface.getCourses(profId);
+            courses=professorInterface.getCourses(professorId);
         }
         catch(Exception ex)
         {

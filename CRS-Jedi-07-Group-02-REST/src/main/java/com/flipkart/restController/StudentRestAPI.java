@@ -71,7 +71,7 @@ public class StudentRestAPI {
             List<Course> registeredCourseList = registrationInterface.viewRegisteredCourses(studentId);
 
             for (String courseCode : courseList)
-                registrationInterface.addCourse(courseCode, studentId, registeredCourseList);
+                registrationInterface.addCourse(courseCode, studentId, availableCourseList);
 
             registrationInterface.setRegistrationStatus(studentId);
         } catch (CourseLimitExceedException | SQLException | SeatNotAvailableException | CourseNotFoundException | CourseAlreadyRegisteredException e) {

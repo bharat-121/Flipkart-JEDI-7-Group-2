@@ -34,7 +34,12 @@ public class AdminRestAPI {
             @NotNull
             @QueryParam("courseCode") String courseCode,
             @NotNull
-            @QueryParam("professorId") String professorId) throws ValidationException {
+            @QueryParam("professorId") String professorId,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+
+        if(UserAuth.isAdminLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
 
         try {
 
@@ -59,7 +64,11 @@ public class AdminRestAPI {
     @Path("/addProfessor")
     @Consumes("application/json")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addProfessor(@Valid Professor professor) throws ValidationException {
+    public Response addProfessor(@Valid Professor professor, @HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isAdminLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
 
         try {
 
@@ -83,8 +92,11 @@ public class AdminRestAPI {
     @GET
     @Path("/viewPendingAdmissions")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Student> viewPendingAdmissions() {
+    public Object viewPendingAdmissions(@HeaderParam("authKey") String authKey) {
 
+        if(UserAuth.isAdminLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         return adminOperation.viewPendingAdmissions();
 
     }
@@ -100,9 +112,13 @@ public class AdminRestAPI {
     @PUT
     @Path("/approveStudent")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response approveStudent(
+    public Object approveStudent(
             @NotNull
-            @QueryParam("studentId") String studentId) throws ValidationException{
+            @QueryParam("studentId") String studentId, @HeaderParam("authKey") String authKey) throws ValidationException{
+
+        if(UserAuth.isAdminLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         List<Student> studentList = adminOperation.viewPendingAdmissions();
 
         try {
@@ -129,8 +145,11 @@ public class AdminRestAPI {
     @GET
     @Path("/viewCoursesInCatalogue")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewCoursesInCatalogue() {
+    public Object viewCoursesInCatalogue(@HeaderParam("authKey") String authKey) {
 
+        if(UserAuth.isAdminLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         return adminOperation.viewCourses();
 
     }
@@ -147,7 +166,11 @@ public class AdminRestAPI {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteCourse(
             @NotNull
-            @QueryParam("courseCode") String courseCode) throws ValidationException {
+            @QueryParam("courseCode") String courseCode,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isAdminLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         List<Course> courseList = adminOperation.viewCourses();
 
         try {
@@ -175,7 +198,11 @@ public class AdminRestAPI {
     @Path("/addCourse")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCourse(@Valid Course course) throws ValidationException {
+    public Response addCourse(@Valid Course course,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isAdminLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         List<Course> courseList = adminOperation.viewCourses();
 
         try {
