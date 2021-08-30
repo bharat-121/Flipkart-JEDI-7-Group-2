@@ -53,7 +53,10 @@ public class StudentRestAPI {
     @Produces(MediaType.APPLICATION_JSON)
     public Response registerCourses(List<String> courseList,
                                     @NotNull
-                                    @QueryParam("studentId") String studentId) throws ValidationException {
+                                    @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
 
         try {
             List<Course> availableCourseList = registrationInterface.viewAvailableCourses(studentId);
@@ -96,7 +99,11 @@ public class StudentRestAPI {
             @NotNull
             @QueryParam("courseCode") String courseCode,
             @NotNull
-            @QueryParam("studentId") String studentId) throws ValidationException {
+            @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
 
 
         try {
@@ -136,7 +143,11 @@ public class StudentRestAPI {
             @NotNull
             @QueryParam("courseCode") String courseCode,
             @NotNull
-            @QueryParam("studentId") String studentId) throws ValidationException {
+            @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
 
         try {
             if (registrationInterface.getRegistrationStatus(studentId) == false)
@@ -162,9 +173,13 @@ public class StudentRestAPI {
     @GET
     @Path("/viewAvailableCourses")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewCourse(
+    public Object viewCourse(
             @NotNull
-            @QueryParam("studentId") String studentId) throws ValidationException {
+            @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
 
         return registrationInterface.viewAvailableCourses(studentId);
 
@@ -180,9 +195,13 @@ public class StudentRestAPI {
     @GET
     @Path("/viewRegisteredCourses")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Course> viewRegisteredCourses(
+    public Object viewRegisteredCourses(
             @NotNull
-            @QueryParam("studentId") String studentId) throws ValidationException {
+            @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         return registrationInterface.viewRegisteredCourses(studentId);
     }
 
@@ -197,7 +216,11 @@ public class StudentRestAPI {
     @Path("/calculateFees")
     public Response calculateFee(
             @NotNull
-            @QueryParam("studentId") String studentId) throws ValidationException {
+            @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         try {
             double fee = registrationInterface.calculateFee(studentId);
             return Response.status(200).entity("Your total fee  = " + fee + "\n").build();
@@ -223,7 +246,11 @@ public class StudentRestAPI {
             @NotNull
             @Min(value = 1)
             @Max(value = 3)
-            @QueryParam("paymentMode") int paymentMode) throws ValidationException {
+            @QueryParam("paymentMode") int paymentMode,@HeaderParam("authKey") String authKey) throws ValidationException {
+
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
         try {
 
             double fee = registrationInterface.calculateFee(studentId);
@@ -265,10 +292,13 @@ public class StudentRestAPI {
     @GET
     @Path("/viewGradeCard")
     @Produces(MediaType.APPLICATION_JSON)
-    public List<GradeCard> viewGradeCard(
+    public Object viewGradeCard(
             @NotNull
-            @QueryParam("studentId") String studentId) throws ValidationException {
+            @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
 
+        if(UserAuth.isStudentLogin(authKey) == null){
+            return Response.status(403).entity("Access Denied").build();
+        }
 
         List<GradeCard> gradeCards = studentInterface.viewGradeCard(studentId);
 
