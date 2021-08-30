@@ -72,21 +72,23 @@ public class UserRestAPI {
             if (loggedIn) {
                 String role = userInterface.getRole(userId);
                 Role userRole = Role.stringToName(role);
+                String authKey = null;
                 switch (userRole) {
                     case STUDENT:
                         boolean isApproved = userInterface.verifyApproval(userId);
                         if (!isApproved) {
                             return Response.status(200).entity("Login unsuccessful! Student " + userId + " has not been approved by the administration!").build();
                         }
+                        authKey = UserAuth.loginStudent(userId);
                         break;
                     case ADMIN:
-
+                        authKey = UserAuth.loginAdmin(userId);
                         break;
                     case PROFESSOR:
+                         authKey = UserAuth.loginProfessor(userId);
                         break;
 
                 }
-                String authKey = UserAuth.loginProfessor(userId);
                 return Response.status(200).entity("Login successful with auth key = " + authKey).build();
             } else {
                 return Response.status(500).entity("Invalid credentials!").build();

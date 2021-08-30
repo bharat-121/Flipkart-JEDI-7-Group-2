@@ -114,7 +114,7 @@ public class StudentRestAPI {
 
             List<Course> availCourseList = registrationInterface.viewAvailableCourses(studentId);
             registrationInterface.checkCourse(courseCode, studentId, availCourseList);
-            registrationInterface.addCourse(courseCode, studentId, registeredCourseList);
+            registrationInterface.addCourse(courseCode, studentId, availCourseList);
 
             return Response.status(201).entity("You have successfully added Course : " + courseCode).build();
 
@@ -144,6 +144,7 @@ public class StudentRestAPI {
             @QueryParam("courseCode") String courseCode,
             @NotNull
             @QueryParam("studentId") String studentId,@HeaderParam("authKey") String authKey) throws ValidationException {
+
 
         if(UserAuth.isStudentLogin(authKey) == null){
             return Response.status(403).entity("Access Denied").build();
