@@ -58,7 +58,7 @@ public class UserRestAPI {
      * @return
      */
 
-    @POST
+    @GET
     @Path("/login")
     public Response verifyCredentials(
             @NotNull
