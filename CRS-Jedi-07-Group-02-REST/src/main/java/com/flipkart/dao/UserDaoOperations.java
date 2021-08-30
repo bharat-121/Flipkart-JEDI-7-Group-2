@@ -63,16 +63,6 @@ public class UserDaoOperations implements UserDaoInterface{
         {
             logger.error("Something went wrong, please try again! "+ ex.getMessage());
         }
-
-        finally
-        {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
         return false;
 
     }
@@ -106,15 +96,7 @@ public class UserDaoOperations implements UserDaoInterface{
         {
             logger.error("Something went wrong, please try again! "+ ex.getMessage());
         }
-        finally
-        {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+
         return false;
     }
 
@@ -165,15 +147,7 @@ public class UserDaoOperations implements UserDaoInterface{
         {
             logger.error(e.getMessage());
         }
-        finally
-        {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+
         return false;
     }
 }

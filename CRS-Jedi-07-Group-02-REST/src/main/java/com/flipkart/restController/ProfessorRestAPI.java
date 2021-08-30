@@ -14,22 +14,35 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.core.Response;
 
+/**
+ * @author JEDI - 07
+ * Professor API File
+ */
+
+
+
 @Path("/professor")
 public class ProfessorRestAPI {
     ProfessorInterface professorInterface= ProfessorOperations.getInstance();
+
+    /**
+     * Method to get enrolled students
+     * @param professorId
+     * @return
+     * @throws ValidationException
+     */
 
     @GET
     @Path("/getEnrolledStudents")
     @Produces(MediaType.APPLICATION_JSON)
     public List<EnrolledStudent> viewEnrolledStudents(
             @NotNull
-            @Email(message = "Invalid Professor ID: Not in email format")
-            @QueryParam("profId") String profId) throws ValidationException {
+            @QueryParam("professorId") String professorId) throws ValidationException {
 
-        List<EnrolledStudent> students=new ArrayList<EnrolledStudent>();
+        List<EnrolledStudent> students;
         try
         {
-            students=professorInterface.viewEnrolledStudents(profId);
+            students=professorInterface.viewEnrolledStudents(professorId);
         }
         catch(Exception ex)
         {
@@ -38,18 +51,24 @@ public class ProfessorRestAPI {
         return students;
     }
 
+    /**
+     * Mrthod to get courses
+     * @param professorId
+     * @return
+     * @throws ValidationException
+     */
+
     @GET
     @Path("/getCourses")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Course> getCourses(
             @NotNull
-            @Email(message = "Invalid Professor ID: Not in email format")
-            @QueryParam("profId") String profId) throws ValidationException	{
+            @QueryParam("professorId") String professorId) throws ValidationException	{
 
-        List<Course> courses=new ArrayList<Course>();
+        List<Course> courses;
         try
         {
-            courses=professorInterface.getCourses(profId);
+            courses=professorInterface.getCourses(professorId);
         }
         catch(Exception ex)
         {
@@ -59,38 +78,41 @@ public class ProfessorRestAPI {
 
     }
 
+    /**
+     * Method to add grades
+     * @param studentId
+     * @param courseCode
+     * @param professorId
+     * @param grade
+     * @return
+     * @throws ValidationException
+     */
+
     @POST
     @Path("/addGrade")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addGrade(
             @NotNull
-            @Min(value = 1, message = "Student ID should not be less than 1")
-            @Max(value = 9999, message = "Student ID should be less than 10000")
             @QueryParam("studentId") String studentId,
-
             @NotNull
-            @Size(min = 4 , max = 10 , message = "Course Code length should be between 4 and 10 character")
             @QueryParam("courseCode") String courseCode,
-
             @NotNull
-            @Email(message = "Invalid Professor ID: Not in email format")
-            @QueryParam("profId") String profId,
-
-            @QueryParam("grade") String grade) throws ValidationException  	{
+            @QueryParam("professorId") String professorId,
+            @QueryParam("grade") String grade) throws ValidationException   	{
 
         try
         {
-            List<EnrolledStudent> enrolledStudents=new ArrayList<EnrolledStudent>();
-            enrolledStudents=professorInterface.viewEnrolledStudents(profId);
-            List<Course> coursesEnrolled=new ArrayList<Course>();
-            coursesEnrolled	=professorInterface.getCourses(profId);
+            System.out.println(professorId);
+            List<EnrolledStudent> enrolledStudents;
+            enrolledStudents=professorInterface.viewEnrolledStudents(professorId);
+            List<Course> coursesEnrolled;
+            coursesEnrolled	=professorInterface.getCourses(professorId);
             if(ProfessorValidator.isValidStudent(enrolledStudents, studentId) && ProfessorValidator.isValidCourse(coursesEnrolled, courseCode))
             {
                 professorInterface.addGrades(studentId, courseCode, grade);
             }
             else
             {
-                //error code
                 return Response.status(500).entity( "Something went wrong, Please Try Again ! ").build();
             }
         }
@@ -101,6 +123,4 @@ public class ProfessorRestAPI {
         return Response.status(200).entity( "Grade updated for student: "+studentId).build();
 
     }
-
-
 }
