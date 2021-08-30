@@ -2,15 +2,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <title>CRS REST API</title>
 </head>
 <body>
-<h1><%= "Welcom to Course Registration System!" %>
+<h1 style="text-align: center"><%= "Welcome to CRS REST API" %>
 </h1>
-<br/>
+<hr>
+<h1>Student</h1>
 
-<br/>
-<form method="get" action="./rest/user/login">
+<ul>
+    <li>
+        <h3>View Grades : GET</h3>
+        <h3>EndPoint : <span style="color: green">http://localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/student/viewGradeCard?studentId=Student1</span></h3>
+        <h3>Request : {}</h3>
+    </li>
+
+    <li>
+        <h3>CalulateFee - GET</h3>
+        <h3>EndPoint : <span style="color: green">http://localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/student/calculateFees?studentId=Student2</span></h3>
+        <h3>Request : {}</h3>
+    </li>
+
+    <li>
+        <h3>ViewRegisteredCourses - GET</h3>
+        <h3>EndPoint : <span style="color: green">http://localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/student/viewRegisteredCourses?studentId=Student2/span></h3>
+        <h3>Request : {}</h3>
+    </li>
+
+    <li>
+        <h3>viewAvailabeCourses - GET</h3>
+        <h3>EndPoint : <span style="color: green">http://localhost:8080/CRS_Jedi_07_Group_02_REST_war_exploded/rest/student/viewAvailableCourses?studentId=Student1</span></h3>
+        <h3>Request : {}</h3>
+    </li>
+</ul>
+<!--<form method="get" action="./rest/user/login">
 
     <label for="userId">UserID:</label><br>
     <input type="text" id="userId" name="userId"><br>
@@ -50,7 +75,7 @@
     <label for="studentId">Student ID:</label><br>
     <input type="text" id="studentId" name="studentId"><br>
     <input type="submit" value="viewRegisteredCourses">
-</form>
+</form> -->
 
 </body>
 </html>
